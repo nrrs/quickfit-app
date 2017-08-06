@@ -22,10 +22,15 @@ An exercise generator that allows you to keep track of workouts! This SPA allows
 - [ ] Camera access
 
 ## Team
-avatar | avatar | avatar |
-:------------------:|:-----------------------:|:-----------------------:|
-[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk]
+[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Yang][pic_ky]][git_ky] |
+:------------------:|:-----------------------:|:-----------------------:|:-------------:|
+[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Yang][git_ky]
 
 [git_ja]: https://github.com/Tulen
 [git_cb]: https://github.com/chrisbrickey
 [git_nk]: https://github.com/nrrs
+[git_ky]: https://github.com/kevinshenyang07
+[pic_ja]: https://avatars1.githubusercontent.com/u/11968940?v=4&s=200
+[pic_cb]: https://avatars1.githubusercontent.com/u/7623023?v=4&s=200
+[pic_nk]: https://avatars1.githubusercontent.com/u/425246?v=4&s=200
+[pic_ky]: https://avatars1.githubusercontent.com/u/10000295?v=4&s=200
