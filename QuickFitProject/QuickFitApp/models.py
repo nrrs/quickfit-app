@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Exercise(models.Model):
-    description = models.TextField() 
+    description = models.TextField()
     author = models.ForeignKey(User)
 
     timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)

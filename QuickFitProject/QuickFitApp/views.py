@@ -6,6 +6,7 @@ from .models import Exercise
 
 def index(request):
     all_exercises = Exercise.objects.all()
+
     print "I'm here"
     print all_exercises
 
@@ -15,3 +16,6 @@ def index(request):
         exercise_dict[exercise.id] = {'id' : exercise.id, 'description' : exercise.description }
 
     return JsonResponse({ 'exercises': exercise_dict })
+    #
+    # all_exercises = Exercise.objects.all()
+    # return all_exercises;
