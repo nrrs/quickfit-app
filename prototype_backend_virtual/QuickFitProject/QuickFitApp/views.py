@@ -6,12 +6,12 @@ from .models import Exercise
 
 def index(request):
     all_exercises = Exercise.objects.all()
-
-    # exercise_list = serializers.serialize('json', all_exercises)
+    print "I'm here"
+    print all_exercises
 
     exercise_dict = {}
 
     for exercise in all_exercises:
-        exercise_dict = {'id' : exercise.id, 'name' : exercise.name, 'description' : exercise.description }
+        exercise_dict[exercise.id] = {'id' : exercise.id, 'description' : exercise.description }
 
-    return JsonResponse({'exercises': exercise_dict})
+    return JsonResponse({ 'exercises': exercise_dict })
