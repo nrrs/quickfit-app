@@ -1,5 +1,5 @@
 """
-WSGI config for QuickFitProject project.
+WSGI config for quickfitproject project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "QuickFitProject.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "quickfitproject.settings")
 
 application = get_wsgi_application()
