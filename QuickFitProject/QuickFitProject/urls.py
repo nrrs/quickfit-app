@@ -13,11 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
-from quickfitapp.views import index
+
+# from .router import router
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^exercises/', index)
+    # url(r'^mobil-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    # url(r'^mobil/',include(plivius_mobil_urls, namespace='mobil')),
+    # url(r'^', include(router.urls)),
+    url(r'^', include('quickfitapp.urls')),
 ]

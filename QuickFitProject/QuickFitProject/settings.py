@@ -25,7 +25,7 @@ SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['quickfit-dev.us-west-2.elasticbeanstalk.com', '192.168.1.195']
 
 
 # Application definition
@@ -33,13 +33,15 @@ ALLOWED_HOSTS = []
 
 #Add new apps here
 INSTALLED_APPS = [
-    'quickfitapp.apps.QuickfitappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'quickfitapp.apps.QuickfitappConfig',
+    'rest_framework',
+    # 'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -77,17 +79,26 @@ WSGI_APPLICATION = 'quickfitproject.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 
-#adjust NAME, USER, PASSWORD to local Postgresql
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'quickfit_dev1',
-        'USER': 'chrisbrickey',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+# assume we're going to use AWS RDS
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+# use sqlite3 locally
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -108,6 +119,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+OAUTH2_PROVIDER = {
+# this is the list of available scopes
+'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 24h (It is better to choose shorter periods)
+}
+
+
+# Rest API
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -127,3 +154,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATICFILE_DIRS = [
+#     os.path.join(BASE_DIR, 'assets'),
+# ]
+
+# WEBPACK_LOADER = {
+#   'DEFAULT': {
+#     'BUNDLE_DIR_NAME': 'bundles/',
+#     'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+#   }
+# }
