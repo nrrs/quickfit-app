@@ -12,6 +12,7 @@ EXERCISE_TYPES = (
 
 
 class Exercise(models.Model):
+    # more columns
     description = models.TextField()
     author = models.ForeignKey(User)
     exercise_type = models.CharField(
