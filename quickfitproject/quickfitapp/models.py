@@ -32,7 +32,7 @@ class Movement(models.Model):
         default='o',
     )
 
-    demo_url = models.CharField(max_length=2000)
+    demo_url = models.CharField(max_length=2000, blank=True)
 
     timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
