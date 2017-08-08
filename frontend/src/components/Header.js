@@ -20,7 +20,7 @@ const Header = props => {
 const styles = {
   containerStyle: {
     height: 50,
-    backgroundColor: '#4CD964',
+    backgroundColor: 'green',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',

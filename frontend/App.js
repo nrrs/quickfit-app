@@ -22,11 +22,10 @@ export default class App extends React.Component {
 class ProfileScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Profile',
-    tabBarIcon: () => (
+    tabBarIcon: ({ tintColor }) => (
         <Text>
-        <FIcon name="user-circle-o" style={styles.textStyle}/>
-      </Text>
-
+          <FIcon name="user-circle-o" color={tintColor} style={styles.textStyle}/>
+        </Text>
     )
   }
   render() {
@@ -37,6 +36,14 @@ class ProfileScreen extends React.Component {
 }
 
 class WorkoutScreen extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Workout',
+    tabBarIcon: ({ tintColor }) => (
+        <Text>
+          <MIcon name="dumbbell" color={tintColor} style={styles.textStyle} />
+        </Text>
+    )
+  }
   render() {
     return (
       <Text> Workout Generator </Text>
@@ -45,6 +52,15 @@ class WorkoutScreen extends React.Component {
 }
 
 class AddScreen extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Add',
+    tabBarIcon: ({ tintColor }) => (
+        <Text>
+          <IIcon name="md-add-circle" color={tintColor} style={styles.textStyle} />
+        </Text>
+
+    )
+  }
   render() {
     return (
       <Text> Add Exercise </Text>
@@ -60,13 +76,13 @@ const routeConfiguration = {
 
 const tabBarConfiguration = {
   tabBarOptions: {
-		activeTintColor: 'white',
-		inactiveTintColor: 'lightgray',
+		activeTintColor: '#fff',
+		inactiveTintColor: '#ccc',
 		labelStyle: {
 			fontSize: 10
 		},
 		style: {
-			backgroundColor: '#4CD964',
+			backgroundColor: 'green',
 			borderTopWidth: 1,
 			borderTopColor: 'white'
 		}
@@ -81,5 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     marginTop: 20,
     justifyContent: 'space-between'
+  },
+  textStyle: {
+    fontSize: 25
   }
 });
