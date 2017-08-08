@@ -10,18 +10,12 @@ from .serializers import MovementSerializer
 def movement_list(request):
     all_movements = Movement.objects.all()
 
-    print "I'm here"
-    print all_movements
-
     movement_dict = {}
 
     for movement in all_movements:
         movement_dict[movement.id] = {'id' : movement.id, 'description' : movement.description }
 
     return JsonResponse({ 'movements': movement_dict })
-    #
-    # all_movements = Movement.objects.all()
-    # return all_movements;
 
 @csrf_exempt
 def movement_detail(request, pk):
