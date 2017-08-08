@@ -21,7 +21,8 @@ MOVEMENT_TYPES = (
 
 
 class Movement(models.Model):
-    author_id = models.ForeignKey(User)
+
+    author_id = models.ForeignKey(User) #this displays as author_id_id in table
     title = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
 
@@ -43,6 +44,7 @@ class Movement(models.Model):
 
 
 class Workout(models.Model):
+
     athlete_id = models.ForeignKey(User)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
