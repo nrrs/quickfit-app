@@ -36,9 +36,10 @@ class Movement(models.Model):
     timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
-    #tells Django which field to use as display on the Django admin (analgous to console but on the browser)
+    #tells Django which field to use as display on the Django admin
     def __str__(self):
         return self.description
+
 
 
 class Workout(models.Model):
@@ -52,3 +53,14 @@ class Workout(models.Model):
     def __str__(self):
         string_id = str(self.id)
         return string_id
+
+
+#for subsequent releases (not configured for this release)...
+#extension of built-in auth_user model (one-to-one link) to store additional information about each user
+#Django will fire an additional query when this related information is accessed
+
+# class Profile(models.Model):
+    # bio_data = JSONField()
+
+
+#Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
