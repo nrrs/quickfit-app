@@ -25,7 +25,7 @@ SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quickfit-dev.us-west-2.elasticbeanstalk.com', '192.168.1.195']
+ALLOWED_HOSTS = ['quickfit-dev.us-west-2.elasticbeanstalk.com', '192.168.1.195', 'localhost']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'quickfitapp.apps.QuickfitappConfig',
     'rest_framework',
-    # 'oauth2_provider',
+    'oauth2_provider',
+    'django.contrib.postgres.fields'
 ]
 
 MIDDLEWARE = [
@@ -92,13 +93,27 @@ if 'RDS_DB_NAME' in os.environ:
         }
     }
 # use sqlite3 locally
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
+
+
+# use postgresql locally
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'quickfit_dev100',
+        'USER': 'chrisbrickey',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
+}
 
 
 # Password validation
@@ -126,13 +141,14 @@ OAUTH2_PROVIDER = {
 }
 
 
-# Rest API
+# Rest API - disabling auth for this branch, Kevin working on auth concurrently on another branch
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
 }
 
