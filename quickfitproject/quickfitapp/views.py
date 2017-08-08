@@ -21,7 +21,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     serializer_class = WorkoutSerializer
 
 
-#RESTFUL API generates all below 'standard' functions and routes
+#REST framework generates all below 'standard' functions and routes
 
 
 #analgous to INDEX (all movements)
