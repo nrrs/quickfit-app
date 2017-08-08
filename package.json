@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "tcomb-form-native": "^0.6.9"
+  }
+}
