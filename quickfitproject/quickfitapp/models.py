@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField
-# from jsonfield import JSONField
+
+#2 options for making JSONField...
+# from django.contrib.postgres.fields import JSONField
+from jsonfield import JSONField
 
 MOVEMENT_TYPES = (
     ('b', "balance"),
@@ -44,4 +46,9 @@ class Workout(models.Model):
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
     #for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
-    workout_data = JSONField
+    workout_data = JSONField()
+
+    #on admin screen, workouts are keyed by the string of their id (must be a unique string)
+    def __str__(self):
+        string_id = str(self.id)
+        return string_id
