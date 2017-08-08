@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'quickfitapp.apps.QuickfitappConfig',
     'rest_framework',
     # 'oauth2_provider',
+    # 'django.contrib.postgres.fields'
 ]
 
 MIDDLEWARE = [

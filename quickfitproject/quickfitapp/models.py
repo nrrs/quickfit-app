@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+# from django.contrib.postgres.fields import JSONField
+from jsonfield import JSONField
 
 MOVEMENT_TYPES = (
     ('b', "balance"),
@@ -35,3 +37,11 @@ class Movement(models.Model):
     #tells Django which field to use as display on the Django admin (analgous to console but on the browser)
     def __str__(self):
         return self.description
+
+
+class Workout(models.Model):
+    athlete_id = models.ForeignKey(User)
+    timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
+
+    #for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
+    workout_data = JSONField
