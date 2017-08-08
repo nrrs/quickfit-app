@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Header from './src/components/Header';
 import Footer from './src/components/Footer';
 import Timer from './src/components/Timer';
@@ -53,7 +53,7 @@ class WorkoutScreen extends React.Component {
 
 class AddScreen extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Add',
+    tabBarLabel: 'Add Movement',
     tabBarIcon: ({ tintColor }) => (
         <Text>
           <IIcon name="md-add-circle" color={tintColor} style={styles.textStyle} />
@@ -76,15 +76,16 @@ const routeConfiguration = {
 
 const tabBarConfiguration = {
   tabBarOptions: {
-		activeTintColor: '#fff',
+		activeTintColor: 'green',
 		inactiveTintColor: '#ccc',
 		labelStyle: {
 			fontSize: 10
 		},
 		style: {
-			backgroundColor: 'green',
+			backgroundColor: 'white',
 			borderTopWidth: 1,
-			borderTopColor: 'white'
+			borderTopColor: '#ccc',
+      height: 50
 		}
 	}
 }
@@ -94,7 +95,7 @@ const FooterTabs = TabNavigator(routeConfiguration, tabBarConfiguration);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#eee',
     marginTop: 20,
     justifyContent: 'space-between'
   },
