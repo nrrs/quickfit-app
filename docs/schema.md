@@ -1,6 +1,6 @@
 # Schema
 
-```
+
 ## movements
 column_name 		| data_type                   	| details
 ------------------------|-------------------------------|-----------------------
@@ -38,4 +38,3 @@ is_staff      		| boolean  			| not null
 is_active       	| boolean  			| not null
 date_joined     	| timestamp with time zone  	| not null
 
-```
