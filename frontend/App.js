@@ -1,20 +1,79 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Header from './src/components/Header';
 import Footer from './src/components/Footer';
 import Timer from './src/components/Timer';
+import { TabNavigator } from 'react-navigation';
+import IIcon from 'react-native-vector-icons/Ionicons';
+import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Header title={"QuickFit"}/>
-        <Timer />
-        <Footer />
+        <FooterTabs />
       </View>
     );
   }
 }
+
+class ProfileScreen extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Profile',
+    tabBarIcon: () => (
+        <Text>
+        <FIcon name="user-circle-o" style={styles.textStyle}/>
+      </Text>
+
+    )
+  }
+  render() {
+    return (
+      <Text> Profile Page </Text>
+    )
+  }
+}
+
+class WorkoutScreen extends React.Component {
+  render() {
+    return (
+      <Text> Workout Generator </Text>
+    )
+  }
+}
+
+class AddScreen extends React.Component {
+  render() {
+    return (
+      <Text> Add Exercise </Text>
+    )
+  }
+}
+
+const routeConfiguration = {
+  Profile: { screen: ProfileScreen},
+  Workout: { screen: WorkoutScreen},
+  Add: { screen: AddScreen}
+}
+
+const tabBarConfiguration = {
+  tabBarOptions: {
+		activeTintColor: 'white',
+		inactiveTintColor: 'lightgray',
+		labelStyle: {
+			fontSize: 10
+		},
+		style: {
+			backgroundColor: '#4CD964',
+			borderTopWidth: 1,
+			borderTopColor: 'white'
+		}
+	}
+}
+
+const FooterTabs = TabNavigator(routeConfiguration, tabBarConfiguration);
 
 const styles = StyleSheet.create({
   container: {
@@ -22,5 +81,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     marginTop: 20,
     justifyContent: 'space-between'
-  },
+  }
 });
