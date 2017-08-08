@@ -3,45 +3,45 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Exercise
-from .serializers import ExerciseSerializer
+from .models import Movement
+from .serializers import MovementSerializer
 
 @csrf_exempt
-def exercise_list(request):
-    all_exercises = Exercise.objects.all()
+def movement_list(request):
+    all_movements = Movement.objects.all()
 
     print "I'm here"
-    print all_exercises
+    print all_movements
 
-    exercise_dict = {}
+    movement_dict = {}
 
-    for exercise in all_exercises:
-        exercise_dict[exercise.id] = {'id' : exercise.id, 'description' : exercise.description }
+    for movement in all_movements:
+        movement_dict[movement.id] = {'id' : movement.id, 'description' : movement.description }
 
-    return JsonResponse({ 'exercises': exercise_dict })
+    return JsonResponse({ 'movements': movement_dict })
     #
-    # all_exercises = Exercise.objects.all()
-    # return all_exercises;
+    # all_movements = Movement.objects.all()
+    # return all_movements;
 
 @csrf_exempt
-def exercise_detail(request, pk):
+def movement_detail(request, pk):
     try:
-        exercise = Exercise.objects.get(pk=pk)
-    except Exercise.DoesNotExist:
+        movement = Movement.objects.get(pk=pk)
+    except Movement.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = ExerciseSerializer(exercise)
+        serializer = MovementSerializer(movement)
         return JsonResponse(serializer.data)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = ExerciseSerializer(exercise, data=data)
+        serializer = MovementSerializer(movement, data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
     elif request.method == 'DELETE':
-        exercise.delete()
+        movement.delete()
         return HttpResponse(status=204)

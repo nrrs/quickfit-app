@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-EXERCISE_TYPES = (
+MOVEMENT_TYPES = (
     ('w', "Weight Lifting"),
     ('d', "dance"),
     ('c', "cardio"),
@@ -11,12 +11,11 @@ EXERCISE_TYPES = (
 )
 
 
-class Exercise(models.Model):
-    # more columns
+class Movement(models.Model):
     description = models.TextField()
     author = models.ForeignKey(User)
-    exercise_type = models.CharField(
-        choices = EXERCISE_TYPES,
+    movement_type = models.CharField(
+        choices = MOVEMENT_TYPES,
         max_length=1,
         default='o',
     )

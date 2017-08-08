@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Exercise
+from .models import Movement
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class MovementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Exercise
-        fields = ('id', 'description', 'author', 'exercise_type')
+        model = Movement
+        fields = ('id', 'description', 'author', 'movement_type')
