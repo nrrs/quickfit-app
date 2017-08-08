@@ -11,7 +11,7 @@ class MovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movement
         fields = ('id',
-                  'author_id',
+                  'author_id',   #model field name is 'author', but displays as author_id in table
                   'title',
                   'description',
                   'movement_type',
@@ -24,7 +24,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
         fields = ('id',
-                  'athlete_id',
+                  'athlete_id',   #model field name is 'athlete', but displays as athlete_id in table
                   'timestamp_created',
                   'workout_data')
 
