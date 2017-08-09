@@ -10,7 +10,9 @@ export const buttonStyle =  {
   borderRadius: 3,
   justifyContent: 'center',
   alignItems: 'center',
-  margin: 10,
+  marginTop: 10,
+  marginLeft: 10,
+  marginRight: 10,
   paddingTop: 15,
   paddingBottom: 15
 };

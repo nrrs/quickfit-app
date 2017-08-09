@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity,TouchableNativeFeedback } from 'react-nati
 import { StackNavigator } from 'react-navigation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { iconStyle, headerStyle, headerTitleStyle } from '../../styles/styles';
+import { iconStyle, stackHeaderStyle, headerTitleStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
 import WorkoutIndex from './WorkoutIndex';
 import NoviceWorkout from './NoviceWorkout';
@@ -38,8 +38,10 @@ const workoutStackRoutes = {
 const workoutStackConfig = {
   headerMode: 'float',
   navigationOptions: {
-    headerStyle: headerStyle,
-    headerTitleStyle: headerTitleStyle
+    headerStyle: stackHeaderStyle,
+    headerTitleStyle: headerTitleStyle,
+    headerBackTitle: ' ',
+    shadowHidden: true
   }
 }
 

@@ -19,7 +19,9 @@ export const textStyle = {
 
 
 export const containerStyle = {
-  padding: 15
+  padding: 15,
+  backgroundColor: '#fafafa',
+  flex: 1
 };
 
 export const headerStyle = {
@@ -34,10 +36,23 @@ export const headerStyle = {
   paddingRight: 10
 };
 
+export const stackHeaderStyle = {
+  borderBottomWidth: 1,
+  backgroundColor: '#fff',
+  borderColor: '#e6e6e6',
+  height: 50,
+  shadowOpacity: 0,
+  paddingBottom: 20
+};
+
 export const headerTitleStyle = {
-  fontSize: 15,
+  fontSize: 20,
+  fontWeight: 'normal',
   lineHeight: 22,
-  color: '#262626'
+  margin: 0,
+  color: '#262626',
+  borderColor: 'red',
+  letterSpacing: 0.3
 };
 
 export const captionStyle = {
@@ -50,7 +65,8 @@ export const captionStyle = {
 };
 
 export const bandContainerStyle = {
-  flex: 1
+  flex: 1,
+  backgroundColor: '#fafafa'
 };
 
 export const bandStyle = {
