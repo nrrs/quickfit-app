@@ -1,8 +1,11 @@
 import React from 'react';
-import { Text, View, TouchableOpacity,TouchableHighlight } from 'react-native';
+import { Text, View, TouchableOpacity,TouchableNativeFeedback } from 'react-native';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { textStyle, iconStyle, bandContainerStyle, bandStyle } from '../../styles/styles';
-
+import FIcon from 'react-native-vector-icons/FontAwesome';
+import { textStyle, iconStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
+import { buttonStyle } from '../../styles/forms';
+import { StackNavigator } from 'react-navigation';
+import BeginnerWorkout from './BeginnerWorkout';
 
 class WorkoutScreen extends React.Component {
   static navigationOptions = {
@@ -15,39 +18,67 @@ class WorkoutScreen extends React.Component {
   render() {
     return (
       <View className="workout-options" style={bandContainerStyle}>
-        <TouchableOpacity style={customBandStyle}>
-          <Text style={bandTextStyle}>custom</Text>
+        <View style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
+          <Text style={Object.assign({}, textStyle, {color: '#262626', textAlign: 'center'})}>
+            Welcome!{'\n'}
+            QuickFit was designed to provide you a quick and engaging workout!{'\n'}
+            From beginner to advanced, tap one that works for you or customize your own!
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, bandStyle)}
+          onPress={() => {
+            alert('clicked!');
+            this.props.navigation.navigate('Beginner', {});
+          }}
+          title="Novice Workout"
+          >
+          <Text style={Object.assign({}, bandTextStyle, {color: '#4cd964'})}>NOVICE</Text>
+          <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#4cd964'})} />
         </TouchableOpacity>
-        <TouchableOpacity style={beginnerBandStyle}>
-          <Text style={bandTextStyle}>beginner</Text>
+        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+          <Text style={Object.assign({}, bandTextStyle, {color: '#ff9500'})}>MODERATE</Text>
+          <View style={{flexDirection: 'row'}}>
+            <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff9500'})} />
+            <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff9500'})} />
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={moderateBandStyle}>
-          <Text style={bandTextStyle}>moderate</Text>
+        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+          <Text style={Object.assign({}, bandTextStyle, {color: '#ff3b30'})}>ADVANCED</Text>
+          <View style={{flexDirection: 'row'}}>
+            <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff3b30'})} />
+            <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff3b30'})} />
+            <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff3b30'})} />
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={advanceBandStyle}>
-          <Text style={bandTextStyle}>advance</Text>
+        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+          <Text style={Object.assign({}, bandTextStyle, {color: '#6ACDFA'})}>CUSTOM</Text>
+          <FIcon name="star" style={Object.assign({}, dropStyle, {color: '#6ACDFA'})} />
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-const bandTextStyle = {
-  color: '#fff',
-  fontSize: 32
+const dropStyle = {
+  color: '#e6e6e6',
+  fontSize: 30,
+  marginTop: 10,
+  marginRight: 5
 }
-const customBandStyle = Object.assign({}, bandStyle, {
-  backgroundColor: '#6ACDFA'
-});
-const beginnerBandStyle = Object.assign({}, bandStyle, {
-  backgroundColor: '#4cd964'
-});
-const moderateBandStyle = Object.assign({}, bandStyle, {
-  backgroundColor: '#ffcc00'
-});
-const advanceBandStyle = Object.assign({}, bandStyle, {
-  backgroundColor: '#ff9500'
-});
 
+const bandTextStyle = {
+  fontSize: 20,
+  fontWeight: 'bold',
+  padding: 10,
+  marginTop: 10,
+  color: '#fff'
+}
+
+const StackNav = StackNavigator({
+  Beginner: {
+    screen: BeginnerWorkout
+  }
+});
 
 export default WorkoutScreen;

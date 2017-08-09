@@ -41,7 +41,7 @@ export default class CreateScreen extends React.Component {
               multiline={true}
             />
 
-            <TouchableOpacity style={buttonStyle}>
+          <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})}>
               <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>New Exercise</Text>
             </TouchableOpacity>
           </View>

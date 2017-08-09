@@ -12,10 +12,14 @@ export const subHeaderStyle = {
 };
 
 export const textStyle = {
-  fontSize: 25,
+  fontSize: 15,
+  lineHeight: 22,
   color: '#7d7d7d'
 };
 
+export const containerStyle = {
+  padding: 15
+};
 
 export const bandContainerStyle = {
   flex: 1
@@ -25,5 +29,6 @@ export const bandStyle = {
   flex: 1,
   padding: 15,
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
+  flexDirection: 'row'
 };

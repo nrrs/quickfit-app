@@ -6,6 +6,7 @@ import { TabNavigator } from 'react-navigation';
 
 import ProfileScreen from './src/components/profile/ProfileScreen';
 import WorkoutScreen from './src/components/workout/WorkoutScreen';
+import BeginnerWorkout from './src/components/workout/BeginnerWorkout';
 import CreateScreen from './src/components/create_workout/CreateScreen';
 
 export default class App extends React.Component {
