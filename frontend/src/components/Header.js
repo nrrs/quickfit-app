@@ -8,7 +8,7 @@ const Header = props => {
 
   return (
     <View style={containerStyle}>
-      <Text style={Object.assign({}, textStyle, {color: '#fff'})}> {props.title} </Text>
+      <Text style={Object.assign({}, textStyle, {color: '#262626'})}> {props.title} </Text>
     </View>
   );
 };
@@ -16,11 +16,11 @@ const Header = props => {
 const styles = {
   containerStyle: {
     height: 50,
-    backgroundColor: '#262626',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderBottomColor: '#ccc',
+    borderColor: '#e6e6e6',
     borderBottomWidth: 1,
     paddingLeft: 10,
     paddingRight: 10

@@ -39,7 +39,7 @@ const tabBarConfiguration = {
 		style: {
 			backgroundColor: '#fff',
 			borderTopWidth: 1,
-			borderTopColor: '#ccc',
+			borderTopColor: '#e6e6e6',
       height: 50
     }
 	}
