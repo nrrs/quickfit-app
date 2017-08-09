@@ -13,10 +13,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.containerStyle}>
-        <StatusBar
-          barStyle = 'dark-content'
-          />
-        <Header title={"QuickFit"}/>
+        <StatusBar barStyle = 'dark-content' />
         <FooterTabs />
       </View>
     );

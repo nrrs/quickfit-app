@@ -21,6 +21,24 @@ export const containerStyle = {
   padding: 15
 };
 
+export const headerStyle = {
+  height: 50,
+  backgroundColor: '#fff',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+  borderColor: '#e6e6e6',
+  borderBottomWidth: 1,
+  paddingLeft: 10,
+  paddingRight: 10
+};
+
+export const headerTitleStyle = {
+  fontSize: 15,
+  lineHeight: 22,
+  color: '#262626'
+};
+
 export const bandContainerStyle = {
   flex: 1
 };
