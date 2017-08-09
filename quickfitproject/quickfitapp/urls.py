@@ -20,18 +20,18 @@ router.register(r'users', views.UserViewSet)
 # ^api/ ^ ^users/(?P<pk>[^/.]+)\.(?P<format>[a-z0-9]+)/?$ [name='workout-detail']
 
 
-
 #for all default routes (works for all routes registered above)
-urlpatterns = [
-    url(r'^', include(router.urls)), #covers all routers defined above
-    # url(r'^movements/(?P<pk>[0-9]+)/$', views.movement_detail),
-]
-
-
-#class-based movement urls
 # urlpatterns = [
-#     url(r'^movements/(?P<pk>[0-9]+)/$', views.MovementDetail.as_view()),
+    # url(r'^', include(router.urls)), #covers all routers defined above
 # ]
+
+
+# class-based movement urls
+urlpatterns = [
+    url(r'^movements/$', views.MovementList.as_view()),
+    url(r'^movements/(?P<pk>[0-9]+)/$', views.MovementDetail.as_view()),
+    url(r'^user_movements/(?P<pk>[0-9]+)/$', views.UsersMovementList.as_view()),
+]
 
 
 #function-based movement urls

@@ -11,6 +11,13 @@ from django.contrib.auth.models import User
 #they include default create() and update() methods when calling serializer.save()
 #print(repr(MovementSerializer)) to see the long hand form
 
+# class UsersMovementSerializer(serializers.ModelSerializer):
+    # class Meta:
+    #     model = Movement
+    #     fields = ('id',
+    #               'author_id',   #model field name is 'author', but displays as author_id in table
+    #               'title')
+
 
 class MovementSerializer(serializers.ModelSerializer):
     class Meta:

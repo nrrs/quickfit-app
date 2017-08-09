@@ -45,34 +45,62 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 #manual class-based views for Movements
-# class MovementDetail(APIView):  #includes fxns to retrieve, update, and delete
-#     def get_object(self, pk):
-#         try:
-#             return Movement.objects.get(pk=pk)
-#         except Movement.DoesNotExist:
-#             raise Http404
-#
-#     def get(self, request, pk, format=None):
-#         single_movement = self.get_object(pk)
-#         serializer = MovementSerializer(single_movement)
-#         return Response(serializer.data)
-#
-#
-#
-#     def put(self, request, pk, format=None):
-#         single_movement = self.get_object(pk)
-#         serializer = MovementSerializer(single_movement, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-#
-#
-#     def delete(self, request, pk, format=None):
-#         single_movement = self.get_object(pk)
-#         single_movement.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UsersMovementList(APIView): #lists all movements of a single user (I made this up, may not work)
+    def get(self, request, pk):
+        this_user = self.get_object(pk)
+        this_users_movements = []
+        all_movements = Movement.objects.all()
+        for movement in all_movements:
+            if movement.author == this_user.id:
+                this_users_movements.append(movement)
+
+
+        serializer = MovementSerializer(this_users_movements, many=True)
+        return Response(serializer.data)
+
+
+        def get_object(self, pk):
+            try:
+                return User.objects.get(pk=pk)
+            except Movement.DoesNotExist:
+                raise Http404
+
+
+class MovementList(APIView): #lists all movements
+    def get(self, request, format=None):
+        movements = Movement.objects.all()
+        serializer = MovementSerializer(movements, many=True)
+        return Response(serializer.data)
+
+class MovementDetail(APIView):  #includes fxns to retrieve, update, and delete
+    def get_object(self, pk):
+        try:
+            return Movement.objects.get(pk=pk)
+        except Movement.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        single_movement = self.get_object(pk)
+        serializer = MovementSerializer(single_movement)
+        return Response(serializer.data)
+
+
+
+    def put(self, request, pk, format=None):
+        single_movement = self.get_object(pk)
+        serializer = MovementSerializer(single_movement, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+    def delete(self, request, pk, format=None):
+        single_movement = self.get_object(pk)
+        single_movement.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
