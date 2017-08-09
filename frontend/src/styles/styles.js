@@ -17,6 +17,7 @@ export const textStyle = {
   color: '#7d7d7d'
 };
 
+
 export const containerStyle = {
   padding: 15
 };
@@ -37,6 +38,15 @@ export const headerTitleStyle = {
   fontSize: 15,
   lineHeight: 22,
   color: '#262626'
+};
+
+export const captionStyle = {
+  fontSize: 15,
+  fontWeight: '400',
+  color: '#6ACDFA',
+  alignSelf: 'center',
+  padding: 10,
+  marginTop: 10
 };
 
 export const bandContainerStyle = {

@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle } from '../../styles/styles';
+import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
+import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import ProfileAuth from './ProfileAuth';
+import ProfileIndex from './ProfileIndex';
+import { StackNavigator } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -10,11 +14,45 @@ class ProfileScreen extends React.Component {
       <FIcon name="user" color={tintColor} style={iconStyle} />
     )
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      currentUser: {
+        id: 1,
+        name: 'Bruce Wayne'
+      },
+      workouts: [1,2,3,4,5],
+      loading: false
+    }
+  }
+
   render() {
+<<<<<<< HEAD
     return (
       <Text style={textStyle}>{this.props.name} Profile Page </Text>
     )
+=======
+    if (this.state.loading) return (<Text> Loading </Text>);
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
+>>>>>>> frontend_dev
   }
 }
+
+const profileStackRoutes = {
+  index: { screen: ProfileIndex },
+  auth: { screen: ProfileAuth},
+}
+
+const profileStackConfig = {
+  headerMode: 'float'
+  // navigationOptions: {
+  //   headerStyle: headerStyle,
+  //   headerTitleStyle: headerTitleStyle
+  // }
+}
+
+const ProfileStackNav = StackNavigator(profileStackRoutes, profileStackConfig)
 
 export default ProfileScreen;
