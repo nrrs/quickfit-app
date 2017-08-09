@@ -40,7 +40,7 @@ class Movement(models.Model):
     timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
-    #tells Django which field to use as display on the Django admin
+    #tells Django which field to use as display on the Django admin or anytime you want string representation of the entire object
     def __str__(self):
         return self.description
 
@@ -50,7 +50,7 @@ class Workout(models.Model):
 
     #displays as athlete_id in table
     #remove null=True after auth setup
-    athlete = models.ForeignKey(User, null=True)   
+    athlete = models.ForeignKey(User, null=True)
 
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
@@ -72,3 +72,13 @@ class Workout(models.Model):
 
 
 #Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
+
+
+#HOW TO GENERATE AN OBJECT IN THE PYTHON SHELL (ALTERNATIVE TO USING ADMIN GUI)
+# python manage.py shell
+# >>> from api.models import Note
+# >>> note = Note(title="First Note", body="This is certainly noteworthy")
+# >>> note.save()
+# >>> Note.objects.all()
+# <QuerySet [<Note: First Note This is certainly noteworthy>]>
+# >>> exit()

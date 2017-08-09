@@ -21,19 +21,35 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     serializer_class = WorkoutSerializer
 
 
-#REST framework generates all below 'standard' functions and routes
+#to limit information sent with response (untested)....
+# class MovementResource(ModelResource):
+#     class Meta:
+#         queryset = Movement.objects.all()
+#         resource_name = 'movement'
+#         fields = ['title', 'description']
 
 
-#analgous to INDEX (all movements)
-# @csrf_exempt    #delete after auth developed
-# def movement_list(request):
-#     if request.method == 'GET':
-#         all_movements = Movement.objects.all()
-#         serializer = MovementSerializer(all_movements, many=True)
-#         return JsonResponse(serializer.data, safe=False)
-        #could potentially also return JSONRenderer().render(serializer.data)
+
+#UNTESTED CUSTOM METHOD PULLING MOVEMENTS BY USER
+# class UserViewSet(viewsets.ModelViewSet):
+#     model = User
+#     serializer_class = UserSerializer
+#
+#     # Your regular ModelViewSet things here
+#     queryset = User.objects.all()   #????
+#
+#     # Add a decorated method above the actual methos like this
+#     #to customize the route, add a second paramater to it after the methods parameter.....e.g......url_path='whatever-you-want'
+#     #...that would generate the following URL pattern: ^users/{pk}/whatevs/$ Name: 'whatever-you-want'
+#     @detail_route(methods=['get'])
+#     def whatevs(self, request, pk):   # pk is the user_id
+#         user_movements = Movement.objects.filter(author=pk)  #in the database as author_id
+#         serializer = PostSerializer(user_movements)
+#         return Response(serializer.data)
 
 
+
+#BELOW METHODS ARE REPLACED WITH DEFAULT CLASS METHODS AT THE TOP
 
 # @csrf_exempt  #delete after auth developed
 # def movement_detail(request, pk):
@@ -59,9 +75,14 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 #         return HttpResponse(status=204)
 
 
-
-
-
+#analgous to INDEX (all movements)
+# @csrf_exempt    #delete after auth developed
+# def movement_list(request):
+#     if request.method == 'GET':
+#         all_movements = Movement.objects.all()
+#         serializer = MovementSerializer(all_movements, many=True)
+#         return JsonResponse(serializer.data, safe=False)
+        #could potentially also return JSONRenderer().render(serializer.data)
 
 
 #original index call for movments that worked on local browser and when connecting from React Native
@@ -80,9 +101,3 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 #         'timestamp_created' :movement.timestamp_created
 #          }
 #     return JsonResponse({ 'movements': movement_dict })
-
-
-
-
-
-#
