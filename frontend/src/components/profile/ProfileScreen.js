@@ -11,7 +11,35 @@ class ProfileScreen extends React.Component {
       <FIcon name="user" color={tintColor} style={iconStyle} />
     )
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      newUser: false
+    };
+    this.changeForm = this.changeForm.bind(this);
+  }
+
+  changeForm(e) {
+    e.preventDefault;
+    this.setState({ newUser: !this.state.newUser });
+  }
+
   render() {
+    let textDisplay = {
+      button: 'Log In',
+      footer: 'New to QuickFit?'
+    };
+
+    switch (this.state.newUser) {
+      case true:
+        textDisplay.button = 'Sign Up'
+        textDisplay.footer = 'Already have an account?'
+        break;
+      default:
+
+    }
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
@@ -32,12 +60,14 @@ class ProfileScreen extends React.Component {
             />
 
             <TouchableOpacity style={buttonStyle}>
-              <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>Log In</Text>
+              <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
             </TouchableOpacity>
 
-            <Text style={Object.assign({}, subHeaderStyle, {color: '#6ACDFA'})}>
-              New to QuickFit?
-            </Text>
+            <TouchableOpacity onPress={this.changeForm}>
+              <Text style={Object.assign({}, subHeaderStyle, {color: '#6ACDFA', alignSelf: 'center'})}>
+                {textDisplay.footer}
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
