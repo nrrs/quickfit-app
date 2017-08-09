@@ -9,7 +9,7 @@ router.register(r'workouts', views.WorkoutViewSet)
 
 
 #this may need to be adjusted to pull data by user; perhaps switch out WorkoutViewSet for another class?
-router.register(r'users', views.WorkoutViewSet)
+# router.register(r'users', views.UserViewSet)
 
 #routes that already exist  (they don't exist for movements)
 # ^api/ ^ ^users/$ [name='workout-list']
@@ -19,13 +19,24 @@ router.register(r'users', views.WorkoutViewSet)
 
 
 
-
+#for all default routes (works for all routes registered above)
 urlpatterns = [
     url(r'^', include(router.urls)), #covers all routers defined above
     # url(r'^movements/(?P<pk>[0-9]+)/$', views.movement_detail),
 ]
 
 
-#below code breaks the server, probably not intended to be used in addition to default routes....
+#class-based movement urls
+# urlpatterns = [
+#     url(r'^movements/(?P<pk>[0-9]+)/$', views.MovementDetail.as_view()),
+# ]
+
+
+#function-based movement urls
+# urlpatterns = [
+#     url(r'^movements/(?P<pk>[0-9]+)/$', views.movement_detail),
+# ]
+
+#Below is only for use with function-based or class-based routes, comment out when using default routes
 #allows frontend to specify data format (e.g. http://example.com/api/items/4.json)
 # urlpatterns = format_suffix_patterns(urlpatterns)

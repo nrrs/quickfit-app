@@ -5,9 +5,14 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
-#for use with function-based decorators
+#for use with function-based decoratored views
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+#for use with class-based views
+from django.http import Http404
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
 #importing the models and their serializers
@@ -26,6 +31,42 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
 
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+
+
+#manual class-based views for Movements
+# class MovementDetail(APIView):  #includes fxns to retrieve, update, and delete
+#     def get_object(self, pk):
+#         try:
+#             return Movement.objects.get(pk=pk)
+#         except Movement.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk, format=None):
+#         single_movement = self.get_object(pk)
+#         serializer = MovementSerializer(single_movement)
+#         return Response(serializer.data)
+#
+#
+#
+#     def put(self, request, pk, format=None):
+#         single_movement = self.get_object(pk)
+#         serializer = MovementSerializer(single_movement, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#
+#
+#     def delete(self, request, pk, format=None):
+#         single_movement = self.get_object(pk)
+#         single_movement.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 #using view wrappers in attempt to pull movements/workouts associated with one user id
 # @api_view(['GET', 'PUT', 'DELETE'])
@@ -36,8 +77,8 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 #         return Response(status=status.HTTP_404_NOT_FOUND)
 #
 #     if request.method == 'GET':
-#     serializer = MovementSerializer(single_movement)
-#     return Response(serializer.data) #renders the content type as requested by the client BUT serializer.data is native python (I believe)
+#         serializer = MovementSerializer(single_movement)
+#         return Response(serializer.data) #renders the content type as requested by the client BUT serializer.data is native python (I believe)
 #
 #     elif request.method == 'PUT':
 #         serializer = MovementSerializer(single_movement, data=request.data) #request.data can handle json and other content types
