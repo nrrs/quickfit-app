@@ -45,6 +45,7 @@
 - method: POST
 - contentType: 'application/json'
 - data:   { “athlete_id": 2, "workout_data": “{u'anything_field': 21, u’whatever_field': u’yyy'}" }
+
 *Note:  The workout_data is in the form of a json string with python native object formatting*
 
 ##### Display one workout
@@ -56,6 +57,7 @@
 - method: PATCH
 - contentType: 'application/json'
 - data: { "workout_data": “{u'anything_field': 22, u’whatever_field': u’zzz’}" }
+
 *Note:  The workout_data is in the form of a json string with python native object formatting*
 
 ##### Delete one workout
