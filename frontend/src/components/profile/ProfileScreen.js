@@ -29,14 +29,8 @@ class ProfileScreen extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-    return (
-      <Text style={textStyle}>{this.props.name} Profile Page </Text>
-    )
-=======
     if (this.state.loading) return (<Text> Loading </Text>);
     return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
->>>>>>> frontend_dev
   }
 }
 
