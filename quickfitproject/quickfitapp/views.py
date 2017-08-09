@@ -5,6 +5,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
+#for use with function-based decorators
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+#importing the models and their serializers
 from .models import Movement
 from .serializers import MovementSerializer
 from .models import Workout
@@ -19,6 +25,31 @@ class MovementViewSet(viewsets.ModelViewSet):
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+
+
+#using view wrappers in attempt to pull movements/workouts associated with one user id
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def movement_detail(request, pk):
+#     try:
+#         single_movement = Movement.objects.get(pk=pk)
+#     except Movement.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#     if request.method == 'GET':
+#     serializer = MovementSerializer(single_movement)
+#     return Response(serializer.data) #renders the content type as requested by the client BUT serializer.data is native python (I believe)
+#
+#     elif request.method == 'PUT':
+#         serializer = MovementSerializer(single_movement, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     elif request.method == 'DELETE':
+#         single_movement.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 #to limit information sent with response (untested)....
