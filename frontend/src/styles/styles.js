@@ -16,6 +16,14 @@ export const textStyle = {
   color: '#7d7d7d'
 };
 
+export const captionStyle = {
+  fontSize: 15,
+  fontWeight: '400',
+  color: '#6ACDFA',
+  alignSelf: 'center',
+  padding: 10,
+  marginTop: 10
+};
 
 export const bandContainerStyle = {
   flex: 1

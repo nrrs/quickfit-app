@@ -50,5 +50,3 @@ export default class CreateScreen extends React.Component {
     )
   }
 }
-
-// <Text style={Object.assign({}, textStyle, {color: '#fff'})}> ADD </Text>
