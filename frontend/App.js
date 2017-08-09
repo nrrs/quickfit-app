@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Keyboard } from 'react-native';
+import { Text, View, Keyboard, StatusBar } from 'react-native';
 import Header from './src/components/Header';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
@@ -11,7 +11,10 @@ import CreateScreen from './src/components/create_workout/CreateScreen';
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.containerStyle}>
+      <View style={styles.container}>
+        <StatusBar
+          barStyle = 'dark-content'
+          />
         <Header title={"QuickFit"}/>
         <FooterTabs />
       </View>
@@ -27,17 +30,18 @@ const routeConfiguration = {
 
 const tabBarConfiguration = {
   tabBarOptions: {
-		activeTintColor: '#3cad50',
+		activeTintColor: '#262626',
 		inactiveTintColor: '#ccc',
 		labelStyle: {
-			fontSize: 10
+			fontSize: 15,
+      marginBottom: 5
 		},
 		style: {
-			backgroundColor: 'white',
+			backgroundColor: '#fff',
 			borderTopWidth: 1,
 			borderTopColor: '#ccc',
-      height: 50
-		}
+      height: 60
+    }
 	}
 };
 

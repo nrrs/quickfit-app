@@ -1,3 +1,8 @@
+export const formContainerStyle = {
+  flex: 1,
+  backgroundColor: '#eee'
+}
+
 export const buttonStyle =  {
   backgroundColor: '#4CD964',
   borderColor: '#ccc',

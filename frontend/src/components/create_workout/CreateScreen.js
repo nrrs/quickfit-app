@@ -1,13 +1,14 @@
 import React from 'react';
 import { Text, View, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
-import { buttonStyle, inputStyle } from '../../styles/forms'
+import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { iconStyle, textStyle } from '../../styles/styles';
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Add',
     tabBarIcon: ({ tintColor }) => (
-      <IIcon name="md-add-circle" color={tintColor} style={styles.iconStyle} />
+      <IIcon name="md-add-circle" color={tintColor} style={iconStyle} />
     )
   }
 
@@ -16,10 +17,9 @@ export default class CreateScreen extends React.Component {
   }
 
   render() {
-    const { containerStyle, textStyle } = styles;
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={containerStyle} >
+        <View style={formContainerStyle} >
           <TextInput
             style={inputStyle}
             placeholder="Movement Name"
@@ -41,17 +41,3 @@ export default class CreateScreen extends React.Component {
     )
   }
 }
-
-const styles = {
-  containerStyle: {
-    flex: 1,
-    backgroundColor: '#eee'
-  },
-  textStyle: {
-    fontSize: 25,
-    color: '#fff'
-  },
-  iconStyle: {
-    fontSize: 25
-  }
-};
