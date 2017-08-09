@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, Keyboard, StatusBar } from 'react-native';
-import Header from './src/components/Header';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
 
@@ -15,7 +14,6 @@ export default class App extends React.Component {
         <StatusBar
           barStyle = 'dark-content'
           />
-        <Header title={"QuickFit"}/>
         <FooterTabs />
       </View>
     );
@@ -23,9 +21,9 @@ export default class App extends React.Component {
 }
 
 const routeConfiguration = {
-  Profile: { screen: ProfileScreen },
-  Workout: { screen: WorkoutScreen },
-  Add: { screen: CreateScreen }
+  profile: { screen: ProfileScreen },
+  workout: { screen: WorkoutScreen },
+  add: { screen: CreateScreen }
 };
 
 const tabBarConfiguration = {

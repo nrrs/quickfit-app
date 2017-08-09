@@ -3,6 +3,9 @@ import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, 
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import ProfileAuth from './ProfileAuth';
+import ProfileIndex from './ProfileIndex';
+import { StackNavigator } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -15,74 +18,35 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newUser: false
-    };
-    this.changeForm = this.changeForm.bind(this);
-    this.signup = this.signup.bind(this);
-    this.login = this.login.bind(this);
-  }
-
-  signup() {
-    alert("Welcome Back")
-  }
-
-  login() {
-    alert("Welcome to QuickFit")
-  }
-
-  changeForm(e) {
-    e.preventDefault;
-    this.setState({ newUser: !this.state.newUser });
+      loggedIn: false,
+      currentUser: {
+        id: 1,
+        name: 'Bruce Wayne'
+      },
+      workouts: [1,2,3,4,5],
+      loading: false
+    }
   }
 
   render() {
-    let textDisplay = {
-      button: 'Log In',
-      footer: 'New to QuickFit?'
-    };
-
-    switch (this.state.newUser) {
-      case true:
-        textDisplay.button = 'Sign Up'
-        textDisplay.footer = 'Already have an account?'
-        break;
-      default:
-
-    }
-
-    return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView>
-          <View style={formContainerStyle}>
-            <Text style={subHeaderStyle}>
-              EMAIL
-            </Text>
-            <TextInput
-              style={Object.assign({}, inputStyle, { marginBottom: 0})}
-              placeholder="athlete@QuickFit.com"
-            />
-            <Text style={subHeaderStyle}>
-              PASSWORD
-            </Text>
-            <TextInput
-              style={Object.assign({}, inputStyle, { marginBottom: 0})}
-              placeholder="Minimum 6 characters"
-            />
-
-            <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this.login: this.signup}>
-              <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={this.changeForm}>
-              <Text style={captionStyle}>
-                {textDisplay.footer}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </TouchableWithoutFeedback>
-    )
+    if (this.state.loading) return (<Text> Loading </Text>);
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
   }
 }
+
+const profileStackRoutes = {
+  index: { screen: ProfileIndex },
+  auth: { screen: ProfileAuth},
+}
+
+const profileStackConfig = {
+  headerMode: 'float'
+  // navigationOptions: {
+  //   headerStyle: headerStyle,
+  //   headerTitleStyle: headerTitleStyle
+  // }
+}
+
+const ProfileStackNav = StackNavigator(profileStackRoutes, profileStackConfig)
 
 export default ProfileScreen;
