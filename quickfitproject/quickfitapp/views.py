@@ -22,6 +22,8 @@ from .models import Workout
 from .serializers import WorkoutSerializer
 from .models import Profile
 from .serializers import ProfileSerializer
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 
 #adjust when we need to filter by user (e.g. only pull one user's movements)
@@ -37,9 +39,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 #manual class-based views for Movements

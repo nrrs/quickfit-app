@@ -3,10 +3,8 @@ from .models import Movement
 from .models import Workout
 from .models import Profile
 
-#not working
-# from django.conf import settings
-# from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import User
+
+from django.contrib.auth.models import User
 
 
 #ModelSerializers are shorthand for regular serializers
@@ -40,13 +38,15 @@ class ProfileSerializer(serializers.ModelSerializer):
       fields = ('id',
                 'silly_username')
 
-#not working because User is undefined, probably b/c auth is disabled
+#not working because User is undefined, maybe b/c auth is disabled
+# from django.contrib.auth import get_user_model
 # User = get_user_model()
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id',
-#                   'username')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id',
+                  'username')
 
 
 #HOW TO USE ABOVE SERIALIZERS...
