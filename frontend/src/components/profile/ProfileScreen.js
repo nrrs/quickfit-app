@@ -6,9 +6,7 @@ class ProfileScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Profile',
     tabBarIcon: ({ tintColor }) => (
-        <Text>
-          <FIcon name="user-circle-o" color={tintColor} style={styles.textStyle}/>
-        </Text>
+      <FIcon name="user-circle-o" color={tintColor} style={styles.textStyle}/>
     )
   }
   render() {

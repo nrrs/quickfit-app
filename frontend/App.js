@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, Keyboard } from 'react-native';
 import Header from './src/components/Header';
-import Footer from './src/components/Footer';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
 
@@ -28,7 +27,7 @@ const routeConfiguration = {
 
 const tabBarConfiguration = {
   tabBarOptions: {
-		activeTintColor: 'green',
+		activeTintColor: '#3cad50',
 		inactiveTintColor: '#ccc',
 		labelStyle: {
 			fontSize: 10

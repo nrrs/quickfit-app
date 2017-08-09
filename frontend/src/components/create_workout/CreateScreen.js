@@ -1,14 +1,13 @@
 import React from 'react';
 import { Text, View, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
+import { buttonStyle, inputStyle } from '../../styles/forms'
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Add',
     tabBarIcon: ({ tintColor }) => (
-        <Text>
-          <IIcon name="md-add-circle" color={tintColor} style={styles.iconStyle} />
-        </Text>
+      <IIcon name="md-add-circle" color={tintColor} style={styles.iconStyle} />
     )
   }
 
@@ -17,7 +16,7 @@ export default class CreateScreen extends React.Component {
   }
 
   render() {
-    const { containerStyle, inputStyle, buttonStyle, textStyle } = styles;
+    const { containerStyle, textStyle } = styles;
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={containerStyle} >
@@ -35,7 +34,7 @@ export default class CreateScreen extends React.Component {
             multiline={true}
           />
         <TouchableOpacity style={buttonStyle}>
-          <Text style={textStyle}> Submit </Text>
+          <Text style={textStyle}> ADD </Text>
         </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
@@ -45,32 +44,13 @@ export default class CreateScreen extends React.Component {
 
 const styles = {
   containerStyle: {
-    flex: 1
-  },
-  buttonStyle: {
-    backgroundColor: 'orange',
-    borderColor: '#ccc',
-    borderRadius: 5,
-    width: 100,
-    height: 50,
-    alignSelf: 'center',
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30
-  },
-  inputStyle: {
-    height: 60,
-    marginTop: 5,
-    padding: 15,
-    borderColor: '#e2e2e2',
-    borderWidth: 1
+    flex: 1,
+    backgroundColor: '#eee'
   },
   textStyle: {
     fontSize: 25,
     color: '#fff'
   },
-
   iconStyle: {
     fontSize: 25
   }

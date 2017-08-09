@@ -6,9 +6,7 @@ class WorkoutScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Workout',
     tabBarIcon: ({ tintColor }) => (
-        <Text>
-          <MIcon name="dumbbell" color={tintColor} style={styles.textStyle} />
-        </Text>
+      <MIcon name="dumbbell" color={tintColor} style={styles.textStyle} />
     )
   }
   render() {
