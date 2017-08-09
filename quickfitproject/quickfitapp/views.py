@@ -20,6 +20,8 @@ from .models import Movement
 from .serializers import MovementSerializer
 from .models import Workout
 from .serializers import WorkoutSerializer
+from .models import Profile
+from .serializers import ProfileSerializer
 
 
 #adjust when we need to filter by user (e.g. only pull one user's movements)
@@ -30,6 +32,10 @@ class MovementViewSet(viewsets.ModelViewSet):
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 # class UserViewSet(viewsets.ModelViewSet):
 #     queryset = User.objects.all()

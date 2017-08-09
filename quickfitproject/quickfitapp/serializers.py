@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Movement
 from .models import Workout
+from .models import Profile
 
 #not working
 # from django.conf import settings
@@ -25,7 +26,6 @@ class MovementSerializer(serializers.ModelSerializer):
                   'timestamp_last_updated',
                   'timestamp_created')
 
-
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
@@ -34,7 +34,13 @@ class WorkoutSerializer(serializers.ModelSerializer):
                   'timestamp_created',
                   'workout_data')
 
-#not working because User is undefined
+class ProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+      model = Profile
+      fields = ('id',
+                'silly_username')
+
+#not working because User is undefined, probably b/c auth is disabled
 # User = get_user_model()
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:

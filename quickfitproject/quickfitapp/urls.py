@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 router = routers.DefaultRouter()
 router.register(r'movements', views.MovementViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
-
+router.register(r'profiles', views.ProfileViewSet)
 
 #this may need to be adjusted to pull data by user; perhaps switch out WorkoutViewSet for another class?
 # router.register(r'users', views.UserViewSet)

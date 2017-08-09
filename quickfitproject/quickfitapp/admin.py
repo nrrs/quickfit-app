@@ -7,3 +7,6 @@ admin.site.register(Movement)
 
 from .models import Workout
 admin.site.register(Workout)
+
+from .models import Profile
+admin.site.register(Profile)
