@@ -3,18 +3,18 @@ import { Text, View, TouchableOpacity,TouchableNativeFeedback } from 'react-nati
 import { textStyle, containerStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
 
-class BeginnerWorkout extends React.Component {
+class AdvancedWorkout extends React.Component {
   static navigationOptions = {
-    title: 'Beginner Workout',
+    title: 'Advanced',
   };
 
   render() {
     return (
-      <View className="beginner-workout" style={containerStyle}>
-        <Text>Beginner Workout HERE!</Text>
+      <View className="advanced-workout" style={containerStyle}>
+        <Text>Moderate Workout</Text>
       </View>
     );
   }
 }
 
-export default BeginnerWorkout;
+export default AdvancedWorkout;

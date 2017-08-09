@@ -1,12 +1,10 @@
 import React from 'react';
 import { Text, View, Keyboard, StatusBar } from 'react-native';
-import Header from './src/components/Header';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
 
 import ProfileScreen from './src/components/profile/ProfileScreen';
 import WorkoutScreen from './src/components/workout/WorkoutScreen';
-import BeginnerWorkout from './src/components/workout/BeginnerWorkout';
 import CreateScreen from './src/components/create_workout/CreateScreen';
 
 export default class App extends React.Component {
@@ -21,9 +19,9 @@ export default class App extends React.Component {
 }
 
 const routeConfiguration = {
-  Profile: { screen: ProfileScreen },
-  Workout: { screen: WorkoutScreen },
-  Add: { screen: CreateScreen }
+  profile: { screen: ProfileScreen },
+  workout: { screen: WorkoutScreen },
+  create: { screen: CreateScreen }
 };
 
 const tabBarConfiguration = {

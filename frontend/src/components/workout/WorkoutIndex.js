@@ -4,7 +4,10 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
-import BeginnerWorkout from './BeginnerWorkout';
+import NoviceWorkout from './NoviceWorkout';
+import ModerateWorkout from './ModerateWorkout';
+import AdvancedWorkout from './AdvancedWorkout';
+import CustomWorkout from './CustomWorkout';
 
 class WorkoutIndex extends React.Component {
   static navigationOptions = {
@@ -28,25 +31,29 @@ class WorkoutIndex extends React.Component {
 
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle)}
-          onPress={() => {
-            // alert('Clicked!');
-            console.log(this.props);
-            this.props.navigation.navigate('Beginner');
-          }}
+          onPress={() => { this.props.navigation.navigate('novice');}}
           title="Novice Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#4cd964'})}>NOVICE</Text>
           <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#4cd964'})} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, bandStyle)}
+          onPress={() => { this.props.navigation.navigate('moderate');}}
+          title="Moderate Workout"
+          >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff9500'})}>MODERATE</Text>
           <View style={{flexDirection: 'row'}}>
             <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff9500'})} />
             <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff9500'})} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, bandStyle)}
+          onPress={() => { this.props.navigation.navigate('advanced');}}
+          title="Advanced Workout"
+          >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff3b30'})}>ADVANCED</Text>
           <View style={{flexDirection: 'row'}}>
             <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff3b30'})} />
@@ -54,7 +61,11 @@ class WorkoutIndex extends React.Component {
             <FIcon name="tint" style={Object.assign({}, dropStyle, {color: '#ff3b30'})} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={Object.assign({}, buttonStyle, bandStyle)}>
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, bandStyle)}
+          onPress={() => { this.props.navigation.navigate('custom');}}
+          title="Custom Workout"
+          >
           <Text style={Object.assign({}, bandTextStyle, {color: '#6ACDFA'})}>CUSTOM</Text>
           <FIcon name="star" style={Object.assign({}, dropStyle, {color: '#6ACDFA'})} />
         </TouchableOpacity>

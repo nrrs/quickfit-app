@@ -6,7 +6,10 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import { iconStyle, headerStyle, headerTitleStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
 import WorkoutIndex from './WorkoutIndex';
-import BeginnerWorkout from './BeginnerWorkout';
+import NoviceWorkout from './NoviceWorkout';
+import ModerateWorkout from './ModerateWorkout';
+import AdvancedWorkout from './AdvancedWorkout';
+import CustomWorkout from './CustomWorkout';
 
 class WorkoutScreen extends React.Component {
   static navigationOptions = {
@@ -24,12 +27,15 @@ class WorkoutScreen extends React.Component {
 }
 
 
-const WorkoutStackRoutes = {
-  WorkoutIndex: { screen: WorkoutIndex },
-  Beginner: { screen: BeginnerWorkout }
+const workoutStackRoutes = {
+  workoutIndex: { screen: WorkoutIndex },
+  novice: { screen: NoviceWorkout },
+  moderate: { screen: ModerateWorkout },
+  advanced: { screen: AdvancedWorkout },
+  custom: { screen: CustomWorkout },
 };
 
-const WorkoutStackConfig = {
+const workoutStackConfig = {
   headerMode: 'float',
   navigationOptions: {
     headerStyle: headerStyle,
@@ -37,6 +43,6 @@ const WorkoutStackConfig = {
   }
 }
 
-const WorkoutStackNav = StackNavigator(WorkoutStackRoutes, WorkoutStackConfig);
+const WorkoutStackNav = StackNavigator(workoutStackRoutes, workoutStackConfig);
 
 export default WorkoutScreen;
