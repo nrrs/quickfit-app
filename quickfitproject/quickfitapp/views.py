@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
+# from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from .models import Movement
@@ -19,6 +20,24 @@ class MovementViewSet(viewsets.ModelViewSet):
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+
+
+def signup(request):
+    username = request.POST.get('username', None)
+    password = request.POST.get('password', None)
+    email = request.POST.get('email', None)
+    user = User.objects.create_user(username, email, password)
+    user.save()
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user:
+        login(request, user)
+    else:
+        return
+
 
 
 #REST framework generates all below 'standard' functions and routes

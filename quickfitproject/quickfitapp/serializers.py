@@ -29,6 +29,12 @@ class WorkoutSerializer(serializers.ModelSerializer):
                   'workout_data')
 
 
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ('id',
+#                   'email',
+#                   'username')
 
 #HOW TO USE ABOVE SERIALIZERS...
 

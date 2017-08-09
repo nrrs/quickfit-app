@@ -22,9 +22,10 @@ MOVEMENT_TYPES = (
 
 class Movement(models.Model):
 
-    #displays as author_id in table, previously author_id_id
-    #remove null=True after auth setup
-    author = models.ForeignKey(User, null=True) #displays as author_id in table, previously author_id_id
+    # displays as author_id in table, previously author_id_id
+    # remove null=True after auth setup
+    author = models.ForeignKey('auth.user', related_name='movements',
+        on_delete=models.CASCADE)
 
     title = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
@@ -37,24 +38,24 @@ class Movement(models.Model):
 
     demo_url = models.CharField(max_length=2000, blank=True)
 
-    timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)
-    timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
+    timestamp_last_updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    timestamp_created = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    #tells Django which field to use as display on the Django admin
+    # tells Django which field to use as display on the Django admin
     def __str__(self):
         return self.description
 
 
-
 class Workout(models.Model):
 
-    #displays as athlete_id in table
-    #remove null=True after auth setup
-    athlete = models.ForeignKey(User, null=True)   
+    # displays as athlete_id in table
+    # remove null=True after auth setup
+    athlete = models.ForeignKey('auth.user', related_name='workouts',
+        on_delete=models.CASCADE)
 
-    timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
+    timestamp_created = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    #for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
+    # for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
     workout_data = JSONField()
 
     #on admin screen, workouts are keyed by the string of their id (must be a unique string)
@@ -63,12 +64,12 @@ class Workout(models.Model):
         return string_id
 
 
-#for subsequent releases (not configured for this release)...
-#extension of built-in auth_user model (one-to-one link) to store additional information about each user
-#Django will fire an additional query when this related information is accessed
+# for subsequent releases (not configured for this release)...
+# extension of built-in auth_user model (one-to-one link) to store additional information about each user
+# Django will fire an additional query when this related information is accessed
 
 # class Profile(models.Model):
     # bio_data = JSONField()
 
 
-#Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
+# Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
