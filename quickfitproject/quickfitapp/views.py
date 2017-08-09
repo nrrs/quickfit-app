@@ -29,7 +29,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 
 #using view wrappers in attempt to pull movements/workouts associated with one user id
 # @api_view(['GET', 'PUT', 'DELETE'])
-# def movement_detail(request, pk):
+# def movement_detail(request, pk, format=None): #format=None here allows us to use format_suffix_patterns on the urls
 #     try:
 #         single_movement = Movement.objects.get(pk=pk)
 #     except Movement.DoesNotExist:
@@ -40,7 +40,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 #     return Response(serializer.data) #renders the content type as requested by the client BUT serializer.data is native python (I believe)
 #
 #     elif request.method == 'PUT':
-#         serializer = MovementSerializer(single_movement, data=request.data)
+#         serializer = MovementSerializer(single_movement, data=request.data) #request.data can handle json and other content types
 #         if serializer.is_valid():
 #             serializer.save()
 #             return Response(serializer.data)

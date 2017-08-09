@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from . import views
 from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'movements', views.MovementViewSet)
@@ -23,3 +24,8 @@ urlpatterns = [
     url(r'^', include(router.urls)), #covers all routers defined above
     # url(r'^movements/(?P<pk>[0-9]+)/$', views.movement_detail),
 ]
+
+
+#below code breaks the server, probably not intended to be used in addition to default routes....
+#allows frontend to specify data format (e.g. http://example.com/api/items/4.json)
+# urlpatterns = format_suffix_patterns(urlpatterns)
