@@ -4,7 +4,7 @@ import IIcon from 'react-native-vector-icons/Ionicons';
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Create Movement',
+    tabBarLabel: 'Add',
     tabBarIcon: ({ tintColor }) => (
         <Text>
           <IIcon name="md-add-circle" color={tintColor} style={styles.textStyle} />
@@ -19,9 +19,9 @@ export default class CreateScreen extends React.Component {
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.formWrapper} style={styles.containerStyle} >
+        <View style={styles.containerStyle} >
           <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            style={styles.inputStyle}
             keyboardType={'numeric'}
           />
         </View>
@@ -35,6 +35,11 @@ const styles = {
     flex: 1,
     borderColor: 'red',
     borderWidth: 2
+  },
+  inputStyle: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
   },
   textStyle: {
     fontSize: 25
