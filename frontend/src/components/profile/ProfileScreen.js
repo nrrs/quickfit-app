@@ -18,6 +18,16 @@ class ProfileScreen extends React.Component {
       newUser: false
     };
     this.changeForm = this.changeForm.bind(this);
+    this.signup = this.signup.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  signup() {
+    alert("Welcome Back")
+  }
+
+  login() {
+    alert("Welcome to QuickFit")
   }
 
   changeForm(e) {
@@ -59,12 +69,12 @@ class ProfileScreen extends React.Component {
               placeholder="Please enter your password"
             />
 
-            <TouchableOpacity style={buttonStyle}>
+          <TouchableOpacity style={buttonStyle} onPress={this.state.newUser ? this.login: this.signup}>
               <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={this.changeForm}>
-              <Text style={Object.assign({}, subHeaderStyle, {color: '#6ACDFA', alignSelf: 'center'})}>
+              <Text style={Object.assign({}, subHeaderStyle, {fontWeight: '400', color: '#6ACDFA', alignSelf: 'center'})}>
                 {textDisplay.footer}
               </Text>
             </TouchableOpacity>
