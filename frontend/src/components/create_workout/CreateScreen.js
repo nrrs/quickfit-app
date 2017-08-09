@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
-import { iconStyle, textStyle } from '../../styles/styles';
+import { iconStyle, textStyle, subHeaderStyle } from '../../styles/styles';
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
@@ -19,25 +19,36 @@ export default class CreateScreen extends React.Component {
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={formContainerStyle} >
-          <TextInput
-            style={inputStyle}
-            placeholder="Movement Name"
-          />
-          <TextInput
-            style={inputStyle}
-            placeholder="Type"
-          />
-          <TextInput
-            style={Object.assign({}, inputStyle, {height: 160})}
-            placeholder="Description"
-            multiline={true}
-          />
-        <TouchableOpacity style={buttonStyle}>
-          <Text style={textStyle}> ADD </Text>
-        </TouchableOpacity>
-        </View>
+        <ScrollView>
+          <View style={formContainerStyle}>
+            <Text style={subHeaderStyle}>
+              ADD EXERCISE
+            </Text>
+            <TextInput
+              style={inputStyle}
+              placeholder="Name"
+            />
+            <TextInput
+              style={Object.assign({}, inputStyle, { marginBottom: 0})}
+              placeholder="Type"
+            />
+            <Text style={subHeaderStyle}>
+              ADD DESCRIPTION
+            </Text>
+            <TextInput
+              style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
+              placeholder="Keep your core tight and engage!"
+              multiline={true}
+            />
+
+            <TouchableOpacity style={buttonStyle}>
+              <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>New Exercise</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     )
   }
 }
+
+// <Text style={Object.assign({}, textStyle, {color: '#fff'})}> ADD </Text>

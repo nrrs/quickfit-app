@@ -8,12 +8,7 @@ const Header = props => {
 
   return (
     <View style={containerStyle}>
-      <Text style={Object.assign({}, textStyle, { fontSize: 30})}> {props.title} </Text>
-      <TouchableOpacity>
-        <Text>
-          <EIcon name="menu" style={Object.assign({}, textStyle, { fontSize: 30})} />
-        </Text>
-      </TouchableOpacity>
+      <Text style={Object.assign({}, textStyle, {color: '#fff'})}> {props.title} </Text>
     </View>
   );
 };
@@ -21,8 +16,8 @@ const Header = props => {
 const styles = {
   containerStyle: {
     height: 50,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
+    backgroundColor: '#262626',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderBottomColor: '#ccc',

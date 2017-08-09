@@ -11,7 +11,7 @@ import CreateScreen from './src/components/create_workout/CreateScreen';
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerStyle}>
         <StatusBar
           barStyle = 'dark-content'
           />
@@ -30,17 +30,17 @@ const routeConfiguration = {
 
 const tabBarConfiguration = {
   tabBarOptions: {
-		activeTintColor: '#262626',
+		activeTintColor: '#646464',
 		inactiveTintColor: '#ccc',
 		labelStyle: {
-			fontSize: 15,
+			fontSize: 12,
       marginBottom: 5
 		},
 		style: {
 			backgroundColor: '#fff',
 			borderTopWidth: 1,
 			borderTopColor: '#ccc',
-      height: 60
+      height: 50
     }
 	}
 };

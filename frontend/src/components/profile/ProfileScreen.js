@@ -12,7 +12,7 @@ class ProfileScreen extends React.Component {
   }
   render() {
     return (
-      <Text> Profile Page </Text>
+      <Text style={textStyle}> Profile Page </Text>
     )
   }
 }
