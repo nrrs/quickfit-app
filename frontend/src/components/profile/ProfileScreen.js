@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle } from '../../styles/styles';
+import { textStyle, iconStyle, subHeaderStyle } from '../../styles/styles';
+import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -12,7 +13,34 @@ class ProfileScreen extends React.Component {
   }
   render() {
     return (
-      <Text style={textStyle}> Profile Page </Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView>
+          <View style={formContainerStyle}>
+            <Text style={subHeaderStyle}>
+              EMAIL
+            </Text>
+            <TextInput
+              style={Object.assign({}, inputStyle, { marginBottom: 0})}
+              placeholder="Please enter your email"
+            />
+            <Text style={subHeaderStyle}>
+              PASSWORD
+            </Text>
+            <TextInput
+              style={Object.assign({}, inputStyle, { marginBottom: 0})}
+              placeholder="Please enter your password"
+            />
+
+            <TouchableOpacity style={buttonStyle}>
+              <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>Log In</Text>
+            </TouchableOpacity>
+
+            <Text style={Object.assign({}, subHeaderStyle, {color: '#6ACDFA'})}>
+              New to QuickFit?
+            </Text>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     )
   }
 }
