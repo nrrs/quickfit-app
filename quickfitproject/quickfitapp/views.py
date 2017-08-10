@@ -26,19 +26,29 @@ from .serializers import ProfileSerializer
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 
+#returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
+class PermissionToMutateBasedOnAuthor(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in ("DELETE", "PUT", "PATCH"):
+            return obj.author == request.user
+        else:
+            return True
 
-#adjust when we need to filter by user (e.g. only pull one user's movements)
 class MovementViewSet(viewsets.ModelViewSet):
     queryset = Movement.objects.all()
     serializer_class = MovementSerializer
+    permission_classes = (PermissionToMutateBasedOnAuthor,) #this is syntax for tuple
+
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
 
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -84,19 +94,19 @@ class UserWorkoutList(APIView):
 
 
 
-#manual class-based view for working on a specific Movement only if it belongs to a single user
-class UserMovementDetail(APIView):
-
-    def destroy(self, request, pk1, pk2):
-        this_user = self.get_object(pk1)
-        try:
-            movement_to_delete = Movement.objects.get(author=this_user, id=pk2)
-            movement_to_delete.delete()
-            movement_to_delete.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-        except Movement.NotFound:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+#WIP: manual class-based view for mutating a specific Movement only if it belongs to a single user
+# class UserMovementDetail(APIView):
+#
+#     def destroy(self, request, pk1, pk2):
+#         this_user = self.get_object(pk1)
+#         try:
+#             movement_to_delete = Movement.objects.get(author=this_user, id=pk2)
+#             movement_to_delete.delete()
+#             movement_to_delete.save()
+#             return Response(status=status.HTTP_204_NO_CONTENT)
+#
+#         except Movement.NotFound:
+#             return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 
