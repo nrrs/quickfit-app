@@ -1,6 +1,6 @@
 ## QUICKFIT - BACKEND ROUTES
 - Don’t forget closing slash on all routes (Django default requirement)
-- When using Postman to make requests, quickfit returns responses in the form of arrays of objects.
+- Responses are generally in the form of arrays of objects.
 - Check schema for updated constraints on each field/column
 
 
@@ -21,12 +21,16 @@
 - method: POST
 
 ##### Edit one movement
+*restricted to users who are the authors of the movement being edited*
 - /api/movements/4/
 - method: PATCH
 - contentType: 'application/json'
 - data: {"demo_url": “vvvv”}
 
+
+
 ##### Delete one movement
+*restricted to users who are the authors of the movement being deleted*
 - /api/movements/4/
 - method: DELETE
 
@@ -46,21 +50,23 @@
 - contentType: 'application/json'
 - data:   { “athlete_id": 2, "workout_data": “{u'anything_field': 21, u’whatever_field': u’yyy'}" }
 
-*Note:  The workout_data is in the form of a json string with python native object formatting*
+*Note:  The workout_data is in the form of a json string with python native object formatting. I suggest we start using fields instead of json objects.*
 
 ##### Display one workout
 - /api/workouts/4/
 - method: POST
 
 ##### Edit one workout
+*restricted to users who are the athletes of the workout being edited*
 - /api/workouts/4/
 - method: PATCH
 - contentType: 'application/json'
 - data: { "workout_data": “{u'anything_field': 22, u’whatever_field': u’zzz’}" }
 
-*Note:  The workout_data is in the form of a json string with python native object formatting*
+*Note:  The workout_data is in the form of a json string with python native object formatting. I suggest we start using fields instead of json objects.*
 
 ##### Delete one workout
+*restricted to users who are the athletes of the workout being deleted*
 - /api/workouts/4/
 - method: DELETE
 
@@ -83,11 +89,3 @@
 - method: GET
 
 *Note:  Currently, if no movements are found for that user, empty array is returned with status code 200*
-
-
-##### delete a movement only if it belongs to a single user
-- TBD
-
-
-##### delete a workout only if it belongs to a single user
-- TBD
