@@ -70,7 +70,7 @@ class UserMovementList(APIView):
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
         try:
             return User.objects.get(pk=pk)
-        except Movement.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
@@ -89,7 +89,7 @@ class UserWorkoutList(APIView):
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
         try:
             return User.objects.get(pk=pk)
-        except Workout.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
