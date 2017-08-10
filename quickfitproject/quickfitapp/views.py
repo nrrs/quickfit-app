@@ -49,7 +49,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     permission_classes = (PermissionToMutateBasedOnAthlete,) #this is syntax for tuple
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

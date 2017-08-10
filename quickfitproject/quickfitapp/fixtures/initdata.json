@@ -98,6 +98,7 @@
       "description": "Sled Push/Pull",
       "movement_type": "c",
       "demo_url": "youtube.com",
+      "difficulty": "n",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -111,6 +112,7 @@
       "description": "Double Under",
       "movement_type": "c",
       "demo_url": "youtube.com",
+      "difficulty": "b",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -124,6 +126,7 @@
       "description": "Rowing",
       "movement_type": "s",
       "demo_url": "youtube.com",
+      "difficulty": "a",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -137,6 +140,7 @@
       "description": "Tricep Dip",
       "movement_type": "s",
       "demo_url": "youtube.com",
+      "difficulty": "i",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -150,6 +154,7 @@
       "description": "Toes To Bar",
       "movement_type": "l",
       "demo_url": "youtube.com",
+      "difficulty": "i",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
