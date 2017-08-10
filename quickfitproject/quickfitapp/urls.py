@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from . import views
 from rest_framework import routers
-from rest_framework.urlpatterns import format_suffix_patterns
+# from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'movements', views.MovementViewSet)
@@ -9,30 +9,13 @@ router.register(r'workouts', views.WorkoutViewSet)
 router.register(r'profiles', views.ProfileViewSet)
 router.register(r'users', views.UserViewSet)
 
+urlpatterns = [
+    url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
+    url(r'^', include(router.urls)), #catch-all, covers all registered default routers, should be last on list of URLs
+]
 
 #this may need to be adjusted to pull data by user; perhaps switch out WorkoutViewSet for another class?
 # router.register(r'users', views.UserViewSet)
-
-#routes that already exist  (they don't exist for movements)
-# ^api/ ^ ^users/$ [name='workout-list']
-# ^api/ ^ ^users\.(?P<format>[a-z0-9]+)/?$ [name='workout-list']
-# ^api/ ^ ^users/(?P<pk>[^/.]+)/$ [name='workout-detail']
-# ^api/ ^ ^users/(?P<pk>[^/.]+)\.(?P<format>[a-z0-9]+)/?$ [name='workout-detail']
-
-
-#for all default routes (works for all routes registered above)
-# urlpatterns = [
-    # url(r'^', include(router.urls)), #covers all routers defined above
-# ]
-
-
-# class-based movement urls
-urlpatterns = [
-    url(r'^movements/$', views.MovementList.as_view()),
-    url(r'^movements/(?P<pk>[0-9]+)/$', views.MovementDetail.as_view()),
-    url(r'^user_movements/(?P<pk>[0-9]+)/$', views.UsersMovementList.as_view()),
-]
-
 
 #function-based movement urls
 # urlpatterns = [
