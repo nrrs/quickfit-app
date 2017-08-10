@@ -18,7 +18,7 @@ export default class App extends React.Component {
   }
 }
 
-const routeConfiguration = {
+const tabRoutes = {
   profile: { screen: ProfileScreen },
   workout: { screen: WorkoutScreen },
   create: { screen: CreateScreen }
@@ -41,7 +41,7 @@ const tabBarConfiguration = {
 	}
 };
 
-const FooterTabs = TabNavigator(routeConfiguration, tabBarConfiguration);
+const FooterTabs = TabNavigator(tabRoutes, tabBarConfiguration);
 
 const styles = {
   containerStyle: {
