@@ -9,7 +9,7 @@ import { Text,
          Image
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
+import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 
 class ProfileIndex extends React.Component {
@@ -33,6 +33,14 @@ class ProfileIndex extends React.Component {
           <View style={formContainerStyle}>
             <View className='ProfileDescription' style={Object.assign({}, buttonStyle, {flexDirection: 'row'})}>
               <View style={styles.profileImgContainer}>
+                <Image
+                  source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Usain_Bolt_portrait.jpg'}}
+                  style={{flex: 1,
+    alignSelf: 'stretch',
+    borderRadius: 60,
+    width: 120,
+    height: 120}}
+                />
               </View>
               <View>
                 <View>
@@ -42,17 +50,28 @@ class ProfileIndex extends React.Component {
               </View>
             </View>
 
-            <View style={buttonStyle}>
-              <Text style={captionStyle}> Edit Profile </Text>
+            <TouchableOpacity style={buttonStyle} onPress={() => {
+              this.props.navigation.navigate('edit');
+            }}>
+              <Text style={Object.assign({}, textStyle, {color: 'blue'})}> Edit Profile </Text>
+            </TouchableOpacity>
+            <View style={cardStyle}>
+              <Text style={subHeaderStyle}> Workout on 8/11/2017</Text>
+              <Text style={textStyle}> Moderate Tabata </Text>
+              <Text style={textStyle}> Pushups </Text>
+              <Text style={textStyle}> Burpees </Text>
             </View>
-            <View style={buttonStyle}>
-              <Text style={textStyle}> Previous Workout 1</Text>
+            <View style={cardStyle}>
+              <Text style={subHeaderStyle}> Workout on 8/9/2017</Text>
+              <Text style={textStyle}> Advanced Counter </Text>
+              <Text style={textStyle}> Pullups </Text>
+              <Text style={textStyle}> Squats </Text>
             </View>
-            <View style={buttonStyle}>
-              <Text style={textStyle}> Previous Workout 2</Text>
-            </View>
-            <View style={buttonStyle}>
-              <Text style={textStyle}> Previous Workout 3</Text>
+            <View style={cardStyle}>
+              <Text style={subHeaderStyle}> Workout on 8/7/2017</Text>
+              <Text style={textStyle}> Novice Interval </Text>
+              <Text style={textStyle}> Lunges </Text>
+              <Text style={textStyle}> Burpees </Text>
             </View>
           </View>
         </ScrollView>
@@ -68,7 +87,8 @@ const styles = {
     borderRadius: 100,
     borderWidth: 1,
     borderColor: '#dddddd'
-  }
+  },
+
 }
 
 export default ProfileIndex;

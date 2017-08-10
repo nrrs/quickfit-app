@@ -76,3 +76,18 @@ export const bandStyle = {
   justifyContent: 'space-between',
   flexDirection: 'row'
 };
+
+export const cardStyle = {
+  backgroundColor: '#fff',
+  borderWidth: 1,
+  borderColor: '#e6e6e6',
+  borderRadius: 3,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 10,
+  marginLeft: 10,
+  marginRight: 10,
+  paddingTop: 15,
+  paddingBottom: 15,
+  height: 200
+}
