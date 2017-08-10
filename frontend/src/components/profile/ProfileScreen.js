@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle, captionStyle, subHeaderStyle, headerStyle, headerTitleStyle } from '../../styles/styles';
+import { textStyle, iconStyle, captionStyle, subHeaderStyle, headerStyle, stackHeaderStyle, headerTitleStyle } from '../../styles/styles';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ProfileAuth from './ProfileAuth';
 import ProfileIndex from './ProfileIndex';
@@ -19,7 +19,7 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       currentUser: {
         id: 1,
         name: 'Bruce Wayne'
@@ -43,7 +43,7 @@ const profileStackRoutes = {
 const profileStackConfig = {
   headerMode: 'float',
   navigationOptions: {
-    headerStyle: headerStyle,
+    headerStyle: stackHeaderStyle,
     headerTitleStyle: headerTitleStyle
   }
 }
