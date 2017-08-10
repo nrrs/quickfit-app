@@ -10,7 +10,8 @@ router.register(r'profiles', views.ProfileViewSet)
 router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
-    url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
+    # url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/workouts/$', views.UserWorkoutList.as_view()),
     url(r'^', include(router.urls)), #catch-all, covers all registered default routers, should be last on list of URLs
 ]
 

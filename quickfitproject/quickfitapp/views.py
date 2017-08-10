@@ -86,6 +86,26 @@ class UserMovementDelete(APIView):
         return Response(serializer.data)
 
 
+
+#manual class-based view for listing Movements that belong to a single user
+class UserWorkoutList(APIView):
+
+    def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
+        try:
+            return User.objects.get(pk=pk)
+        except Workout.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        this_user = self.get_object(pk)
+        try:
+            all_workouts = Workout.objects.filter(athlete=this_user)
+            serializer = WorkoutSerializer(all_workouts, many=True)
+            return Response(serializer.data)
+        except Workout.NotFound:
+            raise Http404   #currently just returning empty array with status code 200
+
+
 #Use below after auth installed to access current user
 # from rest_framework import permissions
 #
