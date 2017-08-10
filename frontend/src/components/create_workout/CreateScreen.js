@@ -4,6 +4,7 @@ import IIcon from 'react-native-vector-icons/Ionicons';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import { iconStyle, textStyle, subHeaderStyle } from '../../styles/styles';
 import Header from '../Header';
+import axios from 'axios';
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
@@ -26,10 +27,20 @@ export default class CreateScreen extends React.Component {
 
   _handlePress(e) {
     e.preventDefault;
-    let newExercise = {
-
+    let newMovement = {
+      name: this.state.nameInput,
+      type: this.state.typeInput,
+      description: this.state.descriptionInput
     }
-    alert(this.state);
+    console.log(newMovement);
+    axios.post('/user', newMovement)
+      .then((res) => {
+        alert('post success!');
+      })
+      .catch((err) => {
+        alert('post fail!');
+      })
+
   }
 
   _updateText(field) {
