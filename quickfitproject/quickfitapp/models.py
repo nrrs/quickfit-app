@@ -19,12 +19,18 @@ MOVEMENT_TYPES = (
     ('y', "yoga")
 )
 
+DIFFICULTY_TYPES = (
+    ('n', "none"),
+    ('b', "beginner"),
+    ('i', "intermediate"),
+    ('a', "advanced")
+)
+
 
 class Movement(models.Model):
 
-    #displays as author_id in table, previously author_id_id
-    #remove null=True after auth setup
-    author = models.ForeignKey(User, null=True) #displays as author_id in table, previously author_id_id
+    #displays as author_id in table; remove null=True after auth setup
+    author = models.ForeignKey(User, null=True) 
 
     title = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
@@ -35,12 +41,18 @@ class Movement(models.Model):
         default='o',
     )
 
+    difficulty = models.CharField(
+        choices = DIFFICULTY_TYPES,
+        max_length=1,
+        default='n',
+    )
+
     demo_url = models.CharField(max_length=2000, blank=True)
 
     timestamp_last_updated = models.DateField(auto_now=True, auto_now_add=False)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
-    #tells Django which field to use as display on the Django admin
+    #tells Django which field to use as display on the Django admin or anytime you want string representation of the entire object
     def __str__(self):
         return self.description
 
@@ -48,10 +60,8 @@ class Movement(models.Model):
 
 class Workout(models.Model):
 
-    #displays as athlete_id in table
-    #remove null=True after auth setup
-    athlete = models.ForeignKey(User, null=True)   
-
+    #displays as athlete_id in table; remove null=True after auth setup
+    athlete = models.ForeignKey(User, null=True)
     timestamp_created = models.DateField(auto_now=False, auto_now_add=True)
 
     #for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
@@ -64,11 +74,27 @@ class Workout(models.Model):
 
 
 #for subsequent releases (not configured for this release)...
-#extension of built-in auth_user model (one-to-one link) to store additional information about each user
+#extend built-in auth_user model (one-to-one link) to store additional information about each user
 #Django will fire an additional query when this related information is accessed
 
-# class Profile(models.Model):
+#while auth is under development, I'm using Profile as stand-in for User
+class Profile(models.Model):
+    silly_username = models.CharField(max_length=100, blank=False)
     # bio_data = JSONField()
+
+    #on admin screen, profiles are keyed by the silly_username
+    def __str__(self):
+        return self.silly_username
 
 
 #Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
+
+
+#HOW TO GENERATE AN OBJECT IN THE PYTHON SHELL (ALTERNATIVE TO USING ADMIN GUI)
+# python manage.py shell
+# >>> from api.models import Note
+# >>> note = Note(title="First Note", body="This is certainly noteworthy")
+# >>> note.save()
+# >>> Note.objects.all()
+# <QuerySet [<Note: First Note This is certainly noteworthy>]>
+# >>> exit()
