@@ -103,6 +103,7 @@ venv/
 ### Custom ###
 *.db
 *.sqlite
+*.sqlite3
 
 
 ### OSX ###
