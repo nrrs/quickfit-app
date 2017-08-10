@@ -39,7 +39,7 @@ export default class CreateScreen extends React.Component {
       })
       .catch((err) => {
         alert('post fail!');
-      })
+      });
 
   }
 
