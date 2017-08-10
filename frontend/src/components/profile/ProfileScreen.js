@@ -5,6 +5,7 @@ import { textStyle, iconStyle, captionStyle, subHeaderStyle, headerStyle, header
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ProfileAuth from './ProfileAuth';
 import ProfileIndex from './ProfileIndex';
+import ProfileEdit from './ProfileEdit';
 import { StackNavigator } from 'react-navigation';
 
 class ProfileScreen extends React.Component {
@@ -36,7 +37,7 @@ class ProfileScreen extends React.Component {
 
 const profileStackRoutes = {
   index: { screen: ProfileIndex },
-  auth: { screen: ProfileAuth},
+  edit: { screen: ProfileEdit},
 }
 
 const profileStackConfig = {
