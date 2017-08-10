@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Keyboard, StatusBar } from 'react-native';
+import { AppRegistry, Text, View, Keyboard, StatusBar } from 'react-native';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
 

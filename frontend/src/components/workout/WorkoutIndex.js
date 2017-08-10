@@ -29,7 +29,7 @@ class WorkoutIndex extends React.Component {
 
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
-          shadowColor: '#e6e6e6'})}
+          shadowColor: '#e6e6e6', marginTop: 15})}
           onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'novice'});}}
           title="Novice Workout"
           >
