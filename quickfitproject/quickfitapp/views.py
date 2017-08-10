@@ -40,9 +40,18 @@ class MovementViewSet(viewsets.ModelViewSet):
     permission_classes = (PermissionToMutateBasedOnAuthor,) #this is syntax for tuple
 
 
+#returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
+class PermissionToMutateBasedOnAthlete(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in ("DELETE", "PUT", "PATCH"):
+            return obj.athlete == request.user
+        else:
+            return True
+
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+    permission_classes = (PermissionToMutateBasedOnAthlete,) #this is syntax for tuple
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
