@@ -44,7 +44,9 @@ const profileStackConfig = {
   headerMode: 'float',
   navigationOptions: {
     headerStyle: stackHeaderStyle,
-    headerTitleStyle: headerTitleStyle
+    headerTitleStyle: headerTitleStyle,
+    headerBackTitle: ' ',
+    shadowHidden: true
   }
 }
 
