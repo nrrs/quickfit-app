@@ -137,18 +137,20 @@ AUTH_PASSWORD_VALIDATORS = [
 OAUTH2_PROVIDER = {
 # this is the list of available scopes
 'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
-'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 24h (It is better to choose shorter periods)
+'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 30m (It is better to choose shorter periods)
 }
 
 
 # Rest API - disabling auth for this branch, Kevin working on auth concurrently on another branch
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated',
     ),
 }
 

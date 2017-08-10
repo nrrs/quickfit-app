@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
+
 from rest_framework import serializers
+
 from .models import Movement
 from .models import Workout
 
@@ -29,12 +32,12 @@ class WorkoutSerializer(serializers.ModelSerializer):
                   'workout_data')
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id',
-#                   'email',
-#                   'username')
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id',
+                  'email',
+                  'username')
 
 #HOW TO USE ABOVE SERIALIZERS...
 
