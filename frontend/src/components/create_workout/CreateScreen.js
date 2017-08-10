@@ -28,12 +28,13 @@ export default class CreateScreen extends React.Component {
   _handlePress(e) {
     e.preventDefault;
     let newMovement = {
-      name: this.state.nameInput,
-      type: this.state.typeInput,
+      author_id: 2,
+      title: this.state.nameInput,
+      movement_type: this.state.typeInput,
       description: this.state.descriptionInput
     }
     console.log(newMovement);
-    axios.post('/user', newMovement)
+    axios.post('http://192.168.3.183:8000/api/movements/', newMovement)
       .then((res) => {
         alert('post success!');
       })
