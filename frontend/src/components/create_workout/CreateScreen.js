@@ -15,6 +15,27 @@ export default class CreateScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      nameInput: '',
+      typeInput: '',
+      descriptionInput: ''
+    };
+    this._handlePress = this._handlePress.bind(this);
+    this._updateText = this._updateText.bind(this);
+  }
+
+  _handlePress(e) {
+    e.preventDefault;
+    let newExercise = {
+
+    }
+    alert(this.state);
+  }
+
+  _updateText(field) {
+    return (val) => {
+      this.setState({[field]: val});
+    }
   }
 
   render() {
@@ -24,26 +45,31 @@ export default class CreateScreen extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
-              <Text style={subHeaderStyle}>
-                ADD EXERCISE
-              </Text>
+              <Text style={subHeaderStyle}> ADD MOVEMENT </Text>
               <TextInput
+                id="nameInput"
                 style={inputStyle}
                 placeholder="Name"
+                onChangeText={this._updateText("nameInput")}
               />
               <TextInput
+                id="typeInput"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 placeholder="Type"
+                onChangeText={this._updateText("typeInput")}
               />
-              <Text style={subHeaderStyle}>
-                ADD DESCRIPTION
-              </Text>
+              <Text style={subHeaderStyle}> ADD DESCRIPTION </Text>
               <TextInput
+                id="descriptionInput"
                 style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
                 placeholder="Keep your core tight and engage!"
                 multiline={true}
+                onChangeText={this._updateText("descriptionInput")}
               />
-              <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})}>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 30})}
+                onPress={this._handlePress}
+              >
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>New Exercise</Text>
               </TouchableOpacity>
             </View>
