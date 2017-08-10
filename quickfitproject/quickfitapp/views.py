@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 # for use with function-based decoratored views
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -49,7 +50,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     permission_classes = (PermissionToMutateBasedOnAthlete,) #this is syntax for tuple
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

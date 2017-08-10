@@ -75,13 +75,13 @@ class Workout(models.Model):
 # Django will fire an additional query when this related information is accessed
 
 # while auth is under development, I'm using Profile as stand-in for User
-# class Profile(models.Model):
-#     silly_username = models.CharField(max_length=100, blank=False)
-#     # bio_data = JSONField()
+class Profile(models.Model):
+    silly_username = models.CharField(max_length=100, blank=False)
+    # bio_data = JSONField()
 
     # on admin screen, profiles are keyed by the silly_username
-#     def __str__(self):
-#         return self.silly_username
+    def __str__(self):
+        return self.silly_username
 
 
 # Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
@@ -94,4 +94,3 @@ class Workout(models.Model):
 # >>> Note.objects.all()
 # <QuerySet [<Note: First Note This is certainly noteworthy>]>
 # >>> exit()
-
