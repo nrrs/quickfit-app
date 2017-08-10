@@ -12,7 +12,6 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/workouts/$', views.UserWorkoutList.as_view()),
-    # url(r'^users/(?P<pk1>[0-9]+)/movements/(?P<pk2>[0-9]+)$', views.UserMovementDetail.as_view()), #after auth installed, undo nesting under users by utilizing current_user info
 
     url(r'^', include(router.urls)), #catch-all, covers all registered default routers, should be last on list of URLs
 
