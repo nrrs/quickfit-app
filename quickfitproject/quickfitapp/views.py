@@ -1,32 +1,27 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import viewsets
-from rest_framework import permissions
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
-#for use with function-based decoratored views
-from rest_framework import status
+# for use with function-based decoratored views
+from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-#for use with class-based views
-from django.http import Http404
+# for use with class-based views
+from django.http import Http404  # refactor to use 'status' from rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-#importing the models and their serializers
-from .models import Movement
-from .serializers import MovementSerializer
-from .models import Workout
-from .serializers import WorkoutSerializer
-from .models import Profile
-from .serializers import ProfileSerializer
-from django.contrib.auth.models import User
-from .serializers import UserSerializer
+# importing the models and their serializers
+from .models import Movement, Workout, Profile
+from .serializers import MovementSerializer, WorkoutSerializer, UserSerializer, ProfileSerializer
 
-#returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
+
+# returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
 class PermissionToMutateBasedOnAuthor(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in ("DELETE", "PUT", "PATCH"):
@@ -52,6 +47,60 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
     permission_classes = (PermissionToMutateBasedOnAthlete,) #this is syntax for tuple
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, TokenHasReadWriteScope]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
+#
+# client_secret = 'XuNyLon7py5lmkbjfCxKYgCcbcPrv5REjFJsXtZCdA5PSE2VWwUFeSy0IQxeES2yRZZpe7BUVTzODjyM4R2Eq9dd0A4oZd9szvD3a5mjoSt1hnfLV2s6Xqq267zW2pD1'
+
+# class-based views
+# class LoginView(APIView):
+#     authentication_classes = (SessionAuthentication, BasicAuthentication)
+#     permission_classes = (IsAuthenticated,)
+#
+#     def post(self, request, format=None):
+#         content = {
+#             'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+#             'auth': unicode(request.auth),  # None
+#         }
+#         return Response(content)
+
+
+# function-based view for basic auth
+# @api_view(['POST'])
+# def signup(request):
+#     username = request.POST.get('username', None)
+#     password = request.POST.get('password', None)
+#     email = request.POST.get('email', None)
+#     user = User.objects.create_user(username, email, password)
+#     user.save()
+#     serializer = UserSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=201)
+#     return Response(serializer.errors, status=400)
+#
+# @api_view(['POST'])
+# def login(request):
+#     username = request.POST.get('username', None)
+#     password = request.POST.get('password', None)
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         serializer = UserSerializer(user)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=201)
+#         return Response(serializer.errors, status=400)
+#     else:
+#         return JsonResponse(
+#           {'errors': ['Invalid combination of username and password.']}
+#         )
+
 
 
 class ProfileViewSet(viewsets.ModelViewSet):

@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
+
 from rest_framework import serializers
+
 from .models import Movement
 from .models import Workout
 from .models import Profile
@@ -55,6 +58,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'username')
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id',
+                  'email',
+                  'username')
 
 #HOW TO USE ABOVE SERIALIZERS...
 
