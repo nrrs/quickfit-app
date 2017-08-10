@@ -72,11 +72,17 @@
 ### Nested routes
 
 ##### display a single user’s movements
-- TBD
+- /api/users/2/movements
+- method: GET
+
+*Note:  Currently, if no movements are found for that user, empty array is returned with status code 200*
 
 
 ##### display a single user’s workouts
-- TBD
+- /api/users/2/workouts
+- method: GET
+
+*Note:  Currently, if no movements are found for that user, empty array is returned with status code 200*
 
 
 ##### delete a movement only if it belongs to a single user
