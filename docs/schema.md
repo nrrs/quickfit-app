@@ -9,6 +9,7 @@ author_id  	    	| integer      			| foreign key (change to not null when auth s
 title     		| character varying(100)	| not null
 description   	 	| text   			|
 movement_type   	| character varying(1)   	| not null, select one from preset options
+difficulty   	| character varying(1)   	| not null, select one from preset options
 demo_url  		| character varying(2000)  	|
 timestamp_last_updated  | date  			| not null
 timestamp_created	| date	 			| not null
