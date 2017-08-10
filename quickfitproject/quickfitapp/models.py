@@ -19,6 +19,13 @@ MOVEMENT_TYPES = (
     ('y', "yoga")
 )
 
+DIFFICULTY_TYPES = (
+    ('n', "none"),
+    ('b', "beginner"),
+    ('i', "intermediate"),
+    ('a', "advanced")
+)
+
 
 class Movement(models.Model):
 
@@ -33,6 +40,12 @@ class Movement(models.Model):
         choices = MOVEMENT_TYPES,
         max_length=1,
         default='o',
+    )
+
+    difficulty = models.CharField(
+        choices = DIFFICULTY_TYPES,
+        max_length=1,
+        default='n',
     )
 
     demo_url = models.CharField(max_length=2000, blank=True)
