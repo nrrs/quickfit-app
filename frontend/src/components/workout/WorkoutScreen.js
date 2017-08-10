@@ -10,6 +10,7 @@ import NoviceWorkout from './NoviceWorkout';
 import ModerateWorkout from './ModerateWorkout';
 import AdvancedWorkout from './AdvancedWorkout';
 import CustomWorkout from './CustomWorkout';
+import Workout from './Workout';
 
 class WorkoutScreen extends React.Component {
   static navigationOptions = {
@@ -29,10 +30,7 @@ class WorkoutScreen extends React.Component {
 
 const workoutStackRoutes = {
   workoutIndex: { screen: WorkoutIndex },
-  novice: { screen: NoviceWorkout },
-  moderate: { screen: ModerateWorkout },
-  advanced: { screen: AdvancedWorkout },
-  custom: { screen: CustomWorkout },
+  workout: { screen: Workout }
 };
 
 const workoutStackConfig = {
@@ -42,6 +40,10 @@ const workoutStackConfig = {
     headerTitleStyle: headerTitleStyle,
     headerBackTitle: ' ',
     shadowHidden: true
+  },
+  cardStyle: {
+    flex: 1,
+    backgroundColor: '#fafafa'
   }
 }
 

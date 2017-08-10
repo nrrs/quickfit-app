@@ -30,7 +30,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('novice');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'novice'});}}
           title="Novice Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#4cd964'})}>NOVICE</Text>
@@ -40,7 +40,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('moderate');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'moderate'});}}
           title="Moderate Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff9500'})}>MODERATE</Text>
@@ -52,7 +52,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('advanced');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'advanced'});}}
           title="Advanced Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff3b30'})}>ADVANCED</Text>
@@ -65,7 +65,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('custom');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'custom'});}}
           title="Custom Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#6ACDFA'})}>CUSTOM</Text>

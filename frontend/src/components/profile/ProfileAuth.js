@@ -61,11 +61,14 @@ class ProfileAuth extends React.Component {
               <TextInput
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 placeholder="athlete@quickfit.com"
+                returnKeyType='next'
               />
               <Text style={subHeaderStyle}>PASSWORD</Text>
               <TextInput
+                secureTextEntry={true}
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 placeholder="Minimum 6 characters"
+                returnKeyType='done'
               />
               <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this.login: this.signup}>
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
