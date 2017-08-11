@@ -178,7 +178,7 @@ STATICFILE_DIRS = [
     ASSETS_DIR,
 ]
 
-STATICFILE_ROOT = os.path.join(ASSETS_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(ASSETS_DIR, 'staticfiles')
 
 # WEBPACK_LOADER = {
 #   'DEFAULT': {
