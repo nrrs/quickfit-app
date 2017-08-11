@@ -26,7 +26,8 @@ class MovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movement
         fields = ('id',
-                  'author_id',   #model field name is 'author', but displays as author_id in table
+                #   'author_id',   #for auth, model field name is 'author', but displays as author_id in table
+                  'author',   #when auth turned off, this is just an integer
                   'movement_name',
                   'description',
                   'movement_type',
