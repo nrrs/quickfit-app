@@ -126,12 +126,12 @@ export default class CreateScreen extends React.Component {
                 onChangeText={this._updateText("description")}
               />
               <TouchableOpacity
-                style={Object.assign({}, buttonStyle, {marginTop: 30, marginBottom: 10})}
+                style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
                 onPress={this._handlePress}
               >
                 <Text style={buttonTextStyle}>New Exercise</Text>
               </TouchableOpacity>
-
+            </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

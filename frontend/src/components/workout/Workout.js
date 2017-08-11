@@ -151,7 +151,7 @@ class Workout extends React.Component {
         style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.ready(this.currentExerciseArray) }
         >
-        <Text style={buttonTextStyle}>Ready?</Text>
+        <Text style={ Object.assign({}, buttonTextStyle, {color: '#ff3b30'}) }>READY?</Text>
       </TouchableOpacity>
     ); }
 

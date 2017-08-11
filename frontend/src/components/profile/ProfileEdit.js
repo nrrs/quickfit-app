@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import axios from 'axios';
 
 class ProfileEdit extends React.Component {
@@ -76,7 +76,7 @@ class ProfileEdit extends React.Component {
                 style={Object.assign({}, buttonStyle, {marginTop: 30})}
                 onPress={this._handleSubmit}
                 >
-                <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}> Update </Text>
+                <Text style={buttonTextStyle}>Update</Text>
               </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>
