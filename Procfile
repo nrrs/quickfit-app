@@ -1,1 +1,1 @@
-web: gunicorn quickfitproject.wsgi
+web: gunicorn -b 0.0.0.0:$PORT quickfitproject.wsgi
