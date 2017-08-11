@@ -66,7 +66,7 @@ export default class CreateScreen extends React.Component {
               <TextInput
                 id="typeInput"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Type"
+                placeholder="Type: ie. weightlifting, dance, or cardio"
                 onChangeText={this._updateText("typeInput")}
               />
               <Text style={subHeaderStyle}> ADD DESCRIPTION </Text>

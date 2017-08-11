@@ -19,7 +19,7 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       currentUser: {
         id: 1,
         name: 'Bruce Wayne'

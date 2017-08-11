@@ -86,7 +86,7 @@ class Workout extends React.Component {
   displayExercises() {
     if (this.state.editable) { return this.selectExercises(); }
     return (
-        <View style={{ flex: 1, borderWidth:1, borderColor: 'red' }}>
+        <View style={{ flex: 1 }}>
 
             { this.state.exercises.map( (el, i) => (
               <View key={i} style={buttonStyle}>
@@ -150,7 +150,7 @@ class Workout extends React.Component {
   renderButton() {
     if (this.state.editable) { return (
       <TouchableOpacity
-        style={Object.assign({}, buttonStyle, {flex: 1, marginTop: 10, marginBottom: 10})}
+        style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.ready(this.currentExerciseArray) }
         >
         <Text style={{color: '#ff3b30', fontSize: 20, fontWeight: 'bold'}}>Ready?</Text>
@@ -159,7 +159,7 @@ class Workout extends React.Component {
 
     return (
       <TouchableOpacity
-        style={Object.assign({}, buttonStyle, {flex: 1,marginTop: 10, marginBottom: 10})}
+        style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.go()}
         >
         <Text style={{color: '#4cd964', fontSize: 20, fontWeight: 'bold'}}>GO!</Text>
@@ -208,7 +208,7 @@ class Workout extends React.Component {
               </View>
 
 
-              <View className='movement-list-box' style={Object.assign({}, bandContainerStyle, {borderColor: 'blue', flex: 1, borderWidth: 1}) }>
+              <View className='movement-list-box' style={bandContainerStyle}>
                 <ScrollView style={{flex:1}}>
                   { this.displayExercises() }
                   { this.renderButton() }
