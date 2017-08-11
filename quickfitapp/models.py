@@ -44,7 +44,6 @@ class Movement(models.Model):
 
     difficulty = models.CharField(
         choices = DIFFICULTY_TYPES,
-        max_length=1,
         default='n',
     )
 
