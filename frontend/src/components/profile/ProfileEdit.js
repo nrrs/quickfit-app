@@ -49,9 +49,8 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={formContainerStyle}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+          <ScrollView style={formContainerStyle}>
               <Text style={subHeaderStyle}>FULL NAME</Text>
               <TextInput
                 id="fullName"
@@ -73,10 +72,12 @@ class ProfileEdit extends React.Component {
                 placeholder="Minimum 6 characters"
                 onChangeText={this._updateText("passwordInput")}
               />
-            <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this._handleSubmit}>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 30})}
+                onPress={this._handleSubmit}
+                >
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}> Update </Text>
               </TouchableOpacity>
-            </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

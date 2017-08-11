@@ -17,6 +17,12 @@ export const buttonStyle =  {
   paddingBottom: 15
 };
 
+export const buttonTextStyle = {
+  color: '#6ACDFA',
+  fontSize: 17,
+  fontWeight: 'bold'
+};
+
 export const inputStyle = {
   height: 50,
   padding: 10,

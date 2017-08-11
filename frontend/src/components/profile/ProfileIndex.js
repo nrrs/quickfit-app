@@ -10,7 +10,7 @@ import { Text,
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 
 class ProfileIndex extends React.Component {
   static navigationOptions = {
@@ -35,12 +35,13 @@ class ProfileIndex extends React.Component {
               <View style={styles.profileImgContainer}>
                 <Image
                   source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Usain_Bolt_portrait.jpg'}}
-                  style={{flex: 1,
-    alignSelf: 'stretch',
-    borderRadius: 60,
-    width: 120,
-    height: 120}}
-                />
+                  style={{
+                    flex: 1,
+                    alignSelf: 'stretch',
+                    borderRadius: 60,
+                    width: 120,
+                    height: 120}}
+                    />
               </View>
               <View>
                 <View>
@@ -50,10 +51,12 @@ class ProfileIndex extends React.Component {
               </View>
             </View>
 
-            <TouchableOpacity style={buttonStyle} onPress={() => {
-              this.props.navigation.navigate('edit');
-            }}>
-              <Text style={Object.assign({}, textStyle, {color: 'blue'})}> Edit Profile </Text>
+            <TouchableOpacity
+              style={Object.assign({}, buttonStyle, { marginBottom: 10 })}
+              onPress={() => {
+                this.props.navigation.navigate('edit');
+              }}>
+              <Text style={buttonTextStyle}> Edit Profile </Text>
             </TouchableOpacity>
             <View style={cardStyle}>
               <Text style={subHeaderStyle}> Workout on 8/11/2017</Text>

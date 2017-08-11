@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import { iconStyle, textStyle, subHeaderStyle } from '../../styles/styles';
 import Header from '../Header';
 import axios from 'axios';
@@ -34,7 +34,7 @@ export default class CreateScreen extends React.Component {
       description: this.state.descriptionInput
     }
     console.log(newMovement);
-    axios.post('http://192.168.3.183:8000/api/movements/', newMovement)
+    axios.get('http://rallycoding.herokuapp.com/api/music_albums')
       .then((res) => {
         alert('post success!');
       })
@@ -55,8 +55,8 @@ export default class CreateScreen extends React.Component {
       <View style={{ flex: 1}}>
         <Header title='QuickFit'/>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={formContainerStyle}>
+          <ScrollView style={formContainerStyle}>
+
               <Text style={subHeaderStyle}> ADD MOVEMENT </Text>
               <TextInput
                 id="nameInput"
@@ -82,9 +82,9 @@ export default class CreateScreen extends React.Component {
                 style={Object.assign({}, buttonStyle, {marginTop: 30})}
                 onPress={this._handlePress}
               >
-                <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>New Exercise</Text>
+                <Text style={buttonTextStyle}>New Exercise</Text>
               </TouchableOpacity>
-            </View>
+
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

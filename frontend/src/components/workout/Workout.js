@@ -68,6 +68,7 @@ class Workout extends React.Component {
       this.setState({
         [field]: num}
       );
+      console.log(this.state);
     }
   }
 
