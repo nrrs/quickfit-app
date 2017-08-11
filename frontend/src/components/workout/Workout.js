@@ -25,7 +25,8 @@ class Workout extends React.Component {
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
       time: null,
-      exercises: []
+      exercises: [],
+      timerDisplay: ''
     }
 
     this.currentExerciseArray = [];
@@ -64,8 +65,19 @@ class Workout extends React.Component {
     return (val) => {
       let num = parseInt(val);
       this.setState({
-        [field]: num}
-      );
+        [field]: num
+      });
+      if (field === "time") {
+        let displayVal = val;
+        // let noColons = newVal.replace(/:/, '')
+
+        if (displayVal.length % 2 === 0) {
+          displayVal += ":"
+        }
+        this.setState({
+          timerDisplay: `${displayVal}`
+        });
+      }
       console.log(this.state);
     }
   }
@@ -205,6 +217,7 @@ class Workout extends React.Component {
                   editable={this.state.editable}
                   keyboardType='number-pad'
                   onChangeText={this._updateText("time")}
+                  value={this.state.timerDisplay}
                   maxLength={6}
                   />
 
