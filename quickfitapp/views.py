@@ -114,7 +114,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-#manual class-based view for listing Movements that belong to a single user
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserMovementList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
@@ -133,7 +133,7 @@ class UserMovementList(APIView):
             raise Http404   #currently just returning empty array with status code 200
 
 
-#manual class-based view for listing Movements that belong to a single user
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserWorkoutList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
