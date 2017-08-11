@@ -19,7 +19,7 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       currentUser: {
         id: 1,
         name: 'Bruce Wayne'
@@ -31,7 +31,7 @@ class ProfileScreen extends React.Component {
 
   render() {
     if (this.state.loading) return (<Text> Loading </Text>);
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this}/>
   }
 }
 

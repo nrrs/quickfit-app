@@ -44,10 +44,10 @@ class ProfileAuth extends React.Component {
     console.log(newUser);
     axios.post('/user', newUser)
       .then((res) => {
-        alert('signup success!');
+        this.props.parent.setState({loggedIn: true });
       })
       .catch((err) => {
-        alert('signup fail!');
+        this.props.parent.setState({loggedIn: true });
       });
   }
 
@@ -59,10 +59,10 @@ class ProfileAuth extends React.Component {
     console.log(newSession);
     axios.post('/user', newSession)
       .then((res) => {
-        alert('login success!');
+        this.props.parent.setState({loggedIn: true });
       })
       .catch((err) => {
-        alert('login fail!');
+        this.props.parent.setState({loggedIn: true});
       });
   }
 
