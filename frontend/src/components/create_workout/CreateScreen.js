@@ -9,6 +9,7 @@ import ModalPicker from 'react-native-modal-picker';
 
 const createSubHeaderStyle = Object.assign({}, subHeaderStyle, { marginTop: 0 });
 
+
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Add',
