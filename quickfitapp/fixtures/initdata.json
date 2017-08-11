@@ -9,7 +9,7 @@
       "username": "admin",
       "first_name": "",
       "last_name": "",
-      "email": "admin@example.com",
+      "email": "admin@admin.com",
       "is_staff": true,
       "is_active": true,
       "date_joined": "2017-08-07T18:24:53.762Z",
@@ -93,10 +93,11 @@
     "model": "quickfitapp.movement",
     "pk": 1,
     "fields": {
-      "author_id": 2,
-      "movement_name": "Sled Push/Pull",
-      "description": "Sled Push/Pull",
-      "movement_type": "c",
+      "author_id": 1,
+      "movement_name": "Easy Exercise 1",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "novice",
       "demo_url": "youtube.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
@@ -106,10 +107,11 @@
     "model": "quickfitapp.movement",
     "pk": 2,
     "fields": {
-      "author_id": 2,
-      "movement_name": "Double Under",
-      "description": "Double Under",
-      "movement_type": "c",
+      "author_id": 1,
+      "movement_name": "Easy Exercise 2",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "novice",
       "demo_url": "youtube.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
@@ -119,39 +121,15 @@
     "model": "quickfitapp.movement",
     "pk": 3,
     "fields": {
-      "author_id": 2,
-      "movement_name": "Rowing",
-      "description": "Rowing",
-      "movement_type": "s",
-      "demo_url": "youtube.com",
-      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
-      "timestamp_created": "2017-08-08T00:43:34.800Z"
-    }
-  },
-  {
-    "model": "quickfitapp.movement",
-    "pk": 4,
-    "fields": {
-      "author_id": 3,
-      "movement_name": "Tricep Dip",
-      "description": "Tricep Dip",
-      "movement_type": "s",
-      "demo_url": "youtube.com",
-      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
-      "timestamp_created": "2017-08-08T00:43:34.800Z"
-    }
-  },
-  {
-    "model": "quickfitapp.movement",
-    "pk": 5,
-    "fields": {
-      "author_id": 3,
-      "movement_name": "Toes To Bar",
-      "description": "Toes To Bar",
-      "movement_type": "l",
+      "author_id": 1,
+      "movement_name": "Easy Exercise 3",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "novice",
       "demo_url": "youtube.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
   }
+
 ]
