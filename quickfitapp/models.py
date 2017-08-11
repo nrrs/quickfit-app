@@ -7,23 +7,19 @@ from django.contrib.auth.models import User
 # from django.contrib.postgres.fields import JSONField
 from jsonfield import JSONField
 
-MOVEMENT_TYPES = (
-    ('b', "balance"),
-    ('c', "cardio"),
-    ('d', "dance"),
-    ('f', "flexibility"),
-    ('o', "other"),
-    ('s', "strength"),
-    ('l', "stretch"),
-    ('w', "weights"),
-    ('y', "yoga")
-)
+# MOVEMENT_TYPES = (
+#     ('lower body', "Lower Body"),
+#     ('upper body', "Upper Body"),
+#     ('full body', "Full Body"),
+#     ('core', "Core"),
+#     ('conditioning', "Conditioning"),
+#     ('cardio', "Cardio")
+# )
 
 DIFFICULTY_TYPES = (
-    ('n', "none"),
-    ('b', "beginner"),
-    ('i', "intermediate"),
-    ('a', "advanced")
+    ('novice', "Novice"),
+    ('intermediate', "Intermediate"),
+    ('advanced', "Advanced")
 )
 
 
@@ -35,14 +31,16 @@ class Movement(models.Model):
     # author = models.ForeignKey(User, related_name='movements',
     #     on_delete=models.CASCADE)
 
-    title = models.CharField(max_length=100, blank=False)
+    movement_name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
 
-    movement_type = models.CharField(
-        choices = MOVEMENT_TYPES,
-        max_length=1,
-        default='o',
-    )
+    # movement_type = models.CharField(
+    #     choices = MOVEMENT_TYPES,
+    #     max_length=1,
+    #     default='o',
+    # )
+
+    movement_type = models.CharField(max_length=100, blank=True)
 
     difficulty = models.CharField(
         choices = DIFFICULTY_TYPES,
