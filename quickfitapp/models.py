@@ -28,8 +28,12 @@ DIFFICULTY_TYPES = (
 
 
 class Movement(models.Model):
+    # USE FOR AUTH
     author = models.ForeignKey('auth.user', related_name='movements',
         on_delete=models.CASCADE)
+
+    # author = models.ForeignKey(User, related_name='movements',
+    #     on_delete=models.CASCADE)
 
     title = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
