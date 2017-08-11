@@ -78,6 +78,12 @@ class ProfileEdit extends React.Component {
                 >
                 <Text style={buttonTextStyle}>Update</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
+                onPress={ () => console.log('sign out') }
+                >
+                <Text style={Object.assign({}, buttonTextStyle, { color: '#ff3b30' })}>Sign Out</Text>
+              </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>
