@@ -24,6 +24,19 @@ export const containerStyle = {
   flex: 1
 };
 
+export const bandContainerStyle = {
+  flex: 1,
+  backgroundColor: '#fafafa'
+};
+
+export const bandStyle = {
+  flex: 1,
+  padding: 15,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  flexDirection: 'row'
+};
+
 export const headerStyle = {
   height: 50,
   backgroundColor: '#fff',

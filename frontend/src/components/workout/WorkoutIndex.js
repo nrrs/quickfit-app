@@ -4,10 +4,6 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
-import NoviceWorkout from './NoviceWorkout';
-import ModerateWorkout from './ModerateWorkout';
-import AdvancedWorkout from './AdvancedWorkout';
-import CustomWorkout from './CustomWorkout';
 
 class WorkoutIndex extends React.Component {
   static navigationOptions = {
@@ -29,8 +25,8 @@ class WorkoutIndex extends React.Component {
 
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
-          shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('novice');}}
+          shadowColor: '#e6e6e6', marginTop: 15})}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'novice'});}}
           title="Novice Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#4cd964'})}>NOVICE</Text>
@@ -40,7 +36,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('moderate');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'moderate'});}}
           title="Moderate Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff9500'})}>MODERATE</Text>
@@ -52,7 +48,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('advanced');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'advanced'});}}
           title="Advanced Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#ff3b30'})}>ADVANCED</Text>
@@ -65,7 +61,7 @@ class WorkoutIndex extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, bandStyle, {shadowOpacity: 1,
           shadowColor: '#e6e6e6'})}
-          onPress={() => { this.props.navigation.navigate('custom');}}
+          onPress={() => { this.props.navigation.navigate('workout', {workoutType: 'custom'});}}
           title="Custom Workout"
           >
           <Text style={Object.assign({}, bandTextStyle, {color: '#6ACDFA'})}>CUSTOM</Text>

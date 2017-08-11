@@ -128,14 +128,15 @@ Interval:
 
 # Workout Seeds
 
-**Level: Novice**
+**Level: Novice**<br/>
 A)
 Tabata:
-    - 20s work
-    - 10s rest
-    - 8 rounds
-    - alternate Mt Climber Burpees
-    - Sit Ups
+  - 20s work
+  - 10s rest
+  - 8 rounds
+  - alternate Mt Climber Burpees
+  - Sit Ups
+
 B)
 interval
 EMOMx10

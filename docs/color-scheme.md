@@ -7,7 +7,7 @@
 | Blue   | `#6ACDFA`   |
 | Yellow   | `#ffcc00`   |
 | Orange   | `#ff9500`   |
-| Red   | `#4cd964`   |
+| Red   | `#ff3b30`   |
 | White   | `#fff`   |
 | Off-White   | `#fafafa`   |
 | Off-Black   | `#262626`   |
