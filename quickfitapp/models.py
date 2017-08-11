@@ -32,7 +32,10 @@ class Movement(models.Model):
     #     on_delete=models.CASCADE)
 
     #super-flexible foreign key
-    author = models.ForeignKey(User, blank=True, null=True)
+    # author = models.ForeignKey(User, blank=True, null=True)
+
+    #super-super-flexible foreign key
+    author = models.IntegerField(blank=True, null=True)
 
     movement_name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
