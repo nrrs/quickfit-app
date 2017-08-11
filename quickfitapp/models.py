@@ -28,14 +28,14 @@ class Movement(models.Model):
     # author = models.ForeignKey('auth.user', related_name='movements',
     #     on_delete=models.CASCADE)
 
-    # author = models.ForeignKey(User, related_name='movements',
-    #     on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='movements',
+        on_delete=models.CASCADE)
 
     #super-flexible foreign key
     # author = models.ForeignKey(User, blank=True, null=True)
 
-    #super-super-flexible foreign key
-    author = models.IntegerField(blank=True, null=True)
+    #super-super-flexible non-foreign key; breaks the views except for GET all
+    # author = models.IntegerField(blank=True, null=True)
 
     movement_name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
