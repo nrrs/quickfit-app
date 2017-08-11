@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
     #     model = Movement
     #     fields = ('id',
     #               'author_id',   #model field name is 'author', but displays as author_id in table
-    #               'title')
+    #               'movement_name')
 
 
 class MovementSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class MovementSerializer(serializers.ModelSerializer):
         model = Movement
         fields = ('id',
                   'author_id',   #model field name is 'author', but displays as author_id in table
-                  'title',
+                  'movement_name',
                   'description',
                   'movement_type',
                   'demo_url',
@@ -70,11 +70,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 #to serialize data (transform an object instance into json)...
 
-#movementA = Movement(title= 'abc')
+#movementA = Movement(movement_name= 'abc')
 #movementA.save()
 #serializerA = MovementSerializer(movementA)
-#serializedA = serializerA.data ... '{"id": 2, "title": u'abc', ...}' ...python native datatypes
-#contentA = JSONRenderer().render(serializedA) ... '{"id": 2, "title": "abc", ...}'  ....json object
+#serializedA = serializerA.data ... '{"id": 2, "movement_name": u'abc', ...}' ...python native datatypes
+#contentA = JSONRenderer().render(serializedA) ... '{"id": 2, "movement_name": "abc", ...}'  ....json object
 
 
 #to deserialize data (transform a json object into an object instance) ...

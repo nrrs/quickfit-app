@@ -238,7 +238,7 @@ class UserWorkoutList(APIView):
 #     class Meta:
 #         queryset = Movement.objects.all()
 #         resource_name = 'movement'
-#         fields = ['title', 'description']
+#         fields = ['movement_name', 'description']
 
 
 

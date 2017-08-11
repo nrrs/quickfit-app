@@ -94,7 +94,7 @@
     "pk": 1,
     "fields": {
       "author_id": 2,
-      "title": "Sled Push/Pull",
+      "movement_name": "Sled Push/Pull",
       "description": "Sled Push/Pull",
       "movement_type": "c",
       "demo_url": "youtube.com",
@@ -107,7 +107,7 @@
     "pk": 2,
     "fields": {
       "author_id": 2,
-      "title": "Double Under",
+      "movement_name": "Double Under",
       "description": "Double Under",
       "movement_type": "c",
       "demo_url": "youtube.com",
@@ -120,7 +120,7 @@
     "pk": 3,
     "fields": {
       "author_id": 2,
-      "title": "Rowing",
+      "movement_name": "Rowing",
       "description": "Rowing",
       "movement_type": "s",
       "demo_url": "youtube.com",
@@ -133,7 +133,7 @@
     "pk": 4,
     "fields": {
       "author_id": 3,
-      "title": "Tricep Dip",
+      "movement_name": "Tricep Dip",
       "description": "Tricep Dip",
       "movement_type": "s",
       "demo_url": "youtube.com",
@@ -146,7 +146,7 @@
     "pk": 5,
     "fields": {
       "author_id": 3,
-      "title": "Toes To Bar",
+      "movement_name": "Toes To Bar",
       "description": "Toes To Bar",
       "movement_type": "l",
       "demo_url": "youtube.com",
