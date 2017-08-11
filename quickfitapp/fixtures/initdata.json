@@ -130,6 +130,89 @@
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 4,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Medium Exercise 1",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "intermediate",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 5,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Medium Exercise 2",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "intermediate",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 6,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Medium Exercise 3",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "intermediate",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 7,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Hard Exercise 1",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "advanced",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 8,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Hard Exercise 2",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "advanced",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 9,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Hard Exercise 3",
+      "description": "xxx",
+      "movement_type": "xxx",
+      "difficulty": "advanced",
+      "demo_url": "youtube.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
   }
-
 ]
