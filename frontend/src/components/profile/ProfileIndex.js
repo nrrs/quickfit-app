@@ -36,10 +36,10 @@ class ProfileIndex extends React.Component {
                 <Image
                   source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Usain_Bolt_portrait.jpg'}}
                   style={{flex: 1,
-    alignSelf: 'stretch',
-    borderRadius: 60,
-    width: 120,
-    height: 120}}
+                          alignSelf: 'stretch',
+                          borderRadius: 60,
+                          width: 120,
+                          height: 120}}
                 />
               </View>
               <View>

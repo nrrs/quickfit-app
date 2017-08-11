@@ -47,6 +47,7 @@ class ProfileAuth extends React.Component {
         this.props.parent.setState({loggedIn: true });
       })
       .catch((err) => {
+        // Temporary 
         this.props.parent.setState({loggedIn: true });
       });
   }
@@ -62,6 +63,7 @@ class ProfileAuth extends React.Component {
         this.props.parent.setState({loggedIn: true });
       })
       .catch((err) => {
+        // Temporary
         this.props.parent.setState({loggedIn: true});
       });
   }
