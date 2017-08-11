@@ -77,19 +77,6 @@ export const captionStyle = {
   marginTop: 10
 };
 
-export const bandContainerStyle = {
-  flex: 1,
-  backgroundColor: '#fafafa'
-};
-
-export const bandStyle = {
-  flex: 1,
-  padding: 15,
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexDirection: 'row'
-};
-
 export const cardStyle = {
   backgroundColor: '#fff',
   borderWidth: 1,
