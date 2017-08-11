@@ -117,7 +117,7 @@ class Workout extends React.Component {
     this.setState({
       editable: true,
       exercises: exerciseArray,
-      displayVal: `${hour}:${min}:${sec}`
+      timerDisplay: `${hour}:${min}:${sec}`
 
     });
   }
