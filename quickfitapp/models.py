@@ -55,7 +55,7 @@ class Movement(models.Model):
 
     # tells Django which field to use as display on the Django admin or anytime you want string representation of the entire object
     def __str__(self):
-        return self.description
+        return self.movement_name
 
 class Workout(models.Model):
 
