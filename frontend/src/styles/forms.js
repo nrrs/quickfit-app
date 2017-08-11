@@ -3,7 +3,7 @@ export const formContainerStyle = {
   backgroundColor: '#fafafa'
 };
 
-export const buttonStyle =  {
+export const buttonStyle = {
   backgroundColor: '#fff',
   borderWidth: 1,
   borderColor: '#e6e6e6',
@@ -15,6 +15,12 @@ export const buttonStyle =  {
   marginRight: 10,
   paddingTop: 15,
   paddingBottom: 15
+};
+
+export const buttonTextStyle = {
+  color: '#6ACDFA',
+  fontSize: 17,
+  fontWeight: 'bold'
 };
 
 export const inputStyle = {

@@ -294,10 +294,6 @@ auth0@^2.7.0:
     request "^2.81.0"
     rest-facade "^1.5.0"
 
-autobind@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/autobind/-/autobind-1.0.3.tgz#c0d82ed2f6f12fb1331da388b89ad51a3bf968fa"
-
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
