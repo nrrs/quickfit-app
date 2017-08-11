@@ -66,6 +66,7 @@ class Workout extends React.Component {
       this.setState({
         [field]: num}
       );
+      console.log(this.state);
     }
   }
 
@@ -84,7 +85,7 @@ class Workout extends React.Component {
   displayExercises() {
     if (this.state.editable) { return this.selectExercises(); }
     return (
-        <View style={{ flex: 1 }}>
+        <View>
           { this.state.exercises.map( (el, i) => (
             <View key={i} style={buttonStyle}>
               <Text style={textStyle}>
@@ -102,7 +103,7 @@ class Workout extends React.Component {
     let { exercises } = this.state;
 
     return (
-      <View style={{flex:1}}>
+      <View>
         <Text style={subHeaderStyle}>Select Movements</Text>
         <ModalPicker
           data={this.data}
@@ -173,7 +174,12 @@ class Workout extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="workout-box" style={formContainerStyle}>
               <View className="header-container"
-                style={{ flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center', paddingRight: 10 }}>
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingRight: 10
+                }}>
                 <Text style={subHeaderStyle}>
                   {workoutType.toUpperCase()}
                 </Text>

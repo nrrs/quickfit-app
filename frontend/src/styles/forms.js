@@ -18,8 +18,8 @@ export const buttonStyle = {
 };
 
 export const buttonTextStyle = {
-  color: '#ff3b30',
-  fontSize: 20,
+  color: '#6ACDFA',
+  fontSize: 17,
   fontWeight: 'bold'
 };
 

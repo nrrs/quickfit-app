@@ -64,7 +64,7 @@ export default class CreateScreen extends React.Component {
       "demo_url": this.state.demo_url
     }
     console.log(newMovement);
-    axios.post('/user', newMovement)
+    axios.get('http://rallycoding.herokuapp.com/api/music_albums')
       .then((res) => {
         alert('post success!');
       })
@@ -131,7 +131,7 @@ export default class CreateScreen extends React.Component {
               >
                 <Text style={buttonTextStyle}>New Exercise</Text>
               </TouchableOpacity>
-            </View>
+
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>
