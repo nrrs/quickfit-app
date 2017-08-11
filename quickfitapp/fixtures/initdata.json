@@ -214,5 +214,32 @@
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
+  },
+  {
+    "model": "quickfitapp.workout",
+    "pk": 1,
+    "fields": {
+      "athlete_id": 1,
+      "timestamp_created": "2017-08-07T00:43:34.800Z",
+      "workout_data": { "day1":"placeholder for data" }
+    }
+  },
+  {
+    "model": "quickfitapp.workout",
+    "pk": 2,
+    "fields": {
+      "athlete_id": 1,
+      "timestamp_created": "2017-08-06T00:43:34.800Z",
+    "workout_data": { "day2":"placeholder for data" }
+    }
+  },
+  {
+    "model": "quickfitapp.workout",
+    "pk": 3,
+    "fields": {
+      "athlete_id": 1,
+      "timestamp_created": "2017-08-05T00:43:34.800Z",
+    "workout_data": { "day3":"placeholder for data" }
+    }
   }
 ]
