@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ScrollView,
-  Keyboard,
-  FlatList} from 'react-native';
+  Keyboard } from 'react-native';
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
-
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -69,23 +67,58 @@ class Workout extends React.Component {
       });
       if (field === "time") {
         let displayVal = val;
-        // let noColons = newVal.replace(/:/, '')
+        // // let noColons = newVal.replace(/:/, '')
+        // let test = moment(val, "HHmmss");
+        //
+        // console.log(test);
+        // switch (displayVal.length ) {
+        //   case 2:
+        //   case 5:
+        //     displayVal += ":"
+        //     break;
+        //   default:
+        // };
 
-        if (displayVal.length % 2 === 0) {
-          displayVal += ":"
-        }
         this.setState({
           timerDisplay: `${displayVal}`
         });
       }
-      console.log(this.state);
     }
   }
 
   ready(exerciseArray) {
+
+    let duration = parseInt(this.state.timerDisplay);
+    console.log(duration);
+
+    let hour = 0;
+    let min = 0;
+    let sec = 0;
+
+    sec = parseInt(duration % 100);
+    min = parseInt(duration / 100) % 100;
+    hour = parseInt(duration / 10000) % 100;
+
+    if (sec > 59) {
+      sec = sec - 60;
+      min = min + 1 ;
+    }
+
+    if (min > 59) {
+      min -= 60;
+      hour += 1;
+    }
+
+    console.log(`sec: ${sec}`);
+    console.log(`min: ${min}`);
+    console.log(`hour: ${hour}`);
+
+
     this.setState({
-      editable: false,
-      exercises: exerciseArray
+      editable: true,
+      exercises: exerciseArray,
+      displayVal: `${hour}:${min}:${sec}`
+
     });
   }
 
@@ -180,7 +213,7 @@ class Workout extends React.Component {
 
   render() {
     const { workoutType } = this.props.navigation.state.params;
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <View style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -210,6 +243,7 @@ class Workout extends React.Component {
               </View>
 
               <View className='timer-box' style={timerStyle}>
+
                 <TextInput
                   id="time"
                   style={timerTextStyle}
@@ -218,7 +252,7 @@ class Workout extends React.Component {
                   keyboardType='number-pad'
                   onChangeText={this._updateText("time")}
                   value={this.state.timerDisplay}
-                  maxLength={6}
+                  maxLength={8}
                   />
 
               </View>
