@@ -16,7 +16,6 @@ class ProfileIndex extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

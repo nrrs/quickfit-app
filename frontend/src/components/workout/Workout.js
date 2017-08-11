@@ -9,7 +9,7 @@ import {
   Keyboard,
   FlatList} from 'react-native';
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 
 
@@ -24,9 +24,7 @@ class Workout extends React.Component {
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
-      hour: null,
-      min: null,
-      sec: null,
+      time: null,
       exercises: []
     }
 
@@ -87,16 +85,15 @@ class Workout extends React.Component {
     if (this.state.editable) { return this.selectExercises(); }
     return (
         <View style={{ flex: 1 }}>
-
-            { this.state.exercises.map( (el, i) => (
-              <View key={i} style={buttonStyle}>
-                <Text style={textStyle}>
-                  {el.label}{'\n'}
-                  {el.description}
-                </Text>
-              </View>
-              ))
-            }
+          { this.state.exercises.map( (el, i) => (
+            <View key={i} style={buttonStyle}>
+              <Text style={textStyle}>
+                {el.label}{'\n'}
+                {el.description}
+              </Text>
+            </View>
+            ))
+          }
         </View>
     );
   }
@@ -153,7 +150,7 @@ class Workout extends React.Component {
         style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.ready(this.currentExerciseArray) }
         >
-        <Text style={{color: '#ff3b30', fontSize: 20, fontWeight: 'bold'}}>Ready?</Text>
+        <Text style={buttonTextStyle}>Ready?</Text>
       </TouchableOpacity>
     ); }
 
@@ -162,7 +159,7 @@ class Workout extends React.Component {
         style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.go()}
         >
-        <Text style={{color: '#4cd964', fontSize: 20, fontWeight: 'bold'}}>GO!</Text>
+        <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>GO!</Text>
       </TouchableOpacity>
     );
 
@@ -170,7 +167,7 @@ class Workout extends React.Component {
 
   render() {
     const { workoutType } = this.props.navigation.state.params;
-
+    console.log(this.state);
     return (
       <View style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -196,12 +193,12 @@ class Workout extends React.Component {
 
               <View className='timer-box' style={timerStyle}>
                 <TextInput
-                  id="hour"
+                  id="time"
                   style={timerTextStyle}
                   placeholder="00:00:00"
                   editable={this.state.editable}
                   keyboardType='number-pad'
-                  onChangeText={this._updateText("hour")}
+                  onChangeText={this._updateText("time")}
                   maxLength={6}
                   />
 

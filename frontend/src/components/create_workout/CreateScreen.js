@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, ScrollView, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import { iconStyle, textStyle, subHeaderStyle } from '../../styles/styles';
 import Header from '../Header';
 import axios from 'axios';
+import ModalPicker from 'react-native-modal-picker';
+
+const createSubHeaderStyle = Object.assign({}, subHeaderStyle, { marginTop: 0 });
 
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
@@ -17,20 +20,48 @@ export default class CreateScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameInput: '',
-      typeInput: '',
-      descriptionInput: ''
+      author_id: 1, // currentUser.id
+      movement_name: '',
+      movement_type: '',
+      difficulty: '',
+      description: null,
+      demo_url: null
     };
+
+    this.movements = [];
+    this.difficulties = [];
     this._handlePress = this._handlePress.bind(this);
     this._updateText = this._updateText.bind(this);
+  }
+
+  componentWillMount() {
+    let index = 0;
+    this.movements = [
+      { key: index++, section: true, label: 'Movement Types' },
+      { key: index++, label: 'Cardio' },
+      { key: index++, label: 'Conditioning' },
+      { key: index++, label: 'Core' },
+      { key: index++, label: 'Full Body' },
+      { key: index++, label: 'Lower Body' },
+      { key: index++, label: 'Upper Body' },
+    ]
+    this.difficulties = [
+      { key: index++, section: true, label: 'Difficulty' },
+      { key: index++, label: 'Novice' },
+      { key: index++, label: 'Intermediate' },
+      { key: index++, label: 'Advanced' },
+    ]
   }
 
   _handlePress(e) {
     e.preventDefault;
     let newMovement = {
-      name: this.state.nameInput,
-      type: this.state.typeInput,
-      description: this.state.descriptionInput
+      "author_id": 1, // currentUser.id
+      "movement_name": this.state.movement_name,
+      "movement_type": this.state.movement_type,
+      "difficulty": this.state.difficulty,
+      "description": this.state.description,
+      "demo_url": this.state.demo_url
     }
     console.log(newMovement);
     axios.post('/user', newMovement)
@@ -56,32 +87,49 @@ export default class CreateScreen extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
-              <Text style={subHeaderStyle}> ADD MOVEMENT </Text>
+              <Text style={createSubHeaderStyle}>Add Movement</Text>
               <TextInput
-                id="nameInput"
+                id="movementName"
                 style={inputStyle}
                 placeholder="Name"
-                onChangeText={this._updateText("nameInput")}
+                onChangeText={this._updateText("movement_name")}
               />
-              <TextInput
-                id="typeInput"
-                style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Type: ie. weightlifting, dance, or cardio"
-                onChangeText={this._updateText("typeInput")}
+              <Text style={createSubHeaderStyle}>Movement Type</Text>
+              <ModalPicker
+                data={this.movements}
+                initValue="Select"
+                style={{ borderRadius: 0, padding: 10  }}
+                onChange={ option => {
+                  this.setState({
+                    movement_type: option.label
+                  });
+                }}
               />
-              <Text style={subHeaderStyle}> ADD DESCRIPTION </Text>
+            <Text style={createSubHeaderStyle}>Difficulty Level</Text>
+              <ModalPicker
+                data={this.difficulties}
+                initValue="Select"
+                style={{ borderRadius: 0, padding: 10  }}
+                onChange={ option => {
+                  this.setState({
+                    difficulty: option.label
+                  });
+                }}
+              />
+
+              <Text style={createSubHeaderStyle}> ADD DESCRIPTION </Text>
               <TextInput
-                id="descriptionInput"
+                id="description"
                 style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
                 placeholder="Keep your core tight and engage!"
                 multiline={true}
-                onChangeText={this._updateText("descriptionInput")}
+                onChangeText={this._updateText("description")}
               />
               <TouchableOpacity
-                style={Object.assign({}, buttonStyle, {marginTop: 30})}
+                style={Object.assign({}, buttonStyle, {marginTop: 30, marginBottom: 10})}
                 onPress={this._handlePress}
               >
-                <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>New Exercise</Text>
+                <Text style={buttonTextStyle}>New Exercise</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
