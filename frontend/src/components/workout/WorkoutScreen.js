@@ -6,10 +6,6 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import { iconStyle, stackHeaderStyle, headerTitleStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
 import WorkoutIndex from './WorkoutIndex';
-import NoviceWorkout from './NoviceWorkout';
-import ModerateWorkout from './ModerateWorkout';
-import AdvancedWorkout from './AdvancedWorkout';
-import CustomWorkout from './CustomWorkout';
 import Workout from './Workout';
 
 class WorkoutScreen extends React.Component {

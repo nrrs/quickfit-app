@@ -18,9 +18,9 @@ class ProfileAuth extends React.Component {
     super(props);
     this.state = {
       newUser: false,
+      fullName: '',
       emailInput: '',
-      passwordInput: '',
-      descriptionInput: ''
+      passwordInput: ''
     };
 
     this._updateText = this._updateText.bind(this);
@@ -37,6 +37,7 @@ class ProfileAuth extends React.Component {
 
   _signup() {
     let newUser = {
+      fullname: this.state.fullName,
       email: this.state.emailInput,
       password: this.state.passwordInput,
     }
@@ -74,11 +75,24 @@ class ProfileAuth extends React.Component {
       button: 'Log In',
       footer: 'New to QuickFit?'
     };
+    let newFullName;
 
     switch (this.state.newUser) {
       case true:
-        textDisplay.button = 'Sign Up'
-        textDisplay.footer = 'Already have an account?'
+        textDisplay.button = 'Sign Up';
+        textDisplay.footer = 'Already have an account?';
+        newFullName = (
+          <View>
+            <Text style={subHeaderStyle}>FULL NAME</Text>
+            <TextInput
+              id="fullName"
+              style={Object.assign({}, inputStyle, { marginBottom: 0})}
+              placeholder="What is your name?"
+              returnKeyType='next'
+              onChangeText={this._updateText("fullName")}
+            />
+          </View>
+        );
         break;
       default:
 
@@ -90,6 +104,8 @@ class ProfileAuth extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
+              {newFullName}
+
               <Text style={subHeaderStyle}>EMAIL</Text>
               <TextInput
                 id="emailInput"

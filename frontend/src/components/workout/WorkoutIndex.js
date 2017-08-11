@@ -4,10 +4,6 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
-import NoviceWorkout from './NoviceWorkout';
-import ModerateWorkout from './ModerateWorkout';
-import AdvancedWorkout from './AdvancedWorkout';
-import CustomWorkout from './CustomWorkout';
 
 class WorkoutIndex extends React.Component {
   static navigationOptions = {
