@@ -1,9 +1,9 @@
-#### Primary objective is making the .IPA 
+#### Primary objective is making the .IPA
 - .ipa is a 'file' aka 'bundle' aka 'program' aka 'binary'
 - it encompasses all the frontend code and lives on the iphone (when you click the icon on your iphone, it loads the .ipa file and then you are using the app)
-- .xcodeproj 'file' is a precursor to the .ipa so we have to go back through Xcode to package the files into an .ipa that can live on iphones 
-- the app can live on our iphones and have ALL functionality (including talking to backend server) for anyone with the xcode project - even if it is not on the app store 
-- when a developer submits an app for approval to the app store, the .ipa is the 'attachment' that gets uploaded along with the application form 
+- .xcodeproj 'file' is a precursor to the .ipa so we have to go back through Xcode to package the files into an .ipa that can live on iphones
+- the app can live on our iphones and have ALL functionality (including talking to backend server) for anyone with the xcode project - even if it is not on the app store
+- when a developer submits an app for approval to the app store, the .ipa is the 'attachment' that gets uploaded along with the application form
 
 
 #### What about backend?
@@ -26,25 +26,25 @@
 
 #### Step 3: Transform .app into .ipa and Upload to Apple
 
-*Tutorial: 
+* Tutorial:
 - https://www.christianengvall.se/react-native-build-for-ios-app-store/
 
-* register as apple developer 
+* register as apple developer
 - make an LLC now if there is a possibility that you will put it on the app store if approved...even if you're pretty sure that no one is ever going to use the app
 - one person makes the apple developer account for the team/LLC (used to be $100/yr; might be free now)
 
-*Xcode / General / Signing 
+* Xcode / General / Signing
 - pick a developer team (your apple developer account)
 - add certificate (provided by apple)
-- restart Xcode 
+- restart Xcode
 - may need to use some terminal commands like xcru to 'sign' the app file or usr/bin/codesign
 
 * change bundle identifier (e.g. com.yourcompany.projectname)
 - bundle identifier is provided by apple to the apple developer
-- you can add them from your apple developer account and can see them there 
+- you can add them from your apple developer account and can see them there
 - In Xcode, insert this under YourProject/info.plist/bundle identifier
 
-* XC Archive 
+* XC Archive
 - In Xcode, on top left, click on the device shown (displays a dropdown)
 - select GENERIC IOS DEVICE for the build
 - XC Archive transforms the code from xcodeproject to .ipa
@@ -53,8 +53,6 @@
 
 
 #### Step 4: Complete application to App Store
-- Login to apple developer account 
+- Login to apple developer account
 - itunesconnect.apple.com / login / myapps
-- 
-
-
+-
