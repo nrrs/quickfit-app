@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ScrollView,
-  Keyboard,
-  FlatList} from 'react-native';
+  Keyboard } from 'react-native';
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
-
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -24,17 +22,26 @@ class Workout extends React.Component {
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
-      time: null,
-      exercises: []
+      exercises: [],
+      timerDisplay: '',
+      duration: null,
+      paused: false,
+      pauseTime: 0
     }
 
     this.currentExerciseArray = [];
     this.data = [];
+    this.timer = null;
 
     this.go = this.go.bind(this);
     this.ready = this.ready.bind(this);
     this.selectExercises = this.selectExercises.bind(this);
     this.displayExercises = this.displayExercises.bind(this);
+    this.formatTime = this.formatTime.bind(this);
+    this.clearTimer = this.clearTimer.bind(this);
+    this.totalDuration = this.totalDuration.bind(this);
+    this.pause = this.pause.bind(this);
+    this.prettifyDuration = this.prettifyDuration.bind(this);
   }
 
   componentWillMount() {
@@ -60,26 +67,127 @@ class Workout extends React.Component {
     ];
   }
 
+
+  componentWillUnmount() {
+    this.clearTimer(this.timer);
+    this.setState({
+      editable: true,
+      workoutType: this.props.navigation.state.params.workoutType,
+      round: null,
+      exercises: [],
+      timerDisplay: '',
+      duration: null,
+      paused: false,
+      pauseTime: 0
+    })
+  }
+
   _updateText(field) {
     return (val) => {
       let num = parseInt(val);
       this.setState({
-        [field]: num}
-      );
-      console.log(this.state);
+        [field]: num
+      });
+      if (field === "time") {
+        let displayVal = val;
+        // // let noColons = newVal.replace(/:/, '')
+        // switch (displayVal.length ) {
+        //   case 2:
+        //   case 5:
+        //     displayVal += ":"
+        //     break;
+        //   default:
+        // };
+        this.setState({
+          timerDisplay: `${displayVal}`
+        });
+      }
     }
   }
 
+  prettifyDuration(duration) { // duration is coming is seconds
+    let parsedDuration = parseInt(duration); // for safety
+    let hour = 0, min = 0, sec = 0;
+
+    while (parsedDuration >= 3600) {
+      hour += 1;
+      parsedDuration -= 3600;
+    }
+    while (parsedDuration >= 60) {
+      min += 1;
+      parsedDuration -= 60;
+    }
+    sec = parsedDuration;
+
+    return this.formatTime(hour, min, sec);
+  }
+
+  formatTime(hr, min, sec) {
+    if (sec < 10) { sec = `0${sec}` }
+    if (min < 10) { min = `0${min}` }
+    if (hr < 10) { hr = `0${hr}` }
+    return `${hr}:${min}:${sec}`;
+  }
+
+  totalDuration(hour, min, sec) {
+    return ((sec * 1000) + (min * 60000) + (hour * 3600000));
+  }
+
+  clearTimer(timer) {
+    clearInterval(timer);
+  }
+
   ready(exerciseArray) {
+    const userInputDuration = parseInt(this.state.timerDisplay);
+    let hour = 0, min = 0, sec = 0;
+
+    // Parse string input into correct timing units based on seconds
+    hour = parseInt(userInputDuration / 10000) % 100;
+    min = parseInt(userInputDuration / 100) % 100;
+    sec = parseInt(userInputDuration % 100);
+
+    // Cover edge case for formatting (65 secs => 1:05)
+    if (min > 59) { min -= 60; hour += 1; }
+    if (sec > 59) { sec -= 60; min += 1; }
+
+    const timerDisplay = this.formatTime(hour, min, sec);
+    const duration = this.totalDuration(hour, min, sec);
+
+
     this.setState({
       editable: false,
-      exercises: exerciseArray
+      exercises: exerciseArray,
+      timerDisplay,
+      duration
     });
   }
 
   go() {
-    console.log('Start workout!');
-    console.log(this.state);
+    this.timer = setInterval( () => {
+      let duration = this.state.duration;
+
+      // decrement by second
+      duration -= 1000;
+
+      // if duration <= 1 sec, clear timer.
+      if (this.state.duration <= 1000) { this.clearTimer(this.timer); }
+
+      // Prettify time display by converting millisecond to seconds base.
+      let timerDisplay = this.prettifyDuration(duration / 1000);
+
+      this.setState({
+        duration,
+        timerDisplay,
+      })
+    }, 1000 );
+  }
+
+  pause() {
+    this.setState({
+      paused: true,
+      pauseTime: this.state.duration
+    });
+    this.clearTimer(this.timer);
   }
 
   displayExercises() {
@@ -149,19 +257,25 @@ class Workout extends React.Component {
     if (this.state.editable) { return (
       <TouchableOpacity
         style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-        onPress={ () => this.ready(this.currentExerciseArray) }
-        >
+        onPress={ () => this.ready(this.currentExerciseArray) }>
         <Text style={ Object.assign({}, buttonTextStyle, {color: '#ff3b30'}) }>READY?</Text>
       </TouchableOpacity>
     ); }
 
     return (
-      <TouchableOpacity
-        style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-        onPress={ () => this.go()}
-        >
-        <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>GO!</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
+          onPress={ () => this.go()}>
+          <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>GO!</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
+          onPress={ () => this.pause()}>
+          <Text style={ Object.assign({}, buttonTextStyle, {color: '#ff9500'}) }>PAUSE!</Text>
+        </TouchableOpacity>
+      </View>
     );
 
   }
@@ -198,6 +312,7 @@ class Workout extends React.Component {
               </View>
 
               <View className='timer-box' style={timerStyle}>
+
                 <TextInput
                   id="time"
                   style={timerTextStyle}
@@ -205,6 +320,7 @@ class Workout extends React.Component {
                   editable={this.state.editable}
                   keyboardType='number-pad'
                   onChangeText={this._updateText("time")}
+                  value={this.state.timerDisplay}
                   maxLength={6}
                   />
 
