@@ -374,6 +374,11 @@ class Workout extends React.Component {
           multiline={true}
           onChangeText={this._updateText("postNotes")}
         />
+        <TouchableOpacity
+          style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
+          onPress={ () => alert('SAVE WORKOUT => REDIRECT TO PROFILE INDEX') }>
+          <Text style={ buttonTextStyle }>Save Workout</Text>
+        </TouchableOpacity>
       </View>
     ) : null;
 
