@@ -13,6 +13,9 @@ import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '.
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 
+const flashShow = 750;
+const flashHide = 1750;
+
 class Workout extends React.Component {
   static navigationOptions = {
     title: 'Workout'
@@ -31,7 +34,9 @@ class Workout extends React.Component {
       pauseTime: 0,
       modalVisible: false,
       modalBg: 'rgba(76, 217, 100, 1)',
-      cue: ''
+      cue: '',
+      workoutDone: false,
+      postNotes: null
     }
 
     this.currentExerciseArray = [];
@@ -49,11 +54,10 @@ class Workout extends React.Component {
     this.prettifyDuration = this.prettifyDuration.bind(this);
     this.setTimer = this.setTimer.bind(this);
     this.flashGo = this.flashGo.bind(this);
-    this.flashDone = this.flashDone.bind(this);
+    this.flash = this.flash.bind(this);
   }
 
   componentWillMount() {
-    this.setState({ modalVisible: false });
     let index = 0;
     this.data = [
       { key: index++, label: 'Rest' },
@@ -144,8 +148,11 @@ class Workout extends React.Component {
       // When timer is done...
       if (this.state.duration <= 1000) {
         this.clearTimer(this.timer);
-        this.flashDone();
+        this.flash('DONE!', 'rgba(255, 59, 48, 1)');
         Vibration.vibrate([0, 500, 500, 500], false);
+        setTimeout( () => {
+          this.setState({ workoutDone: true });
+        }, flashHide);
       }
 
       // Prettify time display by converting millisecond to seconds base.
@@ -163,6 +170,11 @@ class Workout extends React.Component {
   }
 
   ready(exerciseArray) {
+    if (this.state.timerDisplay === '') {
+      alert('Timer cannot be empty!');
+      return;
+    }
+
     const userInputDuration = parseInt(this.state.timerDisplay);
     let hour = 0, min = 0, sec = 0;
 
@@ -236,17 +248,17 @@ class Workout extends React.Component {
     }, 3500);
   }
 
-  flashDone() {
+  flash(message, bgColor) {
     setTimeout( () => {
       this.setState({
         modalVisible: true,
-        modalBg: 'rgba(255, 59, 48, 1)',
-        cue: `DONE!`
+        modalBg: bgColor,
+        cue: `${message}`
       });
-    }, 750);
+    }, flashShow);
     setTimeout( () => {
       this.setState({ modalVisible: false });
-    }, 1750);
+    }, flashHide);
   }
 
   pause() {
@@ -325,9 +337,11 @@ class Workout extends React.Component {
       <TouchableOpacity
         style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
         onPress={ () => this.ready(this.currentExerciseArray) }>
-        <Text style={ Object.assign({}, buttonTextStyle, {color: '#ff3b30'}) }>READY?</Text>
+        <Text style={ buttonTextStyle }>Next</Text>
       </TouchableOpacity>
     ); }
+
+    if (this.state.workoutDone) { return null };
 
     return (
       <View>
@@ -350,6 +364,19 @@ class Workout extends React.Component {
   render() {
     const { workoutType } = this.props.navigation.state.params;
 
+    const notes = (this.state.workoutDone) ? (
+      <View>
+        <Text style={subHeaderStyle}> NOTES </Text>
+        <TextInput
+          id="description"
+          style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
+          placeholder="Add a post workout note"
+          multiline={true}
+          onChangeText={this._updateText("postNotes")}
+        />
+      </View>
+    ) : null;
+
     return (
       <View style={{ flex: 1 }}>
         <Modal
@@ -357,7 +384,7 @@ class Workout extends React.Component {
           transparent={true}
           visible={this.state.modalVisible}
           presentationStyle={'overFullScreen'}
-          style={{ alignItems: 'center', justifyContent: 'center' }}
+
           >
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
             <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
@@ -409,6 +436,7 @@ class Workout extends React.Component {
                 <ScrollView style={{flex:1}}>
                   { this.displayExercises() }
                   { this.renderButton() }
+                  { notes }
                 </ScrollView>
               </View>
             </View>
