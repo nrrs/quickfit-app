@@ -118,11 +118,11 @@
     "pk": 1,
     "fields": {
       "author_id": 1,
-      "movement_name": "Easy Exercise 1",
-      "description": "xxx",
-      "movement_type": "xxx",
+      "movement_name": "Scaled Push Up",
+      "description": "Elevate your hands or drop down to your knees",
+      "movement_type": "upper body",
       "difficulty": "novice",
-      "demo_url": "youtube.com",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -132,11 +132,11 @@
     "pk": 2,
     "fields": {
       "author_id": 1,
-      "movement_name": "Easy Exercise 2",
-      "description": "xxx",
-      "movement_type": "xxx",
+      "movement_name": "Assisted Pull Up",
+      "description": "Find a stable platform (like a chair) to assist with a pull up",
+      "movement_type": "upper body",
       "difficulty": "novice",
-      "demo_url": "youtube.com",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -146,11 +146,11 @@
     "pk": 3,
     "fields": {
       "author_id": 1,
-      "movement_name": "Easy Exercise 3",
-      "description": "xxx",
-      "movement_type": "xxx",
+      "movement_name": "Assisted Dip",
+      "description": "coming soon",
+      "movement_type": "upper body",
       "difficulty": "novice",
-      "demo_url": "youtube.com",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -160,11 +160,11 @@
     "pk": 4,
     "fields": {
       "author_id": 1,
-      "movement_name": "Medium Exercise 1",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "intermediate",
-      "demo_url": "youtube.com",
+      "movement_name": "Mt Climber Burpee",
+      "description": "coming soon",
+      "movement_type": "full body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -174,11 +174,11 @@
     "pk": 5,
     "fields": {
       "author_id": 1,
-      "movement_name": "Medium Exercise 2",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "intermediate",
-      "demo_url": "youtube.com",
+      "movement_name": "Plank from the Knees",
+      "description": "coming soon",
+      "movement_type": "core",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -188,11 +188,11 @@
     "pk": 6,
     "fields": {
       "author_id": 1,
-      "movement_name": "Medium Exercise 3",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "intermediate",
-      "demo_url": "youtube.com",
+      "movement_name": "Air Squat",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -202,11 +202,11 @@
     "pk": 7,
     "fields": {
       "author_id": 1,
-      "movement_name": "Hard Exercise 1",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "advanced",
-      "demo_url": "youtube.com",
+      "movement_name": "Sit Ups",
+      "description": "coming soon",
+      "movement_type": "core",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -216,11 +216,11 @@
     "pk": 8,
     "fields": {
       "author_id": 1,
-      "movement_name": "Hard Exercise 2",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "advanced",
-      "demo_url": "youtube.com",
+      "movement_name": "Good Morning",
+      "description": "coming soon",
+      "movement_type": "full body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
@@ -230,11 +230,39 @@
     "pk": 9,
     "fields": {
       "author_id": 1,
-      "movement_name": "Hard Exercise 3",
-      "description": "xxx",
-      "movement_type": "xxx",
-      "difficulty": "advanced",
-      "demo_url": "youtube.com",
+      "movement_name": "Lunge",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 10,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Hip Raises",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 11,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Step Up",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "novice",
+      "demo_url": "www.example.com",
       "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
       "timestamp_created": "2017-08-08T00:43:34.800Z"
     }
