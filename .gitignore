@@ -174,3 +174,4 @@ node_modules
 !.elasticbeanstalk/*.global.yml
 
 *.sqlite3
+/assets
