@@ -13,7 +13,7 @@ import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '.
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import Loading from '../Loading';
 import axios from 'axios';
-import * as UTIL from '../../util';
+import moment from 'moment';
 
 class ProfileIndex extends React.Component {
   static navigationOptions = {
@@ -30,37 +30,42 @@ class ProfileIndex extends React.Component {
       workoutHistory: [],
       loading: true
     };
+
+    this.renderWorkouts = this.renderWorkouts.bind(this);
   }
 
   componentWillMount() {
     if (this.state.workoutHistory.length === 0) {
       axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
-      .then((res) => {
-        console.log('componentWillMount');
-        console.log(res.data);
-        alert("Get success");
+      .then( res => {
         this.setState({
           workoutHistory: res.data,
           loading: false
         });
       })
-      .catch( (error) => {
-        console.log('you got errors');
-         if (error.response) {
-           console.log(error.response.data);
-           console.log(error.response.status);
-           console.log(error.response.headers);
-         } else if (error.request) {
-           console.log(error.request);
-         } else {
-           console.log('Error', error.message);
-         }
-         console.log(error.config);
-         this.setState({
-           loading: false
-         });
-       });
+      .catch( error => { this.setState({ loading: false }); });
     }
+  }
+
+  renderWorkouts() {
+    return (
+      <View>
+        {
+          this.state.workoutHistory.map( (workout, i) => {
+            const workoutDate = moment.utc(workout.timestamp_created).fromNow();
+
+            return (
+              <View key={i} style={cardStyle}>
+                <Text style={subHeaderStyle}>{workoutDate}</Text>
+                <Text style={textStyle}> Moderate Tabata </Text>
+                <Text style={textStyle}> Pushups </Text>
+                <Text style={textStyle}> Burpees </Text>
+              </View>
+            );
+          })
+        }
+      </View>
+    );
   }
 
   render() {
@@ -90,30 +95,14 @@ class ProfileIndex extends React.Component {
             </View>
 
             <TouchableOpacity
-              style={Object.assign({}, buttonStyle, { marginBottom: 10 })}
+              style={buttonStyle}
               onPress={() => {
                 this.props.navigation.navigate('edit');
               }}>
               <Text style={buttonTextStyle}> Edit Profile </Text>
             </TouchableOpacity>
-            <View style={cardStyle}>
-              <Text style={subHeaderStyle}> Workout on 8/11/2017</Text>
-              <Text style={textStyle}> Moderate Tabata </Text>
-              <Text style={textStyle}> Pushups </Text>
-              <Text style={textStyle}> Burpees </Text>
-            </View>
-            <View style={cardStyle}>
-              <Text style={subHeaderStyle}> Workout on 8/9/2017</Text>
-              <Text style={textStyle}> Advanced Counter </Text>
-              <Text style={textStyle}> Pullups </Text>
-              <Text style={textStyle}> Squats </Text>
-            </View>
-            <View style={cardStyle}>
-              <Text style={subHeaderStyle}> Workout on 8/7/2017</Text>
-              <Text style={textStyle}> Novice Interval </Text>
-              <Text style={textStyle}> Lunges </Text>
-              <Text style={textStyle}> Burpees </Text>
-            </View>
+
+            { this.renderWorkouts() }
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
