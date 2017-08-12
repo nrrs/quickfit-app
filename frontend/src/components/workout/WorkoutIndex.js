@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, ScrollView, View, TouchableOpacity,TouchableNativeFeedback } from 'react-native';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
+import { textStyle, iconStyle, subHeaderStyle, bandContainerStyle, bandStyle, containerStyle } from '../../styles/styles';
 import { buttonStyle } from '../../styles/forms';
 
 class WorkoutIndex extends React.Component {
@@ -18,8 +18,8 @@ class WorkoutIndex extends React.Component {
     return (
       <ScrollView className="workout-options" style={bandContainerStyle}>
         <View style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
-          <Text style={Object.assign({}, textStyle, {color: '#262626', textAlign: 'center'})}>
-            Select a Workout or Create your Own!
+          <Text style={Object.assign({}, subHeaderStyle, {textAlign: 'center'})}>
+            Tap a level for a workout!{`\n`} or create your own!
           </Text>
         </View>
 

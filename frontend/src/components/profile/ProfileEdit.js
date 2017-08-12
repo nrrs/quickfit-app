@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
-import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import axios from 'axios';
 
 class ProfileEdit extends React.Component {
@@ -49,9 +49,8 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={formContainerStyle}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+          <ScrollView style={formContainerStyle}>
               <Text style={subHeaderStyle}>FULL NAME</Text>
               <TextInput
                 id="fullName"
@@ -73,10 +72,18 @@ class ProfileEdit extends React.Component {
                 placeholder="Minimum 6 characters"
                 onChangeText={this._updateText("passwordInput")}
               />
-            <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this._handleSubmit}>
-                <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}> Update </Text>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 30})}
+                onPress={this._handleSubmit}
+                >
+                <Text style={buttonTextStyle}>Update</Text>
               </TouchableOpacity>
-            </View>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
+                onPress={ () => console.log('sign out') }
+                >
+                <Text style={Object.assign({}, buttonTextStyle, { color: '#ff3b30' })}>Sign Out</Text>
+              </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>
