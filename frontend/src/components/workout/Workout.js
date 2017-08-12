@@ -91,9 +91,6 @@ class Workout extends React.Component {
       if (field === "time") {
         let displayVal = val;
         // // let noColons = newVal.replace(/:/, '')
-        // let test = moment(val, "HHmmss");
-        //
-        // console.log(test);
         // switch (displayVal.length ) {
         //   case 2:
         //   case 5:
