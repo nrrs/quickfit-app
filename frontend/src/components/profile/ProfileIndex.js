@@ -11,6 +11,7 @@ import { Text,
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import axios from 'axios';
 
 class ProfileIndex extends React.Component {
   static navigationOptions = {
@@ -23,9 +24,26 @@ class ProfileIndex extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      workoutHistory: []
+    };
+  }
+
+  componentWillMount() {
+    if (this.state.workoutHistory.length === 0) {
+      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
+      .then((res) => {
+        console.log(res.data);
+        alert("Get success");
+      })
+      .catch((err) => {
+        alert("Get fail");
+      })
+    }
   }
 
   render() {
+    console.log(this.state);
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
