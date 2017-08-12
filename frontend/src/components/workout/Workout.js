@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ScrollView,
-  Keyboard } from 'react-native';
+  Keyboard,
+  Vibration,
+  Modal } from 'react-native';
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
@@ -26,7 +28,8 @@ class Workout extends React.Component {
       timerDisplay: '',
       duration: null,
       paused: false,
-      pauseTime: 0
+      pauseTime: 0,
+      modalVisible: false
     }
 
     this.currentExerciseArray = [];
@@ -42,6 +45,7 @@ class Workout extends React.Component {
     this.totalDuration = this.totalDuration.bind(this);
     this.pause = this.pause.bind(this);
     this.prettifyDuration = this.prettifyDuration.bind(this);
+    this.setTimer = this.setTimer.bind(this);
   }
 
   componentWillMount() {
@@ -78,7 +82,8 @@ class Workout extends React.Component {
       timerDisplay: '',
       duration: null,
       paused: false,
-      pauseTime: 0
+      pauseTime: 0,
+      modalVisible: false
     })
   }
 
@@ -155,18 +160,28 @@ class Workout extends React.Component {
   }
 
   go() {
+    // Call modal, on modal close, run this.setTimer
+    this.setState({
+      modalVisible: true
+    });
+    setTimeout( () => {
+      this.setState({ modalVisible: false });
+      this.setTimer();
+    }, 1500);
+  }
+
+  setTimer() {
     this.timer = setInterval( () => {
       let duration = this.state.duration;
-
       // decrement by second
       duration -= 1000;
-
       // if duration <= 1 sec, clear timer.
-      if (this.state.duration <= 1000) { this.clearTimer(this.timer); }
-
+      if (this.state.duration <= 1000) {
+        this.clearTimer(this.timer);
+        Vibration.vibrate([0, 500, 500, 500], false);
+      }
       // Prettify time display by converting millisecond to seconds base.
       let timerDisplay = this.prettifyDuration(duration / 1000);
-
       this.setState({
         duration,
         timerDisplay,
@@ -204,7 +219,7 @@ class Workout extends React.Component {
 
     return (
       <View>
-        <Text style={subHeaderStyle}>Select Movements</Text>
+        <Text style={subHeaderStyle}>SELECT MOVEMENTS</Text>
         <ModalPicker
           data={this.data}
           initValue="Movement 1"
@@ -274,9 +289,17 @@ class Workout extends React.Component {
 
   render() {
     const { workoutType } = this.props.navigation.state.params;
-    console.log(this.state);
+
     return (
       <View style={{ flex: 1 }}>
+        <Modal
+          animationType={'fade'}
+          transparent={false}
+          visible={this.state.modalVisible}
+          presentationStyle={'overFullScreen'}
+          >
+          <Text>3.. 2.. 1..</Text>
+        </Modal>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="workout-box" style={formContainerStyle}>
               <View className="header-container"

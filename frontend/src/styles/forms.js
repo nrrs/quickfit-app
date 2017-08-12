@@ -1,6 +1,7 @@
 export const formContainerStyle = {
   flex: 1,
-  backgroundColor: '#fafafa'
+  backgroundColor: '#fafafa',
+  paddingBottom: 10
 };
 
 export const buttonStyle = {
