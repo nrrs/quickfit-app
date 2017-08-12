@@ -90,6 +90,30 @@
     }
   },
   {
+    "model": "quickfitapp.profile",
+    "pk": 1,
+    "fields": {
+      "proxy_username": "profile1",
+      "favorite_phrase": "curveball"
+    }
+  },
+  {
+    "model": "quickfitapp.profile",
+    "pk": 2,
+    "fields": {
+      "proxy_username": "profile2",
+      "favorite_phrase": "slam dunk"
+    }
+  },
+  {
+    "model": "quickfitapp.profile",
+    "pk": 3,
+    "fields": {
+      "proxy_username": "profile3",
+      "favorite_phrase": "on the ropes"
+    }
+  },
+  {
     "model": "quickfitapp.movement",
     "pk": 1,
     "fields": {
