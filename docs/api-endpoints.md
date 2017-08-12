@@ -110,10 +110,10 @@
 - returns error if invalid user
 - returns empty array if user does not have any associated movements/workouts
 
-##### display a single user’s movements (requires login)
+##### View a single user’s movements (requires login)
 - /api/users/2/movements/
 - method: GET
 
-##### display a single user’s workouts (requires login)
+##### View a single user’s workouts (requires login)
 - /api/users/2/workouts/
 - method: GET
