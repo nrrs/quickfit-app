@@ -7,42 +7,50 @@ from django.contrib.auth.models import User
 # from django.contrib.postgres.fields import JSONField
 from jsonfield import JSONField
 
-MOVEMENT_TYPES = (
-    ('b', "balance"),
-    ('c', "cardio"),
-    ('d', "dance"),
-    ('f', "flexibility"),
-    ('o', "other"),
-    ('s', "strength"),
-    ('l', "stretch"),
-    ('w', "weights"),
-    ('y', "yoga")
-)
+# MOVEMENT_TYPES = (
+#     ('lower body', "Lower Body"),
+#     ('upper body', "Upper Body"),
+#     ('full body', "Full Body"),
+#     ('core', "Core"),
+#     ('conditioning', "Conditioning"),
+#     ('cardio', "Cardio")
+# )
 
 DIFFICULTY_TYPES = (
-    ('n', "none"),
-    ('b', "beginner"),
-    ('i', "intermediate"),
-    ('a', "advanced")
+    ('novice', "Novice"),
+    ('intermediate', "Intermediate"),
+    ('advanced', "Advanced")
 )
 
 
 class Movement(models.Model):
-    author = models.ForeignKey('auth.user', related_name='movements',
+    # USE FOR AUTH
+    # author = models.ForeignKey('auth.user', related_name='movements',
+    #     on_delete=models.CASCADE)
+
+    author = models.ForeignKey(User, related_name='movements',
         on_delete=models.CASCADE)
 
-    title = models.CharField(max_length=100, blank=False)
+    #super-flexible foreign key
+    # author = models.ForeignKey(User, blank=True, null=True)
+
+    #super-super-flexible non-foreign key; breaks the views except for GET all
+    # author = models.IntegerField(blank=True, null=True)
+
+    movement_name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
 
-    movement_type = models.CharField(
-        choices = MOVEMENT_TYPES,
-        max_length=1,
-        default='o',
-    )
+    # movement_type = models.CharField(
+    #     choices = MOVEMENT_TYPES,
+    #     max_length=1,
+    #     default='o',
+    # )
+
+    movement_type = models.CharField(max_length=100, blank=True)
 
     difficulty = models.CharField(
         choices = DIFFICULTY_TYPES,
-        max_length=1,
+        max_length=100,
         default='n',
     )
 
@@ -53,7 +61,7 @@ class Movement(models.Model):
 
     # tells Django which field to use as display on the Django admin or anytime you want string representation of the entire object
     def __str__(self):
-        return self.description
+        return self.movement_name
 
 class Workout(models.Model):
 
@@ -76,12 +84,12 @@ class Workout(models.Model):
 
 # while auth is under development, I'm using Profile as stand-in for User
 class Profile(models.Model):
-    silly_username = models.CharField(max_length=100, blank=False)
+    proxy_username = models.CharField(max_length=100, blank=True)
+    favorite_phrase = models.CharField(max_length=100, blank=True)
     # bio_data = JSONField()
 
-    # on admin screen, profiles are keyed by the silly_username
     def __str__(self):
-        return self.silly_username
+        return self.proxy_username
 
 
 # Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)

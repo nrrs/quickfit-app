@@ -2,9 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from .models import Movement
-from .models import Workout
-from .models import Profile
+from .models import Movement, Workout, Profile
 
 #ModelSerializers are shorthand for regular serializers
 #they include default create() and update() methods when calling serializer.save()
@@ -15,7 +13,7 @@ from .models import Profile
     #     model = Movement
     #     fields = ('id',
     #               'author_id',   #model field name is 'author', but displays as author_id in table
-    #               'title')
+    #               'movement_name')
 
 
 class MovementSerializer(serializers.ModelSerializer):
@@ -45,7 +43,8 @@ class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
       model = Profile
       fields = ('id',
-                'silly_username')
+                'proxy_username',
+                'favorite_phrase')
 
 #not working because User is undefined, maybe b/c auth is disabled
 # from django.contrib.auth import get_user_model
@@ -67,11 +66,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 #to serialize data (transform an object instance into json)...
 
-#movementA = Movement(title= 'abc')
+#movementA = Movement(movement_name= 'abc')
 #movementA.save()
 #serializerA = MovementSerializer(movementA)
-#serializedA = serializerA.data ... '{"id": 2, "title": u'abc', ...}' ...python native datatypes
-#contentA = JSONRenderer().render(serializedA) ... '{"id": 2, "title": "abc", ...}'  ....json object
+#serializedA = serializerA.data ... '{"id": 2, "movement_name": u'abc', ...}' ...python native datatypes
+#contentA = JSONRenderer().render(serializedA) ... '{"id": 2, "movement_name": "abc", ...}'  ....json object
 
 
 #to deserialize data (transform a json object into an object instance) ...

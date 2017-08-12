@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 # from django.utils.decorators import method_decorator
 
 # for use with function-based decoratored views
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -54,6 +55,17 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+<<<<<<< HEAD:quickfitproject/quickfitapp/views.py
+=======
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+# client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
+#
+# client_secret = 'XuNyLon7py5lmkbjfCxKYgCcbcPrv5REjFJsXtZCdA5PSE2VWwUFeSy0IQxeES2yRZZpe7BUVTzODjyM4R2Eq9dd0A4oZd9szvD3a5mjoSt1hnfLV2s6Xqq267zW2pD1'
+
+>>>>>>> 162e945d055a384d998860400693adf34b1527a7:quickfitapp/views.py
 # class-based views
 # class LoginView(APIView):
 #     authentication_classes = (SessionAuthentication, BasicAuthentication)
@@ -116,7 +128,16 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
+<<<<<<< HEAD:quickfitproject/quickfitapp/views.py
 #manual class-based view for listing Movements that belong to a single user
+=======
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
+>>>>>>> 162e945d055a384d998860400693adf34b1527a7:quickfitapp/views.py
 class UserMovementList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
@@ -135,7 +156,7 @@ class UserMovementList(APIView):
             raise Http404   #currently just returning empty array with status code 200
 
 
-#manual class-based view for listing Movements that belong to a single user
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserWorkoutList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
@@ -240,7 +261,7 @@ class UserWorkoutList(APIView):
 #     class Meta:
 #         queryset = Movement.objects.all()
 #         resource_name = 'movement'
-#         fields = ['title', 'description']
+#         fields = ['movement_name', 'description']
 
 
 
