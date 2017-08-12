@@ -42,7 +42,7 @@ class ProfileAuth extends React.Component {
       password: this.state.passwordInput,
     }
     console.log(newUser);
-    axios.post('/user', newUser)
+    axios.post('https://rallycoding.herokuapp.com/api/music_albums', newUser)
       .then((res) => {
         alert('signup success!');
       })
@@ -57,7 +57,7 @@ class ProfileAuth extends React.Component {
       password: this.state.passwordInput,
     }
     console.log(newSession);
-    axios.post('/user', newSession)
+    axios.post('https://rallycoding.herokuapp.com/api/music_albums', newSession)
       .then((res) => {
         alert('login success!');
       })
