@@ -6,7 +6,8 @@ import { Text,
          Keyboard,
          TextInput,
          TouchableOpacity,
-         Image
+         Image,
+         ActivityIndicator
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
@@ -25,25 +26,40 @@ class ProfileIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      workoutHistory: []
+      workoutHistory: [],
+      loading: true
     };
   }
 
   componentWillMount() {
     if (this.state.workoutHistory.length === 0) {
-      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
+      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/users/2/workouts/')
       .then((res) => {
         console.log(res.data);
         alert("Get success");
+        this.setState({
+          workoutHistory: res.data,
+          loading: false
+        });
       })
       .catch((err) => {
+        console.log(err);
         alert("Get fail");
-      })
+        this.setState({
+          loading: false
+        });
+      });
     }
   }
 
   render() {
     console.log(this.state);
+    if (this.state.loading) {
+      return <ActivityIndicator
+              animating={true}
+              size={'large'}
+            />
+    }
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>

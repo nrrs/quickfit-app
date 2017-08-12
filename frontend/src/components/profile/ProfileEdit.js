@@ -36,7 +36,7 @@ class ProfileEdit extends React.Component {
       password: this.state.passwordInput,
     }
     console.log(updateProfile);
-    axios.patch('/user', updateProfile)
+    axios.patch('https://rallycoding.herokuapp.com/api/music_albums', updateProfile)
       .then((res) => {
         alert('update success!');
       })
