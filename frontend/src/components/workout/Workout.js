@@ -12,6 +12,7 @@ import {
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
+import axios from 'axios';
 
 const flashShow = 750;
 const flashHide = 1750;
@@ -43,7 +44,6 @@ class Workout extends React.Component {
     this.data = [];
     this.timer = null;
 
-    this.go = this.go.bind(this);
     this.ready = this.ready.bind(this);
     this.selectExercises = this.selectExercises.bind(this);
     this.displayExercises = this.displayExercises.bind(this);
@@ -58,6 +58,14 @@ class Workout extends React.Component {
   }
 
   componentWillMount() {
+    axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
+      .then( res => {
+        console.log(res);
+      })
+      .catch( error => {
+        console.log(error);
+      });
+
     let index = 0;
     this.data = [
       { key: index++, label: 'Rest' },
@@ -198,54 +206,12 @@ class Workout extends React.Component {
     });
   }
 
-  go() {
-    // Call modal, on modal close, run this.setTimer
-    this.flashGo();
-  }
-
   flashGo() {
-    this.setState({
-      modalVisible: true,
-      cue: '3'
-    });
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '2'
-      });
-    }, 1000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 1500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '1'
-      });
-    }, 2000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 2500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: 'GO!'
-      });
-    }, 3000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-      this.setTimer();
-    }, 3500);
+    this.setState({ modalVisible: true, cue: '3' });
+    setTimeout( () => { this.setState({ cue: '2' }); }, 1000);
+    setTimeout( () => { this.setState({ cue: '1' }); }, 2000);
+    setTimeout( () => { this.setState({ cue: 'GO!' }); }, 3000);
+    setTimeout( () => { this.setState({ modalVisible: false }); this.setTimer(); }, 3500);
   }
 
   flash(message, bgColor) {
@@ -347,7 +313,7 @@ class Workout extends React.Component {
       <View>
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-          onPress={ () => this.go()}>
+          onPress={ () => this.flashGo()}>
           <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>START!</Text>
         </TouchableOpacity>
 
@@ -389,7 +355,6 @@ class Workout extends React.Component {
           transparent={true}
           visible={this.state.modalVisible}
           presentationStyle={'overFullScreen'}
-
           >
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
             <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
@@ -422,7 +387,6 @@ class Workout extends React.Component {
               </View>
 
               <View className='timer-box' style={timerStyle}>
-
                 <TextInput
                   id="time"
                   style={timerTextStyle}
@@ -433,9 +397,7 @@ class Workout extends React.Component {
                   value={this.state.timerDisplay}
                   maxLength={6}
                   />
-
               </View>
-
 
               <View className='movement-list-box' style={bandContainerStyle}>
                 <ScrollView style={{flex:1}}>
