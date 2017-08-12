@@ -7,6 +7,7 @@ import ProfileAuth from './ProfileAuth';
 import ProfileIndex from './ProfileIndex';
 import ProfileEdit from './ProfileEdit';
 import { StackNavigator } from 'react-navigation';
+import Loading from '../Loading';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -19,7 +20,7 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       currentUser: {
         id: 1,
         name: 'Bruce Wayne'
@@ -30,7 +31,7 @@ class ProfileScreen extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return (<Text> Loading </Text>);
+    if (this.state.loading) return <Loading />;
     return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
   }
 }

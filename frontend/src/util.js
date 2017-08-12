@@ -52,8 +52,8 @@ export const postMovementByUser = movement => {
     });
 };
 
-export const fetchWorkoutsByUser = workout => {
-  axios.get(`${hostUrl}/api/users/${workout.author_id}/workouts/`)
+export const fetchWorkoutsByUser = user => {
+  axios.get(`${hostUrl}/api/users/${user.id}/workouts/`)
     .then( res => {
       console.log(res);
     })

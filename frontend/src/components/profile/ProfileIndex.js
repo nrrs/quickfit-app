@@ -6,13 +6,14 @@ import { Text,
          Keyboard,
          TextInput,
          TouchableOpacity,
-         Image,
-         ActivityIndicator
+         Image
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import Loading from '../Loading';
 import axios from 'axios';
+import * as UTIL from '../../util';
 
 class ProfileIndex extends React.Component {
   static navigationOptions = {
@@ -33,8 +34,9 @@ class ProfileIndex extends React.Component {
 
   componentWillMount() {
     if (this.state.workoutHistory.length === 0) {
-      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/users/1/movements/')
+      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
       .then((res) => {
+        console.log('componentWillMount');
         console.log(res.data);
         alert("Get success");
         this.setState({
@@ -42,35 +44,27 @@ class ProfileIndex extends React.Component {
           loading: false
         });
       })
-      .catch(function (error) {
+      .catch( (error) => {
+        console.log('you got errors');
          if (error.response) {
-           // The request was made and the server responded with a status code
-           // that falls out of the range of 2xx
            console.log(error.response.data);
            console.log(error.response.status);
            console.log(error.response.headers);
          } else if (error.request) {
-           // The request was made but no response was received
-           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-           // http.ClientRequest in node.js
            console.log(error.request);
          } else {
-           // Something happened in setting up the request that triggered an Error
            console.log('Error', error.message);
          }
          console.log(error.config);
+         this.setState({
+           loading: false
+         });
        });
     }
   }
 
   render() {
-    console.log(this.state);
-    if (this.state.loading) {
-      return <ActivityIndicator
-              animating={true}
-              size={'large'}
-            />
-    }
+    if (this.state.loading) { return <Loading /> }
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
