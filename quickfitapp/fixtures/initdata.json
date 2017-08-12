@@ -408,6 +408,146 @@
     }
   },
   {
+    "model": "quickfitapp.movement",
+    "pk": 22,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Advanced Push Up",
+      "description": "Elevate your feet or add weight",
+      "movement_type": "upper body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 23,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Weighted Pull Up",
+      "description": "coming soon",
+      "movement_type": "upper body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 24,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Weighted Dip",
+      "description": "coming soon",
+      "movement_type": "upper body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 25,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Full Burpee",
+      "description": "coming soon",
+      "movement_type": "full body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 26,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Elevated Plank",
+      "description": "coming soon",
+      "movement_type": "core",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 27,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Jump Squat",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 28,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Good Morning",
+      "description": "coming soon",
+      "movement_type": "full body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 29,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Single Split Lunge with Hop",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 30,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Weighted/Banded Hip Raises",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
+    "model": "quickfitapp.movement",
+    "pk": 31,
+    "fields": {
+      "author_id": 1,
+      "movement_name": "Box Jump",
+      "description": "coming soon",
+      "movement_type": "lower body",
+      "difficulty": "advanced",
+      "demo_url": "www.example.com",
+      "timestamp_last_updated": "2017-08-08T00:43:34.800Z",
+      "timestamp_created": "2017-08-08T00:43:34.800Z"
+    }
+  },
+  {
     "model": "quickfitapp.workout",
     "pk": 1,
     "fields": {
