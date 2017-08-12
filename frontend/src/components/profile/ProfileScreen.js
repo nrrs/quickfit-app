@@ -7,6 +7,7 @@ import ProfileAuth from './ProfileAuth';
 import ProfileIndex from './ProfileIndex';
 import ProfileEdit from './ProfileEdit';
 import { StackNavigator } from 'react-navigation';
+import Loading from '../Loading';
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
@@ -30,8 +31,8 @@ class ProfileScreen extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return (<Text> Loading </Text>);
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this}/>
+    if (this.state.loading) return <Loading />;
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
   }
 }
 

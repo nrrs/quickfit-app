@@ -9,6 +9,25 @@ import ModalPicker from 'react-native-modal-picker';
 
 const createSubHeaderStyle = Object.assign({}, subHeaderStyle, { marginTop: 0 });
 
+let index = 0;
+
+const movements = [
+  { key: index++, section: true, label: 'Movement Types' },
+  { key: index++, label: 'Cardio' },
+  { key: index++, label: 'Conditioning' },
+  { key: index++, label: 'Core' },
+  { key: index++, label: 'Full Body' },
+  { key: index++, label: 'Lower Body' },
+  { key: index++, label: 'Upper Body' },
+];
+
+const difficulties = [
+  { key: index++, section: true, label: 'Difficulty' },
+  { key: index++, label: 'Novice' },
+  { key: index++, label: 'Intermediate' },
+  { key: index++, label: 'Advanced' },
+];
+
 export default class CreateScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Add',
@@ -27,30 +46,8 @@ export default class CreateScreen extends React.Component {
       description: null,
       demo_url: null
     };
-
-    this.movements = [];
-    this.difficulties = [];
     this._handlePress = this._handlePress.bind(this);
     this._updateText = this._updateText.bind(this);
-  }
-
-  componentWillMount() {
-    let index = 0;
-    this.movements = [
-      { key: index++, section: true, label: 'Movement Types' },
-      { key: index++, label: 'Cardio' },
-      { key: index++, label: 'Conditioning' },
-      { key: index++, label: 'Core' },
-      { key: index++, label: 'Full Body' },
-      { key: index++, label: 'Lower Body' },
-      { key: index++, label: 'Upper Body' },
-    ]
-    this.difficulties = [
-      { key: index++, section: true, label: 'Difficulty' },
-      { key: index++, label: 'Novice' },
-      { key: index++, label: 'Intermediate' },
-      { key: index++, label: 'Advanced' },
-    ]
   }
 
   _handlePress(e) {
@@ -87,16 +84,16 @@ export default class CreateScreen extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
-              <Text style={createSubHeaderStyle}>Add Movement</Text>
+              <Text style={createSubHeaderStyle}>ADD MOVEMENT</Text>
               <TextInput
                 id="movementName"
                 style={inputStyle}
                 placeholder="Name"
                 onChangeText={this._updateText("movement_name")}
               />
-              <Text style={createSubHeaderStyle}>Movement Type</Text>
+            <Text style={createSubHeaderStyle}>MOVEMENT TYPE</Text>
               <ModalPicker
-                data={this.movements}
+                data={movements}
                 initValue="Select"
                 style={{ borderRadius: 0, padding: 10  }}
                 onChange={ option => {
@@ -105,9 +102,9 @@ export default class CreateScreen extends React.Component {
                   });
                 }}
               />
-            <Text style={createSubHeaderStyle}>Difficulty Level</Text>
+            <Text style={createSubHeaderStyle}>DIFFICULTY LEVEL</Text>
               <ModalPicker
-                data={this.difficulties}
+                data={difficulties}
                 initValue="Select"
                 style={{ borderRadius: 0, padding: 10  }}
                 onChange={ option => {

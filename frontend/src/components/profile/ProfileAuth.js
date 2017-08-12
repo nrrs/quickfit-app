@@ -55,7 +55,6 @@ class ProfileAuth extends React.Component {
         AsyncStorage.setItem('currentUser', JSON.stringify(resp.data));
         this.props.parent.setState({ loggedIn: true });
       })
-<<<<<<< HEAD
       .catch(function (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -64,11 +63,6 @@ class ProfileAuth extends React.Component {
           const errorMsg = Object.keys(errorData).map(k => `${k}: ${errorData[k]}`)
           alert(errorMsg.join('\n'))
         };
-=======
-      .catch((err) => {
-        // Temporary 
-        this.props.parent.setState({loggedIn: true });
->>>>>>> 40a9d659e7c47735a10ad5449ab39f301c9a5b2e
       });
   }
 
@@ -118,13 +112,8 @@ class ProfileAuth extends React.Component {
         this.props.parent.setState({ loggedIn: true });
       })
       .catch((err) => {
-<<<<<<< HEAD
         // this.props.parent.setState({loggedIn: true});
         alert("Invalid combination of username and password.")
-=======
-        // Temporary
-        this.props.parent.setState({loggedIn: true});
->>>>>>> 40a9d659e7c47735a10ad5449ab39f301c9a5b2e
       });
   }
 

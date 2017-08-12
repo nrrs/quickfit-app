@@ -36,7 +36,7 @@ class ProfileEdit extends React.Component {
       password: this.state.passwordInput,
     }
     console.log(updateProfile);
-    axios.patch('/user', updateProfile)
+    axios.patch('https://rallycoding.herokuapp.com/api/music_albums', updateProfile)
       .then((res) => {
         alert('update success!');
       })
@@ -77,6 +77,12 @@ class ProfileEdit extends React.Component {
                 onPress={this._handleSubmit}
                 >
                 <Text style={buttonTextStyle}>Update</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
+                onPress={ () => console.log('sign out') }
+                >
+                <Text style={Object.assign({}, buttonTextStyle, { color: '#ff3b30' })}>Sign Out</Text>
               </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>
