@@ -90,14 +90,6 @@ class Workout extends React.Component {
       });
       if (field === "time") {
         let displayVal = val;
-        // // let noColons = newVal.replace(/:/, '')
-        // switch (displayVal.length ) {
-        //   case 2:
-        //   case 5:
-        //     displayVal += ":"
-        //     break;
-        //   default:
-        // };
         this.setState({
           timerDisplay: `${displayVal}`
         });
