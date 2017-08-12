@@ -7,13 +7,13 @@
 
 
 ## Heroku Prefix and Admin Backdoor
-* URL prefix (append api endpoints to this)
- - https://afternoon-bastion-37946.herokuapp.com
+##### URL prefix (append api endpoints to this)
+- https://afternoon-bastion-37946.herokuapp.com
 
-* There is a 'backdoor' to the production database so you can view/add/edit the data (we can always re-seed so feel free to play):
- - https://afternoon-bastion-37946.herokuapp.com/admin/
- - username: admin
- - password: 1234quickfit
+##### This is a 'backdoor' to the production database so you can view/add/edit the data in real-time
+- https://afternoon-bastion-37946.herokuapp.com/admin/
+- username: admin / password: 1234quickfit
+- feel free to play because we can always re-seed
 
 
 ## Movements
