@@ -20,7 +20,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^mobil-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^mobil-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     # url(r'^mobil/',include(plivius_mobil_urls, namespace='mobil')),
     # url(r'^', include(router.urls)),

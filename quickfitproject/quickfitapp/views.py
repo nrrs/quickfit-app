@@ -2,9 +2,11 @@
 from __future__ import unicode_literals
 # from django.shortcuts import render
 from django.http import JsonResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+from django.views.decorators.csrf import csrf_exempt
+# from django.utils.decorators import method_decorator
 
 # for use with function-based decoratored views
 from rest_framework import viewsets, permissions, status
@@ -19,7 +21,6 @@ from rest_framework.response import Response
 # importing the models and their serializers
 from .models import Movement, Workout, Profile
 from .serializers import MovementSerializer, WorkoutSerializer, UserSerializer, ProfileSerializer
-
 
 # returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
 class PermissionToMutateBasedOnAuthor(permissions.BasePermission):
@@ -53,10 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-# client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
-#
-# client_secret = 'XuNyLon7py5lmkbjfCxKYgCcbcPrv5REjFJsXtZCdA5PSE2VWwUFeSy0IQxeES2yRZZpe7BUVTzODjyM4R2Eq9dd0A4oZd9szvD3a5mjoSt1hnfLV2s6Xqq267zW2pD1'
-
 # class-based views
 # class LoginView(APIView):
 #     authentication_classes = (SessionAuthentication, BasicAuthentication)
@@ -71,46 +68,52 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 # function-based view for basic auth
-# @api_view(['POST'])
-# def signup(request):
-#     username = request.POST.get('username', None)
-#     password = request.POST.get('password', None)
-#     email = request.POST.get('email', None)
-#     user = User.objects.create_user(username, email, password)
-#     user.save()
-#     serializer = UserSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=201)
-#     return Response(serializer.errors, status=400)
-#
-# @api_view(['POST'])
-# def login(request):
-#     username = request.POST.get('username', None)
-#     password = request.POST.get('password', None)
-#     user = authenticate(request, username=username, password=password)
-#     if user is not None:
-#         login(request, user)
-#         serializer = UserSerializer(user)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=201)
-#         return Response(serializer.errors, status=400)
-#     else:
-#         return JsonResponse(
-#           {'errors': ['Invalid combination of username and password.']}
-#         )
+@csrf_exempt
+@api_view(['POST'])
+def signup(request):
+    username = request.POST.get('username', None)
+    password = request.POST.get('password', None)
+    email = request.POST.get('email', None)
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    else:
+        return Response(serializer.errors, status=400)
 
+@csrf_exempt
+@api_view(['POST', 'DELETE'])
+def session(request, pk):
+    if request.method == 'POST':
+        # email = request.POST.get('email', None)
+        username = request.data.get('username', None)
+        password = request.data.get('password', None)
+        # user = authenticate(request, username=username, password=password)
+        user = User.objects.get(username=username)
+        if user and user.check_password(password):
+            login(request, user)
+            serializer = UserSerializer(user)
+            return Response(serializer.data, status=201)
+        else:
+            return JsonResponse(
+                {'errors': ['Invalid combination of username and password.']}
+            )
+    elif request.method == 'DELETE':
+        user = User.objects.get(pk=pk)
+        request.user = user
+        if user is not None:
+            logout(request)
+            serializer = UserSerializer(user)
+            return Response(serializer.data, status=201)
+        else:
+            return JsonResponse(
+              {'errors': ["Can't find current user."]}
+            )
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 #manual class-based view for listing Movements that belong to a single user

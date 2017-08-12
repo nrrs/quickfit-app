@@ -49,10 +49,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',  # not including it for mobile app
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'quickfitapp.disable.DisableCSRF',
 ]
 
 ROOT_URLCONF = 'quickfitproject.urls'
@@ -102,20 +103,6 @@ else:
     }
 
 
-# use postgresql locally
-# else:
-#     DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'quickfit_dev100',
-#         'USER': 'chrisbrickey',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -136,8 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 OAUTH2_PROVIDER = {
 # this is the list of available scopes
-'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
-'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 30m (It is better to choose shorter periods)
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 31536000, # 1 year (not logging user out in mobile)
 }
 
 
@@ -146,7 +133,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
-        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # deprecated
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (

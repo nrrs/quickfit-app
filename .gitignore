@@ -140,9 +140,11 @@ Temporary Items
 
 ### Node ###
 
+# react native
 node_modules/
 npm-debug.*
 .expo/
+frontend/src/config/config.js
 
 # Logs
 logs
