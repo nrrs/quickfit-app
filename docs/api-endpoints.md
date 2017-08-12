@@ -1,4 +1,4 @@
-# QUICKFIT - BACKEND ROUTES
+# QUICKFIT - API ENDPOINTS
 - Don’t forget closing slash on all routes (Django default requirement)
 - These endpoints return arrays of objects
 - contentType: 'applciation/json' may be interchangeable with adding '?format=json' to the query string
