@@ -30,6 +30,7 @@ class ProfileAuth extends React.Component {
     this._signup = this._signup.bind(this);
     this._login = this._login.bind(this);
     this._sendLoginRequest = this._sendLoginRequest.bind(this);
+    this._requestToken = this._requestToken.bind(this);
   }
 
   _updateText(field) {
@@ -45,13 +46,23 @@ class ProfileAuth extends React.Component {
       password: this.state.passwordInput,
     }
     // using session/id/ because not being able to get currentUser at backend for now
-    console.log(newUser);
-    axios.post('api/signup/', newUser)
-      .then((res) => {
-        this.props.parent.setState({loggedIn: true });
+    const headers = { 'Authorization': 'Bearer ' + configs.appToken }
+    axios.post('api/signup/', newUser, { headers })
+      .then(resp => {
+        // TODO: actually we need to redirect user to the workout page
+        // alert("Sign Up Success!")
+        this._requestToken(this.state.username, this.state.passwordInput);
+        AsyncStorage.setItem('currentUser', JSON.stringify(resp.data));
+        this.props.parent.setState({ loggedIn: true });
       })
-      .catch((err) => {
-        this.props.parent.setState({loggedIn: true });
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          const errorData = error.response.data;
+          const errorMsg = Object.keys(errorData).map(k => `${k}: ${errorData[k]}`)
+          alert(errorMsg.join('\n'))
+        };
       });
   }
 
@@ -61,20 +72,7 @@ class ProfileAuth extends React.Component {
       console.log(res);
       // request oauth token if not exists locally
       if (res === null) {
-        const params = new URLSearchParams();
-        params.append('grant_type', 'password');
-        params.append('username', this.state.username);
-        params.append('password', this.state.passwordInput);
-        const auth = {
-          username: configs.clientId,
-          password: configs.clientSecret,
-        }
-        axios.post("o/token/", params, { auth })
-          .then(resp => {
-            console.log(resp);
-            authToken = resp.data.access_token;
-            AsyncStorage.setItem('authToken', authToken);
-          })
+        this._requestToken(this.state.username, this.state.passwordInput);
       } else {
         authToken = res;
       }
@@ -83,20 +81,35 @@ class ProfileAuth extends React.Component {
       .then(() => this._sendLoginRequest(authToken));
   }
 
+  _requestToken(username, password) {
+    const params = new URLSearchParams();
+    params.append('grant_type', 'password');
+    params.append('username', username);
+    params.append('password', password);
+    const auth = {
+      username: configs.clientId,
+      password: configs.clientSecret,
+    }
+    axios.post("o/token/", params, { auth })
+      .then(resp => {
+        authToken = resp.data.access_token;
+        AsyncStorage.setItem('authToken', authToken);
+      }
+    );
+  }
+
   _sendLoginRequest(authToken) {
     // log in with auth token
     const newSession = {
       username: this.state.username,
       password: this.state.passwordInput,
     }
-    // authToken = 'ZGC9MWdfLwYrRpdZqvmh2VDB9LnZfu';
-    console.log(authToken);
-    headers = { 'Authorization': 'Bearer ' + authToken }
+    const headers = { 'Authorization': 'Bearer ' + authToken }
     axios.post('api/session/0/', newSession, { headers })
       .then(resp => {
         console.log(resp);
-        // TODO store profile data to AsyncStorage
-        this.props.parent.setState({loggedIn: true });
+        AsyncStorage.setItem('currentUser', JSON.stringify(resp.data))
+        this.props.parent.setState({ loggedIn: true });
       })
       .catch((err) => {
         // this.props.parent.setState({loggedIn: true});
