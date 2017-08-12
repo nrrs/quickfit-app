@@ -29,7 +29,9 @@ class Workout extends React.Component {
       duration: null,
       paused: false,
       pauseTime: 0,
-      modalVisible: false
+      modalVisible: false,
+      modalBg: 'rgba(76, 217, 100, 1)',
+      cue: ''
     }
 
     this.currentExerciseArray = [];
@@ -46,9 +48,12 @@ class Workout extends React.Component {
     this.pause = this.pause.bind(this);
     this.prettifyDuration = this.prettifyDuration.bind(this);
     this.setTimer = this.setTimer.bind(this);
+    this.flashGo = this.flashGo.bind(this);
+    this.flashDone = this.flashDone.bind(this);
   }
 
   componentWillMount() {
+    this.setState({ modalVisible: false });
     let index = 0;
     this.data = [
       { key: index++, label: 'Rest' },
@@ -70,7 +75,6 @@ class Workout extends React.Component {
       { key: index++, label: 'Hard Exercise 3', description: 'This is a description that was parsed from our backend database' },
     ];
   }
-
 
   componentWillUnmount() {
     this.clearTimer(this.timer);
@@ -130,6 +134,30 @@ class Workout extends React.Component {
     return ((sec * 1000) + (min * 60000) + (hour * 3600000));
   }
 
+  setTimer() {
+    this.timer = setInterval( () => {
+      let duration = this.state.duration;
+
+      // decrement by second
+      duration -= 1000;
+
+      // When timer is done...
+      if (this.state.duration <= 1000) {
+        this.clearTimer(this.timer);
+        this.flashDone();
+        Vibration.vibrate([0, 500, 500, 500], false);
+      }
+
+      // Prettify time display by converting millisecond to seconds base.
+      let timerDisplay = this.prettifyDuration(duration / 1000);
+
+      this.setState({
+        duration,
+        timerDisplay,
+      })
+    }, 1000 );
+  }
+
   clearTimer(timer) {
     clearInterval(timer);
   }
@@ -150,7 +178,6 @@ class Workout extends React.Component {
     const timerDisplay = this.formatTime(hour, min, sec);
     const duration = this.totalDuration(hour, min, sec);
 
-
     this.setState({
       editable: false,
       exercises: exerciseArray,
@@ -161,32 +188,65 @@ class Workout extends React.Component {
 
   go() {
     // Call modal, on modal close, run this.setTimer
+    this.flashGo();
+  }
+
+  flashGo() {
     this.setState({
-      modalVisible: true
+      modalVisible: true,
+      cue: '3'
     });
+
+    setTimeout( () => {
+      this.setState({ modalVisible: false });
+    }, 500);
+
+    setTimeout( () => {
+      this.setState({
+        modalVisible: true,
+        cue: '2'
+      });
+    }, 1000);
+
+    setTimeout( () => {
+      this.setState({ modalVisible: false });
+    }, 1500);
+
+    setTimeout( () => {
+      this.setState({
+        modalVisible: true,
+        cue: '1'
+      });
+    }, 2000);
+
+    setTimeout( () => {
+      this.setState({ modalVisible: false });
+    }, 2500);
+
+    setTimeout( () => {
+      this.setState({
+        modalVisible: true,
+        cue: 'GO!'
+      });
+    }, 3000);
+
     setTimeout( () => {
       this.setState({ modalVisible: false });
       this.setTimer();
-    }, 1500);
+    }, 3500);
   }
 
-  setTimer() {
-    this.timer = setInterval( () => {
-      let duration = this.state.duration;
-      // decrement by second
-      duration -= 1000;
-      // if duration <= 1 sec, clear timer.
-      if (this.state.duration <= 1000) {
-        this.clearTimer(this.timer);
-        Vibration.vibrate([0, 500, 500, 500], false);
-      }
-      // Prettify time display by converting millisecond to seconds base.
-      let timerDisplay = this.prettifyDuration(duration / 1000);
+  flashDone() {
+    setTimeout( () => {
       this.setState({
-        duration,
-        timerDisplay,
-      })
-    }, 1000 );
+        modalVisible: true,
+        modalBg: 'rgba(255, 59, 48, 1)',
+        cue: `DONE!`
+      });
+    }, 750);
+    setTimeout( () => {
+      this.setState({ modalVisible: false });
+    }, 1750);
   }
 
   pause() {
@@ -195,23 +255,6 @@ class Workout extends React.Component {
       pauseTime: this.state.duration
     });
     this.clearTimer(this.timer);
-  }
-
-  displayExercises() {
-    if (this.state.editable) { return this.selectExercises(); }
-    return (
-        <View>
-          { this.state.exercises.map( (el, i) => (
-            <View key={i} style={buttonStyle}>
-              <Text style={textStyle}>
-                {el.label}{'\n'}
-                {el.description}
-              </Text>
-            </View>
-            ))
-          }
-        </View>
-    );
   }
 
   selectExercises() {
@@ -260,6 +303,23 @@ class Workout extends React.Component {
     );
   }
 
+  displayExercises() {
+    if (this.state.editable) { return this.selectExercises(); }
+    return (
+        <View>
+          { this.state.exercises.map( (el, i) => (
+            <View key={i} style={buttonStyle}>
+              <Text style={textStyle}>
+                {el.label}{'\n'}
+                {el.description}
+              </Text>
+            </View>
+            ))
+          }
+        </View>
+    );
+  }
+
   renderButton() {
     if (this.state.editable) { return (
       <TouchableOpacity
@@ -274,7 +334,7 @@ class Workout extends React.Component {
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
           onPress={ () => this.go()}>
-          <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>GO!</Text>
+          <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>START!</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -294,11 +354,14 @@ class Workout extends React.Component {
       <View style={{ flex: 1 }}>
         <Modal
           animationType={'fade'}
-          transparent={false}
+          transparent={true}
           visible={this.state.modalVisible}
           presentationStyle={'overFullScreen'}
+          style={{ alignItems: 'center', justifyContent: 'center' }}
           >
-          <Text>3.. 2.. 1..</Text>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
+            <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
+          </View>
         </Modal>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="workout-box" style={formContainerStyle}>
@@ -368,7 +431,7 @@ const timerStyle = {
 
 const timerTextStyle = {
   fontSize: 75,
-  color: '#d3d3d3',
+  color: '#7e7e7e', //#d3d3d3
   textAlign: 'right',
   width: '100%',
   margin: 0,

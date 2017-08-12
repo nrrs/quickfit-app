@@ -46,14 +46,8 @@ export default class CreateScreen extends React.Component {
       description: null,
       demo_url: null
     };
-
-    // this.movements = [];
-    // this.difficulties = [];
     this._handlePress = this._handlePress.bind(this);
     this._updateText = this._updateText.bind(this);
-  }
-
-  componentWillMount() {
   }
 
   _handlePress(e) {
