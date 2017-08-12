@@ -2,6 +2,7 @@ import React from 'react';
 import { AppRegistry, Text, View, Keyboard, StatusBar } from 'react-native';
 import Timer from './src/components/Timer';
 import { TabNavigator } from 'react-navigation';
+import axios from 'axios';
 
 import ProfileScreen from './src/components/profile/ProfileScreen';
 import WorkoutScreen from './src/components/workout/WorkoutScreen';
@@ -51,3 +52,9 @@ const styles = {
     justifyContent: 'space-between'
   }
 };
+
+// set up axios defualts
+axios.defaults.baseURL = 'http://localhost:8000/';
+// axios cannot encode data to form type
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Accept'] = 'application/json';

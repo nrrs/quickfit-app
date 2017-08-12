@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
+import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import Header from '../Header';
 import axios from 'axios';
+
+import { configs } from '../../config/config';
 
 class ProfileAuth extends React.Component {
   static navigationOptions = {
@@ -18,7 +20,7 @@ class ProfileAuth extends React.Component {
     super(props);
     this.state = {
       newUser: false,
-      fullName: '',
+      username: '',
       emailInput: '',
       passwordInput: ''
     };
@@ -27,6 +29,7 @@ class ProfileAuth extends React.Component {
     this._changeForm = this._changeForm.bind(this);
     this._signup = this._signup.bind(this);
     this._login = this._login.bind(this);
+    this._sendLoginRequest = this._sendLoginRequest.bind(this);
   }
 
   _updateText(field) {
@@ -37,12 +40,13 @@ class ProfileAuth extends React.Component {
 
   _signup() {
     let newUser = {
-      fullname: this.state.fullName,
+      username: this.state.username,
       email: this.state.emailInput,
       password: this.state.passwordInput,
     }
+    // using session/id/ because not being able to get currentUser at backend for now
     console.log(newUser);
-    axios.post('/user', newUser)
+    axios.post('api/signup/', newUser)
       .then((res) => {
         this.props.parent.setState({loggedIn: true });
       })
@@ -52,17 +56,51 @@ class ProfileAuth extends React.Component {
   }
 
   _login() {
-    let newSession = {
-      email: this.state.emailInput,
+    var authToken = '';
+    AsyncStorage.getItem('authToken').then(res => {
+      console.log(res);
+      // request oauth token if not exists locally
+      if (res === null) {
+        const params = new URLSearchParams();
+        params.append('grant_type', 'password');
+        params.append('username', this.state.username);
+        params.append('password', this.state.passwordInput);
+        const auth = {
+          username: configs.clientId,
+          password: configs.clientSecret,
+        }
+        axios.post("o/token/", params, { auth })
+          .then(resp => {
+            console.log(resp);
+            authToken = resp.data.access_token;
+            AsyncStorage.setItem('authToken', authToken);
+          })
+      } else {
+        authToken = res;
+      }
+    })
+      // send request after local var authToken is set
+      .then(() => this._sendLoginRequest(authToken));
+  }
+
+  _sendLoginRequest(authToken) {
+    // log in with auth token
+    const newSession = {
+      username: this.state.username,
       password: this.state.passwordInput,
     }
-    console.log(newSession);
-    axios.post('/user', newSession)
-      .then((res) => {
+    // authToken = 'ZGC9MWdfLwYrRpdZqvmh2VDB9LnZfu';
+    console.log(authToken);
+    headers = { 'Authorization': 'Bearer ' + authToken }
+    axios.post('api/session/0/', newSession, { headers })
+      .then(resp => {
+        console.log(resp);
+        // TODO store profile data to AsyncStorage
         this.props.parent.setState({loggedIn: true });
       })
       .catch((err) => {
-        this.props.parent.setState({loggedIn: true});
+        // this.props.parent.setState({loggedIn: true});
+        alert("Invalid combination of username and password.")
       });
   }
 
@@ -75,21 +113,21 @@ class ProfileAuth extends React.Component {
       button: 'Log In',
       footer: 'New to QuickFit?'
     };
-    let newFullName;
+    let newUsername;
 
     switch (this.state.newUser) {
       case true:
         textDisplay.button = 'Sign Up';
         textDisplay.footer = 'Already have an account?';
-        newFullName = (
+        newUsername = (
           <View>
-            <Text style={subHeaderStyle}>FULL NAME</Text>
+            <Text style={subHeaderStyle}>EMAIL</Text>
             <TextInput
-              id="fullName"
+              id="emailInput"
               style={Object.assign({}, inputStyle, { marginBottom: 0})}
-              placeholder="What is your name?"
+              placeholder="athlete@quickfit.com"
               returnKeyType='next'
-              onChangeText={this._updateText("fullName")}
+              onChangeText={this._updateText("emailInput")}
             />
           </View>
         );
@@ -104,15 +142,15 @@ class ProfileAuth extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
-              {newFullName}
+              {newUsername}
 
-              <Text style={subHeaderStyle}>EMAIL</Text>
+              <Text style={subHeaderStyle}>FULL NAME</Text>
               <TextInput
-                id="emailInput"
+                id="username"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="athlete@quickfit.com"
+                placeholder="What is your name?"
                 returnKeyType='next'
-                onChangeText={this._updateText("emailInput")}
+                onChangeText={this._updateText("username")}
               />
 
               <Text style={subHeaderStyle}>PASSWORD</Text>
