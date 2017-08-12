@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 # for use with function-based decoratored views
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -52,6 +53,10 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 # client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
 #
@@ -113,7 +118,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-#manual class-based view for listing Movements that belong to a single user
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserMovementList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
@@ -132,7 +137,7 @@ class UserMovementList(APIView):
             raise Http404   #currently just returning empty array with status code 200
 
 
-#manual class-based view for listing Movements that belong to a single user
+#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserWorkoutList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
@@ -237,7 +242,7 @@ class UserWorkoutList(APIView):
 #     class Meta:
 #         queryset = Movement.objects.all()
 #         resource_name = 'movement'
-#         fields = ['title', 'description']
+#         fields = ['movement_name', 'description']
 
 
 
