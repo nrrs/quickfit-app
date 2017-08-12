@@ -2,9 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from .models import Movement
-from .models import Workout
-from .models import Profile
+from .models import Movement, Workout, Profile
 
 
 from django.contrib.auth.models import User
@@ -47,7 +45,8 @@ class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
       model = Profile
       fields = ('id',
-                'silly_username')
+                'proxy_username',
+                'favorite_phrase')
 
 #not working because User is undefined, maybe b/c auth is disabled
 # from django.contrib.auth import get_user_model

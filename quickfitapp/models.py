@@ -84,12 +84,12 @@ class Workout(models.Model):
 
 # while auth is under development, I'm using Profile as stand-in for User
 class Profile(models.Model):
-    silly_username = models.CharField(max_length=100, blank=False)
+    proxy_username = models.CharField(max_length=100, blank=True)
+    favorite_phrase = models.CharField(max_length=100, blank=True)
     # bio_data = JSONField()
 
-    # on admin screen, profiles are keyed by the silly_username
     def __str__(self):
-        return self.silly_username
+        return self.proxy_username
 
 
 # Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)

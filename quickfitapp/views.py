@@ -54,6 +54,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
 # client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
 #
 # client_secret = 'XuNyLon7py5lmkbjfCxKYgCcbcPrv5REjFJsXtZCdA5PSE2VWwUFeSy0IQxeES2yRZZpe7BUVTzODjyM4R2Eq9dd0A4oZd9szvD3a5mjoSt1hnfLV2s6Xqq267zW2pD1'
