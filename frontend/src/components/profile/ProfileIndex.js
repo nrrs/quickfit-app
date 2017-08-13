@@ -56,7 +56,7 @@ class ProfileIndex extends React.Component {
 
             return (
               <View key={i} style={cardStyle}>
-                <Text style={subHeaderStyle}>{workoutDate}</Text>
+                <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, paddingTop: 0 })}>{workoutDate}</Text>
                 <Text style={textStyle}> Moderate Tabata </Text>
                 <Text style={textStyle}> Pushups </Text>
                 <Text style={textStyle}> Burpees </Text>

@@ -9,8 +9,8 @@ import {
   Keyboard,
   Vibration,
   Modal } from 'react-native';
-import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
-import { buttonStyle, buttonTextStyle, cardStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
+import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 import axios from 'axios';
 
@@ -147,8 +147,11 @@ class Workout extends React.Component {
   }
 
   setTimer() {
+    const durationDup = this.state.duration;
+    alert(durationDup);
+
     this.timer = setInterval( () => {
-      let duration = this.state.duration;
+      let duration = durationDup;
 
       // decrement by second
       duration -= 1000;
@@ -169,8 +172,11 @@ class Workout extends React.Component {
       this.setState({
         duration,
         timerDisplay,
+        round: this.state.round - 1
       })
     }, 1000 );
+
+
   }
 
   clearTimer(timer) {
@@ -289,7 +295,7 @@ class Workout extends React.Component {
             <View key={i} style={cardStyle}>
               <Text style={textStyle}>
                 {el.label}{'\n'}
-                {el.description}
+                <Text style={{display: 'none'}}>{el.description}</Text>
               </Text>
             </View>
             ))
@@ -342,7 +348,6 @@ class Workout extends React.Component {
     );
   }
 
-
   render() {
     const { workoutType } = this.props.navigation.state.params;
 
@@ -363,6 +368,11 @@ class Workout extends React.Component {
         </TouchableOpacity>
       </View>
     ) : null;
+
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
     return (
       <View style={{ flex: 1 }}>
         { this.flashModal() }
@@ -372,43 +382,41 @@ class Workout extends React.Component {
               style={{flex:1}}
               stickyHeaderIndices={[0]}
               >
-              <View className="header-container"
-                style={{
+              <View className="header-container">
+                <View style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  paddingRight: 10
-                  }}
-                  >
-                <Text style={subHeaderStyle}>
-                  {workoutType.toUpperCase()}
-                </Text>
-                <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
-                  <TextInput
-                    id="round"
-                    style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
-                    placeholder='00'
-                    editable={this.state.editable}
-                    keyboardType='numeric'
-                    onChangeText={this._updateText("round")}
-                    maxLength={2}
-                    />
+                  paddingRight: 10,
+                  backgroundColor: '#fafafa'
+                }}>
+                  <Text style={subHeaderStyle}>{workoutType.toUpperCase()}</Text>
+                  <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
+                    <TextInput
+                      id="round"
+                      style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
+                      placeholder='00'
+                      editable={this.state.editable}
+                      keyboardType='numeric'
+                      onChangeText={this._updateText("round")}
+                      maxLength={2}
+                      />
+                  </View>
                 </View>
                 <View className='timer-box' style={timerStyle}>
-                <TextInput
-                  id="time"
-                  style={timerTextStyle}
-                  placeholder="00:00:00"
-                  editable={this.state.editable}
-                  keyboardType='number-pad'
-                  onChangeText={this._updateText("time")}
-                  value={this.state.timerDisplay}
-                  maxLength={6}
-                  />
+                  <TextInput
+                    id="time"
+                    style={timerTextStyle}
+                    placeholder="00:00:00"
+                    editable={this.state.editable}
+                    keyboardType='number-pad'
+                    onChangeText={this._updateText("time")}
+                    value={this.state.timerDisplay}
+                    maxLength={6}
+                    />
+                </View>
               </View>
-              </View>
-
               <TouchableWithoutFeedback>
                 <View className='movement-list-box' style={bandContainerStyle}>
                   { this.displayExercises() }
