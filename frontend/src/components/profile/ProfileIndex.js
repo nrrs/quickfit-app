@@ -6,7 +6,8 @@ import { Text,
          Keyboard,
          TextInput,
          TouchableOpacity,
-         Image
+         Image,
+         AsyncStorage
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
@@ -35,6 +36,9 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
+    AsyncStorage.getItem('currentUser').then(resp => this.setState({
+      currentUser: JSON.parse(resp)
+    }))
     if (this.state.workoutHistory.length === 0) {
       axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
       .then( res => {
@@ -87,8 +91,8 @@ class ProfileIndex extends React.Component {
               </View>
               <View>
                 <View>
-                  <Text style={subHeaderStyle}> Usain Bolt </Text>
-                  <Text style={subHeaderStyle}> athlete@quickfit.com </Text>
+                  <Text style={subHeaderStyle}> {this.state.currentUser.username} </Text>
+                  <Text style={subHeaderStyle}> {this.state.currentUser.email} </Text>
                 </View>
               </View>
             </View>

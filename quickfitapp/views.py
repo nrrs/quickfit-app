@@ -55,17 +55,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-<<<<<<< HEAD:quickfitproject/quickfitapp/views.py
-=======
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-# client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
-#
-# client_secret = 'XuNyLon7py5lmkbjfCxKYgCcbcPrv5REjFJsXtZCdA5PSE2VWwUFeSy0IQxeES2yRZZpe7BUVTzODjyM4R2Eq9dd0A4oZd9szvD3a5mjoSt1hnfLV2s6Xqq267zW2pD1'
 
->>>>>>> 162e945d055a384d998860400693adf34b1527a7:quickfitapp/views.py
 # class-based views
 # class LoginView(APIView):
 #     authentication_classes = (SessionAuthentication, BasicAuthentication)
@@ -122,22 +116,29 @@ def session(request, pk):
               {'errors': ["Can't find current user."]}
             )
 
+@csrf_exempt
+@api_view(['PATCH'])
+def edit_profile(request, pk):
+    username = request.POST.get('username', None)
+    email = request.POST.get('email', None)
+    password = request.POST.get('password', None)
+    user = User.objects.get(pk=pk)
+    try:
+        user.username = username
+        user.email = email
+        if password:
+            user.set_password(password)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=201)
+    except:
+        return Response("Error updating profile", status=400)
+
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
-<<<<<<< HEAD:quickfitproject/quickfitapp/views.py
-#manual class-based view for listing Movements that belong to a single user
-=======
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-#manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
->>>>>>> 162e945d055a384d998860400693adf34b1527a7:quickfitapp/views.py
 class UserMovementList(APIView):
 
     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed

@@ -22,9 +22,10 @@ class MovementSerializer(serializers.ModelSerializer):
         model = Movement
         fields = ('id',
                   'author',
-                  'title',
+                  'movement_name',
                   'description',
                   'movement_type',
+                  'difficulty',
                   'demo_url',
                   'timestamp_last_updated',
                   'timestamp_created')

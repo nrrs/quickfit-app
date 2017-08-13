@@ -81,6 +81,7 @@ class ProfileAuth extends React.Component {
       .then(() => this._sendLoginRequest(authToken));
   }
 
+
   _requestToken(username, password) {
     const params = new URLSearchParams();
     params.append('grant_type', 'password');
@@ -90,31 +91,50 @@ class ProfileAuth extends React.Component {
       username: configs.clientId,
       password: configs.clientSecret,
     }
-    axios.post("o/token/", params, { auth })
-      .then(resp => {
-        authToken = resp.data.access_token;
-        AsyncStorage.setItem('authToken', authToken);
-      }
-    );
+    axios.post("o/token/", params, { auth }).then(resp => {
+      // authToken can be correctly set here
+      authToken = resp.data.access_token;
+      AsyncStorage.setItem('authToken', authToken);
+      // following line doesn't work
+      // axios.defaults.headers.common['Authorization'] = 'Bearer ' + authToken;
+    });
   }
 
-  _sendLoginRequest(authToken) {
+  _sendLoginRequest() {
     // log in with auth token
     const newSession = {
       username: this.state.username,
       password: this.state.passwordInput,
     }
-    const headers = { 'Authorization': 'Bearer ' + authToken }
-    axios.post('api/session/0/', newSession, { headers })
+    // const headers = { 'Authorization': 'Bearer ' + authToken}
+    axios.post('api/session/0/', newSession)
       .then(resp => {
         console.log(resp);
         AsyncStorage.setItem('currentUser', JSON.stringify(resp.data))
         this.props.parent.setState({ loggedIn: true });
       })
       .catch((err) => {
-        // this.props.parent.setState({loggedIn: true});
         alert("Invalid combination of username and password.")
       });
+      // axios error handling
+      // .catch(function (error) {
+      //   if (error.response) {
+      //     // The request was made and the server responded with a status code
+      //     // that falls out of the range of 2xx
+      //     console.log(error.response.data);
+      //     console.log(error.response.status);
+      //     console.log(error.response.headers);
+      //   } else if (error.request) {
+      //     // The request was made but no response was received
+      //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      //     // http.ClientRequest in node.js
+      //     console.log(error.request);
+      //   } else {
+      //     // Something happened in setting up the request that triggered an Error
+      //     console.log('Error', error.message);
+      //   }
+      //   console.log(error.config);
+      // });
   }
 
   _changeForm() {

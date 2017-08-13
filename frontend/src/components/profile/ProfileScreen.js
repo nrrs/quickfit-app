@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity } from 'react-native';
+import { Text, TouchableWithoutFeedback, ScrollView, View, Keyboard, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle, headerStyle, stackHeaderStyle, headerTitleStyle } from '../../styles/styles';
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
@@ -30,9 +30,17 @@ class ProfileScreen extends React.Component {
     }
   }
 
+  componentWillMount() {
+    AsyncStorage.getItem('currentUser').then(resp => {
+      if (resp !== null) {
+        this.setState({ loggedIn: true });
+      }
+    })
+  }
+
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this} />
   }
 }
 

@@ -61,7 +61,7 @@ export default class CreateScreen extends React.Component {
       "demo_url": this.state.demo_url
     }
     console.log(newMovement);
-    axios.get('http://rallycoding.herokuapp.com/api/music_albums')
+    axios.post('api/movements', newMovement)
       .then((res) => {
         alert('post success!');
       })
