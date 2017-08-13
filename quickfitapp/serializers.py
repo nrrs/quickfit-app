@@ -20,8 +20,16 @@ class MovementSerializer(serializers.ModelSerializer):
                   'timestamp_created')
 
 
+class JSONSerializerField(serializers.Field):
+    def to_internal_value(self, data):
+        return data
+    def to_representation(self, value):
+        return value
+
 
 class WorkoutSerializer(serializers.ModelSerializer):
+    workout_data = JSONSerializerField()
+    
     class Meta:
         model = Workout
         fields = ('id',
