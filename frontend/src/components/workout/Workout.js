@@ -13,9 +13,35 @@ import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle, cardStyl
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 import axios from 'axios';
+import * as WOD from './DefaultWorkout';
+import shuffle from 'lodash/shuffle'
+
 
 const flashShow = 750;
 const flashHide = 1750;
+
+let index = 0;
+let tempData = WOD.novice;
+
+let data = [
+    { key: index++, label: 'Rest' },
+    { key: index++, section: true, label: 'Your Movements' },
+    { key: index++, label: 'Custom Exercise 1', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Custom Exercise 2', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Custom Exercise 3', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, section: true, label: 'Novice' },
+    { key: index++, label: 'Easy Exercise 1', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Easy Exercise 2', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Easy Exercise 3', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, section: true, label: 'Moderate' },
+    { key: index++, label: 'Medium Exercise 1', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Medium Exercise 2', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Medium Exercise 3', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, section: true, label: 'Advanced' },
+    { key: index++, label: 'Hard Exercise 1', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Hard Exercise 2', description: 'This is a description that was parsed from our backend database' },
+    { key: index++, label: 'Hard Exercise 3', description: 'This is a description that was parsed from our backend database' },
+  ];
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -41,7 +67,6 @@ class Workout extends React.Component {
     }
 
     this.currentExerciseArray = [];
-    this.data = [];
     this.timer = null;
 
     this.ready = this.ready.bind(this);
@@ -55,9 +80,12 @@ class Workout extends React.Component {
     this.setTimer = this.setTimer.bind(this);
     this.flashGo = this.flashGo.bind(this);
     this.flash = this.flash.bind(this);
-  }
+    this.defaultWorkout = this.defaultWorkout.bind(this);
+    this.buildWorkout = this.buildWorkout.bind(this);
+
 
   componentWillMount() {
+    this.defaultWorkout();
     axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
       .then( res => {
         console.log(res);
@@ -65,27 +93,6 @@ class Workout extends React.Component {
       .catch( error => {
         console.log(error);
       });
-
-    let index = 0;
-    this.data = [
-      { key: index++, label: 'Rest' },
-      { key: index++, section: true, label: 'Your Movements' },
-      { key: index++, label: 'Custom Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Custom Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Custom Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Novice' },
-      { key: index++, label: 'Easy Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Easy Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Easy Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Moderate' },
-      { key: index++, label: 'Medium Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Medium Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Medium Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Advanced' },
-      { key: index++, label: 'Hard Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Hard Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Hard Exercise 3', description: 'This is a description that was parsed from our backend database' },
-    ];
   }
 
   componentWillUnmount() {
@@ -183,6 +190,43 @@ class Workout extends React.Component {
     clearInterval(timer);
   }
 
+  defaultWorkout() {
+    switch (this.state.workoutType) {
+      case "novice":
+        this.buildWorkout("novice")
+        break;
+      case "moderate":
+        this.buildWorkout("moderate")
+        break;
+      case "advanced":
+        this.buildWorkout("advanced")
+        break;
+      default:
+
+    }
+  }
+  
+  buildWorkout(difficulty) {
+    let exerciseOne = shuffle(WOD[`${difficulty}`]['upperBody'])[0];
+    let exerciseTwo = shuffle(WOD[`${difficulty}`]['lowerBody'])[0];
+    let exerciseThree = shuffle(WOD[`${difficulty}`]['fullBody'])[0];
+    let exerciseFour = shuffle(WOD[`${difficulty}`]['core'])[0];
+    let randomExercises = [
+      { label: exerciseOne[0], description: exerciseOne[1] },
+      { label: exerciseTwo[0], description: exerciseTwo[1] },
+      { label: exerciseThree[0], description: exerciseThree[1] },
+      { label: exerciseFour[0], description: exerciseFour[1] },
+    ]
+    this.setState ({
+      editable: false,
+      round: 0,
+      exercises: randomExercises,
+      timerDisplay: '00:10:00',
+      duration: 600000,
+    });
+    // this.flashGo();
+  }
+
   ready(exerciseArray) {
     if (this.state.timerDisplay === '') {
       alert('Timer cannot be empty!');
@@ -248,7 +292,7 @@ class Workout extends React.Component {
       <View>
         <Text style={subHeaderStyle}>SELECT MOVEMENTS</Text>
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 1"
           style={{ borderRadius: 0, padding: 10 }}
           onChange={ option => {
@@ -257,7 +301,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 2"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {
@@ -266,7 +310,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 3"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {
@@ -275,7 +319,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 4"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {

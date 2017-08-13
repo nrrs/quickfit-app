@@ -32,7 +32,7 @@ class ProfileScreen extends React.Component {
 
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth />
+    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this}/>
   }
 }
 
