@@ -156,6 +156,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_RENDERER_CLASSES': (
+        # un-comment below when push to production to disable admin 
+        # 'rest_framework.renderers.JSONRenderer',
+    ),
 }
 
 # Internationalization
