@@ -10,7 +10,7 @@ import {
   Vibration,
   Modal } from 'react-native';
 import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
-import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
+import { buttonStyle, buttonTextStyle, cardStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 import axios from 'axios';
 
@@ -286,7 +286,7 @@ class Workout extends React.Component {
     return (
         <View>
           { this.state.exercises.map( (el, i) => (
-            <View key={i} style={buttonStyle}>
+            <View key={i} style={cardStyle}>
               <Text style={textStyle}>
                 {el.label}{'\n'}
                 {el.description}
@@ -327,6 +327,22 @@ class Workout extends React.Component {
 
   }
 
+  flashModal() {
+    return (
+      <Modal
+        animationType={'fade'}
+        transparent={true}
+        visible={this.state.modalVisible}
+        presentationStyle={'overFullScreen'}
+        >
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
+          <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
+        </View>
+      </Modal>
+    );
+  }
+
+
   render() {
     const { workoutType } = this.props.navigation.state.params;
 
@@ -347,28 +363,23 @@ class Workout extends React.Component {
         </TouchableOpacity>
       </View>
     ) : null;
-
     return (
       <View style={{ flex: 1 }}>
-        <Modal
-          animationType={'fade'}
-          transparent={true}
-          visible={this.state.modalVisible}
-          presentationStyle={'overFullScreen'}
-          >
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
-            <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
-          </View>
-        </Modal>
+        { this.flashModal() }
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View className="workout-box" style={formContainerStyle}>
+          <View className="workout-box" style={formContainerStyle}>
+            <ScrollView
+              style={{flex:1}}
+              stickyHeaderIndices={[0]}
+              >
               <View className="header-container"
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   paddingRight: 10
-                }}>
+                  }}
+                  >
                 <Text style={subHeaderStyle}>
                   {workoutType.toUpperCase()}
                 </Text>
@@ -384,9 +395,7 @@ class Workout extends React.Component {
                     maxLength={2}
                     />
                 </View>
-              </View>
-
-              <View className='timer-box' style={timerStyle}>
+                <View className='timer-box' style={timerStyle}>
                 <TextInput
                   id="time"
                   style={timerTextStyle}
@@ -398,15 +407,17 @@ class Workout extends React.Component {
                   maxLength={6}
                   />
               </View>
+              </View>
 
-              <View className='movement-list-box' style={bandContainerStyle}>
-                <ScrollView style={{flex:1}}>
+              <TouchableWithoutFeedback>
+                <View className='movement-list-box' style={bandContainerStyle}>
                   { this.displayExercises() }
                   { this.renderButton() }
                   { notes }
-                </ScrollView>
-              </View>
-            </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </ScrollView>
+          </View>
         </TouchableWithoutFeedback>
       </View>
     );
