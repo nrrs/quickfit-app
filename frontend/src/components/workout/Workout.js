@@ -209,10 +209,10 @@ class Workout extends React.Component {
     ]
     this.setState ({
       editable: false,
-      round: 3,
+      round: 0,
       exercises: randomExercises,
-      timerDisplay: '00:00:03',
-      duration: 3000,
+      timerDisplay: '00:10:00',
+      duration: 600000,
     });
     // this.flashGo();
   }
