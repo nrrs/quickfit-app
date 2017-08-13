@@ -29,13 +29,13 @@ export const moderate = {
   ],
   fullBody: [
     ["Plank Burpees", "Place hands on the ground, jump into a plank, jump feet back to hands, stand and hop"],
-    ["Jumping Jacks", "Jump legs apart and clap hands above head, then jump feet together with hands along your sides"],
+    ["Star Jumps", "When you jump, spread your legs apart and reach your hands out like a star."],
     ["Jog in Place", "Raise alternating knees above hips while staying on the balls of your toes"],
   ],
   lowerBody: [
     ["Weighted Squats", "Feet facing forward, knees stable, press hips back and squat, keeping chest as upright as possible"],
     ["Hip Raises", "Lay back on the ground, bend knees with feet about hip's width apart, raise hips to the sky and squeeze glutes, keeping your shoulders on the ground"],
-    ["Lunges", "Step one foot forward about hip's width distance and bend both knees at 90 degrees, touching rear knee to the ground"],
+    ["Elevated Lunges", "Elevate rear foot. Step one foot forward about hip's width distance and bend front knees to 90 degrees."],
   ],
   core: [
     ["Plank", "Lay face down supporting your body with your elbows and knees"],
@@ -52,7 +52,7 @@ export const advanced = {
   ],
   fullBody: [
     ["Burpees", "Drop into a push up, jump your feet up to your hands, and hop off the ground, hands above head"],
-    ["Jumping Jacks", "Jump legs apart and clap hands above head, then jump feet together with hands along your sides"],
+    ["Tuck Jumps", "Jump as high as you can and tuck your knees to your chest"],
     ["High Knees with Hands Above Head", "Raise alternating knees above hips while holding hands above your head"],
   ],
   lowerBody: [
@@ -63,6 +63,6 @@ export const advanced = {
   core: [
     ["Hollow Body Plank", "Push up plank and pres your shoulders through. Keep your core pulled in and glutes squeezed."],
     ["V Ups", "Lay on your back, legs extended, hands above head. Fold your button and touch your hands to your feet."],
-    ["Elevated Russian Twists", "Sit on your bottom, knees bent, feet off the ground, twist your core and alternate sides, tapping the ground"],
+    ["Toes to Bars", "Hang from a bar, bring your toes to your hands."],
   ]
 }

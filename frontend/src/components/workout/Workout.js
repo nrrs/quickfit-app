@@ -9,12 +9,13 @@ import {
   Keyboard,
   Vibration,
   Modal } from 'react-native';
-import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
+import { textStyle, bandContainerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
 import axios from 'axios';
 import * as WOD from './DefaultWorkout';
-import shuffle from 'lodash/shuffle'
+import { shuffle, values, flatten } from 'lodash';
+import Loading from '../Loading';
 
 
 const flashShow = 750;
@@ -23,25 +24,25 @@ const flashHide = 1750;
 let index = 0;
 let tempData = WOD.novice;
 
+let novice = flatten(values(WOD.novice)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+novice = [{ key: index++, section: true, label: 'Novice' }].concat(novice);
+
+let moderate = flatten(values(WOD.moderate)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+moderate = [{ key: index++, section: true, label: 'Moderate' }].concat(moderate);
+
+let advanced = flatten(values(WOD.advanced)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+advanced = [{ key: index++, section: true, label: 'Advanced' }].concat(advanced);
+
 let data = [
+  { key: index++, section: true, label: 'Rest' },
     { key: index++, label: 'Rest' },
-    { key: index++, section: true, label: 'Your Movements' },
-    { key: index++, label: 'Custom Exercise 1', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Custom Exercise 2', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Custom Exercise 3', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, section: true, label: 'Novice' },
-    { key: index++, label: 'Easy Exercise 1', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Easy Exercise 2', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Easy Exercise 3', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, section: true, label: 'Moderate' },
-    { key: index++, label: 'Medium Exercise 1', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Medium Exercise 2', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Medium Exercise 3', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, section: true, label: 'Advanced' },
-    { key: index++, label: 'Hard Exercise 1', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Hard Exercise 2', description: 'This is a description that was parsed from our backend database' },
-    { key: index++, label: 'Hard Exercise 3', description: 'This is a description that was parsed from our backend database' },
-  ];
+  ].concat(novice).concat(moderate).concat(advanced);
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -51,6 +52,7 @@ class Workout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
@@ -80,19 +82,34 @@ class Workout extends React.Component {
     this.setTimer = this.setTimer.bind(this);
     this.flashGo = this.flashGo.bind(this);
     this.flash = this.flash.bind(this);
-    this.defaultWorkout = this.defaultWorkout.bind(this);
     this.buildWorkout = this.buildWorkout.bind(this);
-
+  }
 
   componentWillMount() {
-    this.defaultWorkout();
-    axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
-      .then( res => {
-        console.log(res);
-      })
-      .catch( error => {
-        console.log(error);
-      });
+    switch (this.state.workoutType) {
+      case "novice":
+        this.buildWorkout("novice");
+        this.setState({ loading: false });
+        break;
+      case "moderate":
+        this.buildWorkout("moderate");
+        this.setState({ loading: false });
+        break;
+      case "advanced":
+        this.buildWorkout("advanced");
+        this.setState({ loading: false });
+        break;
+      default:
+        axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
+        .then( res => {
+          this.setState({ loading: false });
+          console.log(res);
+        })
+        .catch( error => {
+          console.log(error);
+        });
+    }
+
   }
 
   componentWillUnmount() {
@@ -100,10 +117,12 @@ class Workout extends React.Component {
     this.setState({
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
-      round: null,
+      round: 1,
+      roundDisplay: '',
       exercises: [],
       timerDisplay: '',
       duration: null,
+      durationForRounds: null,
       paused: false,
       pauseTime: 0,
       modalVisible: false
@@ -154,64 +173,44 @@ class Workout extends React.Component {
   }
 
   setTimer() {
-    const durationDup = this.state.duration;
-    alert(durationDup);
+    const { totalDuration } = this.state;
 
     this.timer = setInterval( () => {
       let duration = this.state.duration;
-      let durationDup = duration;
+      duration -= 1000; // decrement by second
 
-      // decrement by second
-      duration -= 1000;
+      if (this.state.duration < 1000) { // When timer is done...
+        this.clearTimer(this.timer);  // clear current timer
 
-      // When timer is done...
-      if (this.state.duration <= 1000) {
-        this.clearTimer(this.timer);
-        if (this.state.rounds > 0) {
-          this.setState({
-            duration: durationDup
-          })
-          this.setTimer()
-        } else {
+        if (this.state.round <= 1) { // check rounds
           this.flash('DONE!', 'rgba(255, 59, 48, 1)');
           Vibration.vibrate([0, 500, 500, 500], false);
-          setTimeout( () => {
-            this.setState({ workoutDone: true });
-          }, flashHide);
+          setTimeout(() => { this.setState({
+            workoutDone: true,
+            roundDisplay: '0',
+          }); }, flashHide);
+        } else {
+          this.setState({
+            duration: totalDuration,
+            round: this.state.round - 1,
+            roundDisplay: `${this.state.round - 1}`,
+            timerDisplay: this.prettifyDuration(totalDuration / 1000)
+          });
+
+          this.setTimer();
         }
+      } else {
+        let timerDisplay = this.prettifyDuration(duration / 1000); // Prettify time display by converting millisecond to seconds base.
+        this.setState({
+          duration,
+          timerDisplay,
+        });
       }
-
-      // Prettify time display by converting millisecond to seconds base.
-      let timerDisplay = this.prettifyDuration(duration / 1000);
-
-      this.setState({
-        duration,
-        timerDisplay,
-        round: this.state.round - 1
-      })
     }, 1000 );
-
-
   }
 
   clearTimer(timer) {
     clearInterval(timer);
-  }
-
-  defaultWorkout() {
-    switch (this.state.workoutType) {
-      case "novice":
-        this.buildWorkout("novice")
-        break;
-      case "moderate":
-        this.buildWorkout("moderate")
-        break;
-      case "advanced":
-        this.buildWorkout("advanced")
-        break;
-      default:
-
-    }
   }
 
   buildWorkout(difficulty) {
@@ -254,12 +253,14 @@ class Workout extends React.Component {
 
     const timerDisplay = this.formatTime(hour, min, sec);
     const duration = this.totalDuration(hour, min, sec);
+    const durationForRounds = this.totalDuration(hour, min, sec);
 
     this.setState({
       editable: false,
       exercises: exerciseArray,
       timerDisplay,
-      duration
+      duration,
+      totalDuration: durationForRounds
     });
   }
 
@@ -420,10 +421,8 @@ class Workout extends React.Component {
       </View>
     ) : null;
 
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    };
+    if (this.state.loading) return (<Loading />);
+
     return (
       <View style={{ flex: 1 }}>
         { this.flashModal() }
@@ -451,6 +450,7 @@ class Workout extends React.Component {
                       editable={this.state.editable}
                       keyboardType='numeric'
                       onChangeText={this._updateText("round")}
+                      value={this.state.roundDisplay}
                       maxLength={2}
                       />
                   </View>
