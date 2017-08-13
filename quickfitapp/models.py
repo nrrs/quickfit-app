@@ -78,21 +78,6 @@ class Workout(models.Model):
         string_id = str(self.id)
         return string_id
 
-# for subsequent releases (not configured for this release)...
-# extension of built-in auth_user model (one-to-one link) to store additional information about each user
-# Django will fire an additional query when this related information is accessed
-
-# while auth is under development, I'm using Profile as stand-in for User
-class Profile(models.Model):
-    proxy_username = models.CharField(max_length=100, blank=True)
-    favorite_phrase = models.CharField(max_length=100, blank=True)
-    # bio_data = JSONField()
-
-    def __str__(self):
-        return self.proxy_username
-
-
-# Note: we could use a proxy to extend the auth_user model behavior (add methods), but it cannot be used to change requirements (e.g. null=False to null=True)
 
 # HOW TO GENERATE AN OBJECT IN THE PYTHON SHELL (ALTERNATIVE TO USING ADMIN GUI)
 # python manage.py shell

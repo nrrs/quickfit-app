@@ -56,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'quickfitapp.disable.DisableCSRF',
 ]
 
 ROOT_URLCONF = 'quickfitproject.urls'
@@ -169,10 +168,3 @@ STATICFILE_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(ASSETS_DIR, 'staticfiles')
-
-# WEBPACK_LOADER = {
-#   'DEFAULT': {
-#     'BUNDLE_DIR_NAME': 'bundles/',
-#     'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-#   }
-# }

@@ -2,18 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from .models import Movement, Workout, Profile
-
-#ModelSerializers are shorthand for regular serializers
-#they include default create() and update() methods when calling serializer.save()
-#print(repr(MovementSerializer)) to see the long hand form
-
-# class UsersMovementSerializer(serializers.ModelSerializer):
-    # class Meta:
-    #     model = Movement
-    #     fields = ('id',
-    #               'author_id',   #model field name is 'author', but displays as author_id in table
-    #               'movement_name')
+from .models import Movement, Workout
 
 
 class MovementSerializer(serializers.ModelSerializer):
@@ -21,7 +10,7 @@ class MovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movement
         fields = ('id',
-                  'author',
+                  'author_id',
                   'movement_name',
                   'description',
                   'movement_type',
@@ -36,20 +25,10 @@ class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
         fields = ('id',
-                  'athlete_id',   #model field name is 'athlete', but displays as athlete_id in table
+                  'athlete_id',   # model field name is 'athlete', but displays as athlete_id in table
                   'timestamp_created',
                   'workout_data')
 
-class ProfileSerializer(serializers.ModelSerializer):
-  class Meta:
-      model = Profile
-      fields = ('id',
-                'proxy_username',
-                'favorite_phrase')
-
-#not working because User is undefined, maybe b/c auth is disabled
-# from django.contrib.auth import get_user_model
-# User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
