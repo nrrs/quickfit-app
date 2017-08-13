@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 # for use with function-based decoratored views
-
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -20,6 +19,7 @@ from rest_framework.response import Response
 # importing the models and their serializers
 from .models import Movement, Workout, Profile
 from .serializers import MovementSerializer, WorkoutSerializer, UserSerializer, ProfileSerializer
+
 
 
 # returns boolean indicating whether or not user making the request has permission to invoke a CRUD method
@@ -57,6 +57,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
 
 # client_id = 'H2omDajOpBpwUYfSZahr9weNvMt1A8LbiW0srJ1S'
 #
