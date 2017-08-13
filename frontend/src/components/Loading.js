@@ -1,16 +1,14 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 const Loading = () =>{
   return (
-    <ActivityIndicator
-      animating={true}
-      size={'large'}
-      style = {{
-        alignSelf: 'center',
-        justifyContent: 'center'
-      }}
-    />
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <ActivityIndicator
+        animating={true}
+        size={'large'}
+        />
+    </View>
   );
 };
 
