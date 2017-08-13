@@ -22,7 +22,6 @@ const flashShow = 750;
 const flashHide = 1750;
 
 let index = 0;
-let tempData = WOD.novice;
 
 let novice = flatten(values(WOD.novice)).map(movement => {
   return ({ key: index++, label: movement[0], description: movement[1] })
@@ -41,8 +40,8 @@ advanced = [{ key: index++, section: true, label: 'Advanced' }].concat(advanced)
 
 let data = [
   { key: index++, section: true, label: 'Rest' },
-    { key: index++, label: 'Rest' },
-  ].concat(novice).concat(moderate).concat(advanced);
+  { key: index++, label: 'Rest' },
+].concat(novice).concat(moderate).concat(advanced);
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -345,8 +344,10 @@ class Workout extends React.Component {
         <View>
           { this.state.exercises.map( (el, i) => (
             <View key={i} style={cardStyle}>
-              <Text style={textStyle}>
+              <Text style={subHeaderStyle}>
                 {el.label}{'\n'}
+              </Text>
+              <Text style={textStyle}>
                 <Text style={{display: 'none'}}>{el.description}</Text>
               </Text>
             </View>

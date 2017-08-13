@@ -11,7 +11,7 @@ export const novice = {
   ],
   lowerBody: [
     ["Air Squats", "Feet facing forward, knees stable, press hips back and squat, keeping chest as upright as possible"],
-    ["Good Morning", "With feet hip width apart, toes facing forward, slight bend in the knees, press your hips back while keeping a neutral spine. Feel it in your hamstrings."],
+    ["Good Mornings", "With feet hip width apart, toes facing forward, slight bend in the knees, press your hips back while keeping a neutral spine. Feel it in your hamstrings."],
     ["Lunges", "Step one foot forward about hip's width distance and bend both knees at 90 degrees, touching rear knee to the ground"],
   ],
   core: [
