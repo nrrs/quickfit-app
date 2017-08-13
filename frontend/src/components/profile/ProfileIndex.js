@@ -35,7 +35,6 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props);
     if (this.state.workoutHistory.length === 0) {
       axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
       .then( res => {
@@ -53,19 +52,38 @@ class ProfileIndex extends React.Component {
       <View>
         {
           this.state.workoutHistory.map((workout, i) => {
-            const workoutDate = moment.utc(workout.timestamp_created).fromNow();
+            const workoutDate = moment.utc(workout.timestamp_created).format('MMM DD, YYYY');
+            const workoutDateFromNow = moment.utc(workout.timestamp_created).fromNow();
+
             let movementList;
             if (workout.workout_data.movements !== undefined) {
               movementList = workout.workout_data.movements.map((movement, j) => {
-                return <Text key={`${movement}${j}`}style={{alignSelf: 'center'}}> {movement} </Text>
+                return (
+                  <Text
+                    key={`${movement}${j}`}
+                    style={Object.assign({}, textStyle, {textAlign: 'right'})}>
+                    {movement}
+                  </Text>
+                );
               })
             }
             return (
-              <View key={i} style={cardStyle}>
-                <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, paddingTop: 0 })}>{workoutDate}</Text>
-                <Text style={textStyle}> Timer </Text>
-                <View>
-                  {movementList}
+              <View
+                key={i}
+                style={Object.assign({}, cardStyle, {
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  flexDirection: 'row'
+                })}>
+                <View style={{alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workoutDate}</Text>
+                  <Text style={{padding: 0, margin: 0}}>{workoutDateFromNow}</Text>
+                </View>
+                <View style={{alignItems: 'flex-end'}}>
+                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workout.workout_data.workout_type}</Text>
+                  <View>
+                    {movementList}
+                  </View>
                 </View>
               </View>
             );

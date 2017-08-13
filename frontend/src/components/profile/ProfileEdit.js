@@ -21,6 +21,7 @@ class ProfileEdit extends React.Component {
 
     this._updateText = this._updateText.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._logout = this._logout.bind(this);
   }
 
   _updateText(field) {
@@ -42,6 +43,17 @@ class ProfileEdit extends React.Component {
       })
       .catch((err) => {
         alert('update fail!');
+      });
+  }
+
+  _logout() {
+    axios.delete('https://rallycoding.herokuapp.com/api/music_albums')
+      .then((res) => {
+        alert('logout success!');
+        this.props.screenProps.setState({loggedIn: false});
+      })
+      .catch((err) => {
+        alert('Unable to logout');
       });
   }
 
@@ -80,7 +92,7 @@ class ProfileEdit extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
-                onPress={ () => this.props.screenProps.setState({loggedIn: false}) }
+                onPress={this._logout}
                 >
                 <Text style={Object.assign({}, buttonTextStyle, { color: '#ff3b30' })}>Sign Out</Text>
               </TouchableOpacity>
