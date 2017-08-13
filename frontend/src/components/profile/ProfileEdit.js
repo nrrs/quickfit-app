@@ -80,7 +80,7 @@ class ProfileEdit extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={Object.assign({}, buttonStyle, {marginTop: 10, marginBottom: 10})}
-                onPress={ () => console.log('sign out') }
+                onPress={ () => this.props.screenProps.setState({loggedIn: false}) }
                 >
                 <Text style={Object.assign({}, buttonTextStyle, { color: '#ff3b30' })}>Sign Out</Text>
               </TouchableOpacity>

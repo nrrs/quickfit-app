@@ -9,6 +9,7 @@ import ProfileEdit from './ProfileEdit';
 import { StackNavigator } from 'react-navigation';
 import Loading from '../Loading';
 
+
 class ProfileScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Profile',
@@ -32,7 +33,7 @@ class ProfileScreen extends React.Component {
 
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this}/>
+    return (this.state.loggedIn) ? <ProfileStackNav screenProps={this}/> : <ProfileAuth parent={this}/>
   }
 }
 
@@ -47,7 +48,7 @@ const profileStackConfig = {
     headerStyle: stackHeaderStyle,
     headerTitleStyle: headerTitleStyle,
     headerBackTitle: ' ',
-    shadowHidden: true
+    shadowHidden: true,
   }
 }
 

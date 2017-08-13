@@ -6,6 +6,10 @@ const Loading = () =>{
     <ActivityIndicator
       animating={true}
       size={'large'}
+      style = {{
+        alignSelf: 'center',
+        justifyContent: 'center'
+      }}
     />
   );
 };

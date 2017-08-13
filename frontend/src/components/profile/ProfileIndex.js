@@ -35,6 +35,7 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props);
     if (this.state.workoutHistory.length === 0) {
       axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
       .then( res => {
@@ -51,15 +52,21 @@ class ProfileIndex extends React.Component {
     return (
       <View>
         {
-          this.state.workoutHistory.map( (workout, i) => {
+          this.state.workoutHistory.map((workout, i) => {
             const workoutDate = moment.utc(workout.timestamp_created).fromNow();
-
+            let movementList;
+            if (workout.workout_data.movements !== undefined) {
+              movementList = workout.workout_data.movements.map((movement, j) => {
+                return <Text key={`${movement}${j}`}style={{alignSelf: 'center'}}> {movement} </Text>
+              })
+            }
             return (
               <View key={i} style={cardStyle}>
                 <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, paddingTop: 0 })}>{workoutDate}</Text>
-                <Text style={textStyle}> Moderate Tabata </Text>
-                <Text style={textStyle}> Pushups </Text>
-                <Text style={textStyle}> Burpees </Text>
+                <Text style={textStyle}> Timer </Text>
+                <View>
+                  {movementList}
+                </View>
               </View>
             );
           })
@@ -69,6 +76,7 @@ class ProfileIndex extends React.Component {
   }
 
   render() {
+
     if (this.state.loading) { return <Loading /> }
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
