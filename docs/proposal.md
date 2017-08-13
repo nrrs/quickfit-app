@@ -40,20 +40,74 @@ TBD*
 - [ ] Social element to share workouts and progress
 - [ ] Hardware access for added functionality and features
 
+## Wireframes
+
+![Whiteboard](/docs/images/FullSizeRender.jpg)
+
+![generator mockup](/docs/images/2-Generator.png)
+
+![add mockup](/docs/images/4-AddExercise.png)
 
 ## Stack & Challenges
 
 ### Technologies
 - [Django](https://www.djangoproject.com/) handles our backend: serving APIs, ensuring security, and handling auth.
-- [OAuth](https://oauth.net/) was implemented to allow login through 3rd part platforms.
 - [React Native](https://facebook.github.io/react-native/) is used for our frontend, mobile framework. Providing quick rendering and a smooth experience.
+- [React/Redux](https://github.com/reactjs/react-redux) utilizes unidirectional data flow for our state's management
 - [Expo.io](https://expo.io) is a tool that allows us to build and share native applications across iOS.
 - [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.
-- [Moment.js](https://momentjs.com/) JavaScript time library used for displaying semantic dates for our users to track their workouts.
+
+### Challenges
+
+The main technical challenges will include:
+
+1. Learning two new frameworks, `Django` and `React Native`
+2. Rapid prototyping amongst multi-member team
+3. Multi-member git collaboration
+4. How to access API endpoint? Utilize built-in Fetch tool or 3rd party library ([Axios](https://github.com/mzabriskie/axios))
+5. Production hosting on Heroku (not common to host Django applications)
+
+## Weekend Accomplishments
+1. Functioning prototypes for both back and frontends.
+2. Chris Brickey completed Django tutorials and set up a working backend environment.
+3. Justin Austria completed React Native tutorials and set up a frontend/mobile testing environment.
+4. Kevin Shen assisted Chris Brickey with research, implementation, and planning.
+5. Norris Kwan assisted Justin Austria with research, implementation, and planning.
+6. Our team mapped out our MVPs, wireframes, component hierarchy, schema, and state shape.
+7. Chris Brickey created wireframes.
+8. Norris Kwan and Justin Austria completed README draft and proposal.
 
 
+## Implementation Timeline
 
-## Collaborators
+**Day 1**:
+
+- Continue progress from the weekend. Achieve successful request/response from front to backend. (Chris & Kevin)
+- Create main features' visual components. (Justin & Norris)
+
+**Day 2**:
+
+- RESTful API and OAuth (Chris & Kevin)
+- Build timer logic (Justin & Norris)
+
+**Day 3**:
+
+- Finalize backend functionality and confirm security (Chris & Kevin)
+- Finalize remaining components for add and profile (Justin & Norris)
+- Research and take steps towards entering mobile market, App Store. (all members)
+
+**Day 4**:
+
+- Research and incorporate gestures and physical alerts (Justin & Norris)
+- Write detailed documentation regarding backend for production readme (Chris & Kevin)
+- Debug, polish, and test functionality and UX (all members)
+
+**Day 5**:
+
+- Finalize production readme (Justin & Norris)
+- Debug, polish, and test functionality and UX (all members)
+
+## Group Members and Primary Roles
 
 ### Team
 [![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ks]][git_ks] |
@@ -68,3 +122,13 @@ TBD*
 [pic_cb]: https://avatars1.githubusercontent.com/u/7623023?v=4&s=200
 [pic_nk]: https://avatars1.githubusercontent.com/u/425246?v=4&s=200
 [pic_ks]: https://avatars1.githubusercontent.com/u/10000295?v=4&s=200
+
+### Primary Focus
+
+All members have and will participate in research, brainstorming, troubleshooting, and development. There are no hard lines between our responsibilities. We're working as a team and supporting each other in all/any ways possible.
+
+#### **Backend:** Chris Brickey & Kevin Shen
+Both backend members will be responsible for creating auth, API endpoints, and backend routing.
+
+#### **Frontend:** Justin Austria & Norris Kwan
+Both frontend members will be responsible for the UX of the application along with handling utility and state management.
