@@ -101,23 +101,10 @@ class ProfileIndex extends React.Component {
         <ScrollView>
           <View style={formContainerStyle}>
             <View className='ProfileDescription' style={Object.assign({}, buttonStyle, {flexDirection: 'row'})}>
-              <View style={styles.profileImgContainer}>
-                <Image
-                  source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Usain_Bolt_portrait.jpg'}}
-                  style={{
-                    flex: 1,
-                    alignSelf: 'stretch',
-                    borderRadius: 60,
-                    width: 120,
-                    height: 120}}
-                    />
-              </View>
-              <View>
                 <View>
                   <Text style={subHeaderStyle}> Usain Bolt </Text>
                   <Text style={subHeaderStyle}> athlete@quickfit.com </Text>
                 </View>
-              </View>
             </View>
 
             <TouchableOpacity
