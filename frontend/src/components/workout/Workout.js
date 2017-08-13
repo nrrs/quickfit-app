@@ -150,6 +150,7 @@ class Workout extends React.Component {
   setTimer() {
     this.timer = setInterval( () => {
       let duration = this.state.duration;
+      let durationDup = duration;
 
       // decrement by second
       duration -= 1000;
@@ -157,11 +158,18 @@ class Workout extends React.Component {
       // When timer is done...
       if (this.state.duration <= 1000) {
         this.clearTimer(this.timer);
-        this.flash('DONE!', 'rgba(255, 59, 48, 1)');
-        Vibration.vibrate([0, 500, 500, 500], false);
-        setTimeout( () => {
-          this.setState({ workoutDone: true });
-        }, flashHide);
+        if (this.state.rounds > 0) {
+          this.setState({
+            duration: durationDup
+          })
+          this.setTimer()
+        } else {
+          this.flash('DONE!', 'rgba(255, 59, 48, 1)');
+          Vibration.vibrate([0, 500, 500, 500], false);
+          setTimeout( () => {
+            this.setState({ workoutDone: true });
+          }, flashHide);
+        }
       }
 
       // Prettify time display by converting millisecond to seconds base.
@@ -214,7 +222,6 @@ class Workout extends React.Component {
       timerDisplay: '00:00:03',
       duration: 3000,
     });
-    // this.flashGo();
   }
 
   ready(exerciseArray) {
