@@ -29,6 +29,7 @@ class MovementSerializer(serializers.ModelSerializer):
                   'movement_name',
                   'description',
                   'movement_type',
+                  'difficulty',
                   'demo_url',
                   'timestamp_last_updated',
                   'timestamp_created')
@@ -48,15 +49,9 @@ class ProfileSerializer(serializers.ModelSerializer):
                 'proxy_username',
                 'favorite_phrase')
 
-#not working because User is undefined, maybe b/c auth is disabled
+# below 2 lines are not working because User is undefined, maybe b/c auth is disabled
 # from django.contrib.auth import get_user_model
 # User = get_user_model()
-
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id',
-#                   'username')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
