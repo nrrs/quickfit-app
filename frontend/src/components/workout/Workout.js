@@ -9,11 +9,13 @@ import {
   Keyboard,
   Vibration,
   Modal } from 'react-native';
-import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
+import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
+import axios from 'axios';
 import * as WOD from './DefaultWorkout';
 import shuffle from 'lodash/shuffle'
+
 
 const flashShow = 750;
 const flashHide = 1750;
@@ -67,7 +69,6 @@ class Workout extends React.Component {
     this.currentExerciseArray = [];
     this.timer = null;
 
-    this.go = this.go.bind(this);
     this.ready = this.ready.bind(this);
     this.selectExercises = this.selectExercises.bind(this);
     this.displayExercises = this.displayExercises.bind(this);
@@ -83,6 +84,15 @@ class Workout extends React.Component {
     this.buildWorkout = this.buildWorkout.bind(this);
 
 
+  componentWillMount() {
+    this.defaultWorkout();
+    axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
+      .then( res => {
+        console.log(res);
+      })
+      .catch( error => {
+        console.log(error);
+      });
   }
 
   componentWillUnmount() {
@@ -98,10 +108,6 @@ class Workout extends React.Component {
       pauseTime: 0,
       modalVisible: false
     })
-  }
-
-  componentWillMount() {
-    this.defaultWorkout();
   }
 
   _updateText(field) {
@@ -148,6 +154,9 @@ class Workout extends React.Component {
   }
 
   setTimer() {
+    const durationDup = this.state.duration;
+    alert(durationDup);
+
     this.timer = setInterval( () => {
       let duration = this.state.duration;
       let durationDup = duration;
@@ -178,8 +187,11 @@ class Workout extends React.Component {
       this.setState({
         duration,
         timerDisplay,
+        round: this.state.round - 1
       })
     }, 1000 );
+
+
   }
 
   clearTimer(timer) {
@@ -202,8 +214,6 @@ class Workout extends React.Component {
     }
   }
 
-
-
   buildWorkout(difficulty) {
     let exerciseOne = shuffle(WOD[`${difficulty}`]['upperBody'])[0];
     let exerciseTwo = shuffle(WOD[`${difficulty}`]['lowerBody'])[0];
@@ -217,10 +227,10 @@ class Workout extends React.Component {
     ]
     this.setState ({
       editable: false,
-      round: 3,
+      round: 0,
       exercises: randomExercises,
-      timerDisplay: '00:00:03',
-      duration: 3000,
+      timerDisplay: '00:10:00',
+      duration: 600000,
     });
   }
 
@@ -253,54 +263,12 @@ class Workout extends React.Component {
     });
   }
 
-  go() {
-    // Call modal, on modal close, run this.setTimer
-    this.flashGo();
-  }
-
   flashGo() {
-    this.setState({
-      modalVisible: true,
-      cue: '3'
-    });
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '2'
-      });
-    }, 1000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 1500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '1'
-      });
-    }, 2000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 2500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: 'GO!'
-      });
-    }, 3000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-      this.setTimer();
-    }, 3500);
+    this.setState({ modalVisible: true, cue: '3' });
+    setTimeout( () => { this.setState({ cue: '2' }); }, 1000);
+    setTimeout( () => { this.setState({ cue: '1' }); }, 2000);
+    setTimeout( () => { this.setState({ cue: 'GO!' }); }, 3000);
+    setTimeout( () => { this.setState({ modalVisible: false }); this.setTimer(); }, 3500);
   }
 
   flash(message, bgColor) {
@@ -375,10 +343,10 @@ class Workout extends React.Component {
     return (
         <View>
           { this.state.exercises.map( (el, i) => (
-            <View key={i} style={buttonStyle}>
+            <View key={i} style={cardStyle}>
               <Text style={textStyle}>
                 {el.label}{'\n'}
-                {el.description}
+                <Text style={{display: 'none'}}>{el.description}</Text>
               </Text>
             </View>
             ))
@@ -402,7 +370,7 @@ class Workout extends React.Component {
       <View>
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-          onPress={ () => this.go()}>
+          onPress={ () => this.flashGo()}>
           <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>START!</Text>
         </TouchableOpacity>
 
@@ -414,6 +382,21 @@ class Workout extends React.Component {
       </View>
     );
 
+  }
+
+  flashModal() {
+    return (
+      <Modal
+        animationType={'fade'}
+        transparent={true}
+        visible={this.state.modalVisible}
+        presentationStyle={'overFullScreen'}
+        >
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
+          <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
+        </View>
+      </Modal>
+    );
   }
 
   render() {
@@ -437,69 +420,63 @@ class Workout extends React.Component {
       </View>
     ) : null;
 
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
     return (
       <View style={{ flex: 1 }}>
-        <Modal
-          animationType={'fade'}
-          transparent={true}
-          visible={this.state.modalVisible}
-          presentationStyle={'overFullScreen'}
-
-          >
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
-            <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
-          </View>
-        </Modal>
+        { this.flashModal() }
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View className="workout-box" style={formContainerStyle}>
-              <View className="header-container"
-                style={{
+          <View className="workout-box" style={formContainerStyle}>
+            <ScrollView
+              style={{flex:1}}
+              stickyHeaderIndices={[0]}
+              >
+              <View className="header-container">
+                <View style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  paddingRight: 10
+                  paddingRight: 10,
+                  backgroundColor: '#fafafa'
                 }}>
-                <Text style={subHeaderStyle}>
-                  {workoutType.toUpperCase()}
-                </Text>
-                <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
+                  <Text style={subHeaderStyle}>{workoutType.toUpperCase()}</Text>
+                  <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
+                    <TextInput
+                      id="round"
+                      style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
+                      placeholder='00'
+                      editable={this.state.editable}
+                      keyboardType='numeric'
+                      onChangeText={this._updateText("round")}
+                      maxLength={2}
+                      />
+                  </View>
+                </View>
+                <View className='timer-box' style={timerStyle}>
                   <TextInput
-                    id="round"
-                    style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
-                    placeholder='00'
+                    id="time"
+                    style={timerTextStyle}
+                    placeholder="00:00:00"
                     editable={this.state.editable}
-                    keyboardType='numeric'
-                    onChangeText={this._updateText("round")}
-                    maxLength={2}
+                    keyboardType='number-pad'
+                    onChangeText={this._updateText("time")}
+                    value={this.state.timerDisplay}
+                    maxLength={6}
                     />
                 </View>
               </View>
-
-              <View className='timer-box' style={timerStyle}>
-
-                <TextInput
-                  id="time"
-                  style={timerTextStyle}
-                  placeholder="00:00:00"
-                  editable={this.state.editable}
-                  keyboardType='number-pad'
-                  onChangeText={this._updateText("time")}
-                  value={this.state.timerDisplay}
-                  maxLength={6}
-                  />
-
-              </View>
-
-
-              <View className='movement-list-box' style={bandContainerStyle}>
-                <ScrollView style={{flex:1}}>
+              <TouchableWithoutFeedback>
+                <View className='movement-list-box' style={bandContainerStyle}>
                   { this.displayExercises() }
                   { this.renderButton() }
                   { notes }
-                </ScrollView>
-              </View>
-            </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </ScrollView>
+          </View>
         </TouchableWithoutFeedback>
       </View>
     );
