@@ -22,6 +22,7 @@ const flashShow = 750;
 const flashHide = 1750;
 
 let index = 0;
+let tempData = WOD.novice;
 
 let novice = flatten(values(WOD.novice)).map(movement => {
   return ({ key: index++, label: movement[0], description: movement[1] })
@@ -40,8 +41,8 @@ advanced = [{ key: index++, section: true, label: 'Advanced' }].concat(advanced)
 
 let data = [
   { key: index++, section: true, label: 'Rest' },
-  { key: index++, label: 'Rest' },
-].concat(novice).concat(moderate).concat(advanced);
+    { key: index++, label: 'Rest' },
+  ].concat(novice).concat(moderate).concat(advanced);
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -82,6 +83,7 @@ class Workout extends React.Component {
     this.flashGo = this.flashGo.bind(this);
     this.flash = this.flash.bind(this);
     this.buildWorkout = this.buildWorkout.bind(this);
+    this.saveWorkout = this.saveWorkout.bind(this);
   }
 
   componentWillMount() {
@@ -131,14 +133,21 @@ class Workout extends React.Component {
   _updateText(field) {
     return (val) => {
       let num = parseInt(val);
-      this.setState({
-        [field]: num
-      });
-      if (field === "time") {
-        let displayVal = val;
-        this.setState({
-          timerDisplay: `${displayVal}`
-        });
+      switch (field) {
+        case "time":
+          this.setState({
+            timerDisplay: val
+          });
+          break;
+        case "postNotes":
+          this.setState({
+            [field]: val
+          });
+          break;
+        default:
+          this.setState({
+            [field]: num
+          });
       }
     }
   }
@@ -344,10 +353,8 @@ class Workout extends React.Component {
         <View>
           { this.state.exercises.map( (el, i) => (
             <View key={i} style={cardStyle}>
-              <Text style={subHeaderStyle}>
-                {el.label}{'\n'}
-              </Text>
               <Text style={textStyle}>
+                {el.label}{'\n'}
                 <Text style={{display: 'none'}}>{el.description}</Text>
               </Text>
             </View>
@@ -401,6 +408,25 @@ class Workout extends React.Component {
     );
   }
 
+  saveWorkout() {
+    const newWorkout = {
+      athlete_id: 2,
+      workout_data: {
+        post_workout_notes: this.state.postNotes,
+        workout_type: this.state.workoutType,
+        movements: this.state.exercises.map((exerciseObj) => {
+          return exerciseObj["label"]
+        })
+      }
+    }
+    axios.post('https://afternoon-bastion-37946.herokuapp.com/api/workouts/', newWorkout)
+    .then( res => {
+      alert("success!");
+      console.log(newWorkout);
+    })
+    .catch( error => console.log(newWorkout))
+  }
+
   render() {
     const { workoutType } = this.props.navigation.state.params;
 
@@ -416,7 +442,7 @@ class Workout extends React.Component {
         />
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-          onPress={ () => alert('SAVE WORKOUT => REDIRECT TO PROFILE INDEX') }>
+          onPress={this.saveWorkout}>
           <Text style={ buttonTextStyle }>Save Workout</Text>
         </TouchableOpacity>
       </View>

@@ -77,10 +77,10 @@ class ProfileIndex extends React.Component {
                 })}>
                 <View style={{alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                   <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workoutDate}</Text>
-                  <Text style={{padding: 0, margin: 0}}>{workoutDateFromNow}</Text>
+                  <Text style={textStyle}>{workoutDateFromNow}</Text>
                 </View>
                 <View style={{alignItems: 'flex-end'}}>
-                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workout.workout_data.workout_type}</Text>
+                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workout.workout_data.workout_type.toUpperCase()}</Text>
                   <View>
                     {movementList}
                   </View>
@@ -102,8 +102,8 @@ class ProfileIndex extends React.Component {
           <View style={formContainerStyle}>
             <View className='ProfileDescription' style={Object.assign({}, buttonStyle, {flexDirection: 'row'})}>
                 <View>
-                  <Text style={subHeaderStyle}> Usain Bolt </Text>
-                  <Text style={subHeaderStyle}> athlete@quickfit.com </Text>
+                  <Text style={subHeaderStyle}>Guest User</Text>
+                  <Text style={subHeaderStyle}>hello@quickfit.com</Text>
                 </View>
             </View>
 
