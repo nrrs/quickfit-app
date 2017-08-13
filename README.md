@@ -4,7 +4,7 @@ An exercise generator that allows you to keep track of workouts! This SPA allows
 
 Fitness is the first step to greatness!
 
-### Liability Waiver
+### Disclaimer of Liability
 The Quickfit app includes features that promote physical activity.  Consider the risks involved and consult with your medical professional before engaging in any physical activity. The creators and collaborators of the Quickfit app are not responsible or liable for any injuries or damages you may sustain that result from your use of, or inability to use, the features of the Quickfit app.
 
 Development plans include a modal for first-time users and users not logged in that forces them to accept liability waiver before using app features.
