@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movement, Workout, Profile
+from .models import Movement, Workout
 from django.contrib.auth.models import User
 
 
@@ -7,8 +7,7 @@ class MovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movement
         fields = ('id',
-                  'author_id',   #for auth, model field name is 'author', but displays as author_id in table
-                #   'author',   #when auth turned off AND this is just an integer (not a foreign key) in the model
+                  'author_id',
                   'movement_name',
                   'description',
                   'movement_type',
@@ -34,14 +33,6 @@ class WorkoutSerializer(serializers.ModelSerializer):
                   'athlete_id',   #model field name is 'athlete', but displays as athlete_id in table
                   'timestamp_created',
                   'workout_data')
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-  class Meta:
-      model = Profile
-      fields = ('id',
-                'proxy_username',
-                'favorite_phrase')
 
 
 class UserSerializer(serializers.ModelSerializer):

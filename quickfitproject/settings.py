@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -141,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 OAUTH2_PROVIDER = {
 # this is the list of available scopes
 'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
-'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 30m (It is better to choose shorter periods)
+'ACCESS_TOKEN_EXPIRE_SECONDS': 31536000, # 30m (It is better to choose shorter periods)
 }
 
 
@@ -149,9 +149,9 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -183,10 +183,3 @@ STATICFILE_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(ASSETS_DIR, 'staticfiles')
-
-# WEBPACK_LOADER = {
-#   'DEFAULT': {
-#     'BUNDLE_DIR_NAME': 'bundles/',
-#     'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-#   }
-# }

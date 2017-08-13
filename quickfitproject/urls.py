@@ -21,7 +21,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^mobil-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^mobil-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
     url(r'^api/', include('quickfitapp.urls')),

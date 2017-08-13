@@ -18,8 +18,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # importing the models and their serializers
-from .models import Movement, Workout, Profile
-from .serializers import MovementSerializer, WorkoutSerializer, UserSerializer, ProfileSerializer
+from .models import Movement, Workout
+from .serializers import MovementSerializer, WorkoutSerializer, UserSerializer
 
 
 
@@ -54,16 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-
-
 
 #manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
 class UserMovementList(APIView):

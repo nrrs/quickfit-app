@@ -6,8 +6,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'movements', views.MovementViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
-router.register(r'profiles', views.ProfileViewSet)
-router.register(r'users', views.UserViewSet)
+router.register(r'users', views.UserViewSet) #delete for production version
 
 urlpatterns = [
     url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
