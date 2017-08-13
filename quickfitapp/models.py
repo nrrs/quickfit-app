@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 # from django.contrib.postgres.fields import JSONField
 from jsonfield import JSONField
 
+
+# -------------------MOVEMENT MODEL-----------------------------
 # MOVEMENT_TYPES = (
 #     ('lower body', "Lower Body"),
 #     ('upper body', "Upper Body"),
@@ -63,6 +65,8 @@ class Movement(models.Model):
     def __str__(self):
         return self.movement_name
 
+
+# -------------------WORKOUT MODEL-----------------------------
 class Workout(models.Model):
 
     athlete = models.ForeignKey('auth.user', related_name='workouts',
@@ -78,6 +82,10 @@ class Workout(models.Model):
         string_id = str(self.id)
         return string_id
 
+
+
+
+# -------------------PROFILE MODEL-----------------------------
 # for subsequent releases (not configured for this release)...
 # extension of built-in auth_user model (one-to-one link) to store additional information about each user
 # Django will fire an additional query when this related information is accessed
