@@ -1,57 +1,45 @@
 # QuickFit
 
-An exercise generator that allows you to keep track of workouts! This SPA allows users to add or select exercises along with some timing variations.
+An exercise generator that allows you to keep track of workouts! This mobile app allows users to add and select exercises, generate and customize workouts, utilize specialized timers, and store and review progress.
 
-Fitness is the first step to greatness!
+>“I really think a champion is defined not by their wins but by how they can recover when they fall." - Serena Williams
 
-### Background
+>“Grind Hard, Shine Hard.” – Dwayne "The Rock" Johnson
 
-> “I really think a champion is defined not by their wins but by how they can recover when they fall." - Serena Williams
+>"At the end of the day, if I can say I had fun, it was a good day." - Simone Biles
 
-As a way to promote a healthy lifestyle, our goal is to create an easy to use application that provides a simple way to create an engaging exercise experience. This application aims to provide the ability to add custom movements or select from a list of basic movements, frame it within popular timing conventions, and provide visual, audio, and physical cues to the athlete.
+As a way to promote a healthy lifestyle, our goal is to create an easy to use application that provides a simple way to create an engaging exercise experience. Right out of the box, our users can immediately generate a randomize, yet balanced workout based on the  difficulty level of their choice.
 
 Whether you are new to fitness or an experienced athlete, we strive to provide an easy to use interface that anyone can use right out of the box.
 
-## Feature Functionality & MVP
+Fitness is the first step to greatness!
 
-- [x] Workout generator with timer and exercise selections
-- [x] Three timing options
-  * Counter
-    - Duration
-    - Toggle count up or down
-    - IE. count up to 15mins
-  * Interval
-    - Rounds
-    - Durations/Intervals
-    - IE. 5 Rounds of 5 minutes of work
-  * Tabata
-    - Rounds
-    - 20s Work, 10s Rest
-    - IE. 8 Rounds of 20s work/10s rest, totaling 4mins
-- [x] Visual and physical* cues to alert user of interface changes
-- [x] User creation and login
-- [x] An easy way to retrieve past workouts to monitor progress
-- [x] Smooth and polished frontend for Apple App Store submission/acceptance
+## Features
 
-TBD*
+- [x] On tap, generate a random workout based on the difficulty level of your choice.
+- [x] Add your own custom movements and categorize them by type and difficulty.
+- [x] Create custom workouts based on your custom movements, along with the ones we provided.
+- [x] Timing Options!
+  * Counter: Count down from a specified duration
+  * Interval: Set rounds and durations for interval training
+- [x] Pause your workouts and resume where you left off.
+- [x] Add post-workout notes for your perusal.
+- [x] Hold down cards to display post-workout notes and movement description in a tool-tip.
+- [x] Receive visual and physical cues as to when to start and finish your workout.
+- [x] Sign up with an editable profile.
+- [x] As a member, track your workouts to monitor your progress.
 
-## Future Features
-
-- [ ] Social element to share workouts and progress
-- [ ] Hardware access for added functionality and features
-
-
-## Stack & Challenges
+## Stack
 
 ### Technologies
 - [Django](https://www.djangoproject.com/) handles our backend: serving APIs, ensuring security, and handling auth.
-- [OAuth](https://oauth.net/) was implemented to allow login through 3rd part platforms.
-- [React Native](https://facebook.github.io/react-native/) is used for our frontend, mobile framework. Providing quick rendering and a smooth experience.
+- [OAuth](https://oauth.net/) was implemented to allow login through 3rd party platforms.
+- [React Native](https://facebook.github.io/react-native/) is used for our frontend, mobile framework.
 - [Expo.io](https://expo.io) is a tool that allows us to build and share native applications across iOS.
+
+### Libraries
 - [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.
 - [Moment.js](https://momentjs.com/) JavaScript time library used for displaying semantic dates for our users to track their workouts.
-
-
 
 ## Collaborators
 
@@ -68,3 +56,12 @@ TBD*
 [pic_cb]: https://avatars1.githubusercontent.com/u/7623023?v=4&s=200
 [pic_nk]: https://avatars1.githubusercontent.com/u/425246?v=4&s=200
 [pic_ks]: https://avatars1.githubusercontent.com/u/10000295?v=4&s=200
+
+## Future Plans
+
+- [ ] Add calendar for workout tracking
+- [ ] Social element to share workouts and progress
+- [ ] Hardware access including camera for progress tracking
+- [ ] Apple App Store
+
+**NB:**
