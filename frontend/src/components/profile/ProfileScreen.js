@@ -21,19 +21,13 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
-      currentUser: {
-        id: 1,
-        name: 'Bruce Wayne'
-      },
-      workouts: [1,2,3,4,5],
       loading: false
     }
   }
 
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.state.loggedIn) ? <ProfileStackNav screenProps={this}/> : <ProfileAuth parent={this}/>
+    return (this.props.screenProps.state.loggedIn) ? <ProfileStackNav screenProps={this.props.screenProps}/> : <ProfileAuth parent={this.props.screenProps}/>
   }
 }
 

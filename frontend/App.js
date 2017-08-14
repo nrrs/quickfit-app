@@ -8,20 +8,42 @@ import WorkoutScreen from './src/components/workout/WorkoutScreen';
 import CreateScreen from './src/components/create_workout/CreateScreen';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    }
+    this.renderNav = this.renderNav.bind(this);
+  }
+
+  renderNav() {
+    if (this.state.loggedIn) {
+      return <LoggedInFooterTabs screenProps={this}/>
+    } else {
+      return <LoggedOutFooterTabs screenProps={this}/>
+    }
+
+  }
+
   render() {
     return (
       <View style={styles.containerStyle}>
         <StatusBar barStyle = 'dark-content' />
-        <FooterTabs />
+        {this.renderNav()}
       </View>
     );
   }
 }
 
-const tabRoutes = {
-  profile: { screen: ProfileScreen },
+const loggedInTabRoutes = {
   workout: { screen: WorkoutScreen },
+  profile: { screen: ProfileScreen },
   create: { screen: CreateScreen }
+};
+
+const loggedOutTabRoutes = {
+  workout: { screen: WorkoutScreen },
+  login: { screen: ProfileScreen }
 };
 
 const tabBarConfiguration = {
@@ -41,7 +63,8 @@ const tabBarConfiguration = {
 	}
 };
 
-const FooterTabs = TabNavigator(tabRoutes, tabBarConfiguration);
+const LoggedInFooterTabs = TabNavigator(loggedInTabRoutes, tabBarConfiguration);
+const LoggedOutFooterTabs = TabNavigator(loggedOutTabRoutes, tabBarConfiguration);
 
 const styles = {
   containerStyle: {

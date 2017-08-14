@@ -68,6 +68,10 @@ class WorkoutIndex extends React.Component {
           <FIcon name="star" style={Object.assign({}, dropStyle, {color: '#6ACDFA'})} />
         </TouchableOpacity>
         <Text>{"\n"}</Text>
+        <View style={{alignItems: 'center'}}>
+          <Text style={{textAlign: 'center', width: '75%'}}>By using this app, you agree to the terms and services outlined here.</Text>
+        </View>
+        <Text>{"\n"}</Text>
       </ScrollView>
     );
   }

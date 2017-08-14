@@ -54,6 +54,7 @@ class ProfileEdit extends React.Component {
       })
       .catch((err) => {
         alert('Unable to logout');
+        this.props.screenProps.setState({loggedIn: false});
       });
   }
 

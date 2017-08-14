@@ -41,12 +41,13 @@ class ProfileAuth extends React.Component {
       email: this.state.emailInput,
       password: this.state.passwordInput,
     }
-    console.log(newUser);
     axios.post('https://rallycoding.herokuapp.com/api/music_albums', newUser)
       .then((res) => {
+        this.props.parent.setState({loggedIn: true});
         alert('signup success!');
       })
       .catch((err) => {
+        this.props.parent.setState({loggedIn: true});
         alert('signup fail!');
       });
   }
@@ -56,12 +57,13 @@ class ProfileAuth extends React.Component {
       email: this.state.emailInput,
       password: this.state.passwordInput,
     }
-    console.log(newSession);
     axios.post('https://rallycoding.herokuapp.com/api/music_albums', newSession)
       .then((res) => {
+        this.props.parent.setState({loggedIn: true});
         alert('login success!');
       })
       .catch((err) => {
+        this.props.parent.setState({loggedIn: true});
         alert('login fail!');
       });
   }
@@ -124,7 +126,7 @@ class ProfileAuth extends React.Component {
                 returnKeyType='done'
                 onChangeText={this._updateText("passwordInput")}
               />
-            <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
+              <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this._changeForm}>
