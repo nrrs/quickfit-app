@@ -38,7 +38,7 @@ class Movement(models.Model):
 # -------------------WORKOUT MODEL-----------------------------
 class Workout(models.Model):
 
-    athlete = models.ForeignKey('auth.user', related_name='workouts',
+    athlete = models.ForeignKey(User, related_name='workouts',
         on_delete=models.CASCADE)
 
     # for initial releases, each day's workout (a combination of movements with timer data will be held as a JSON object snapshot)
