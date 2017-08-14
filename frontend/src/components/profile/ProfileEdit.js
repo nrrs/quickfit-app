@@ -18,7 +18,6 @@ class ProfileEdit extends React.Component {
       userId: null,
       fullName: '',
       emailInput: '',
-      passwordInput: '',
     };
 
     this._updateText = this._updateText.bind(this);
@@ -47,9 +46,8 @@ class ProfileEdit extends React.Component {
     let updateProfile = {
       username: this.state.fullName,
       email: this.state.emailInput,
-      password: this.state.passwordInput,
     }
-    const url = 'api/profile/' + this.state.userId + '/edit/'
+    const url = 'api/users/' + this.state.userId + '/'
     console.log(updateProfile);
     axios.patch(url, updateProfile)
       .then(resp => {
@@ -92,13 +90,6 @@ class ProfileEdit extends React.Component {
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 defaultValue={this.state.emailInput}
                 onChangeText={this._updateText("emailInput")}
-              />
-              <Text style={subHeaderStyle}>PASSWORD</Text>
-              <TextInput
-                id="passwordInput"
-                style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Minimum 6 characters"
-                onChangeText={this._updateText("passwordInput")}
               />
               <TouchableOpacity
                 style={Object.assign({}, buttonStyle, {marginTop: 30})}
