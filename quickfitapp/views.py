@@ -61,15 +61,11 @@ def signup(request):
     username = request.POST.get('username', None)
     password = request.POST.get('password', None)
     email = request.POST.get('email', None)
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        user = User.objects.get(username=username)
-        user.set_password(password)
-        user.save()
-        return Response(serializer.data, status=201)
-    else:
-        return Response(serializer.errors, status=400)
+    try:
+       user = User.objects.create_user(username, email, password)
+       return Response({'id': user.id, 'username': username, 'email': email}, status=201)
+    except Exception as e:
+       return Response('error', status=400)
 
 @csrf_exempt
 @api_view(['POST', 'DELETE'])
