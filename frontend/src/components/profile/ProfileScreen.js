@@ -21,21 +21,28 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false
+      loading: false,
+      currentUser: {}
     }
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('currentUser').then(resp => {
-      if (resp !== null) {
-        this.props.screenProps.setState({ loggedIn: true });
+    AsyncStorage.getItem('currentUser').then(res => {
+      currentUser = JSON.parse(res);
+      if (res !== null) {
+        this.props.screenProps.setState({
+          loggedIn: true,
+          currentUser
+        });
       }
     })
   }
 
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.props.screenProps.state.loggedIn) ? <ProfileStackNav screenProps={this.props.screenProps}/> : <ProfileAuth parent={this.props.screenProps}/>
+    return (this.props.screenProps.state.loggedIn) ?
+      <ProfileStackNav screenProps={this.props.screenProps}/> :
+      <ProfileAuth screenProps={this.props.screenProps}/>
   }
 }
 

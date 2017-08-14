@@ -4,6 +4,8 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import axios from 'axios';
+import ProfileIndex from './ProfileIndex';
+import { NavigationActions } from 'react-navigation';
 
 import { configs } from '../../config/config';
 
@@ -16,24 +18,26 @@ class ProfileEdit extends React.Component {
     super(props);
     this.state = {
       userId: null,
-      fullName: '',
-      emailInput: '',
+      username: '',
+      email: '',
     };
 
     this._updateText = this._updateText.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this)
+    this._handleUpdate = this._handleUpdate.bind(this)
     this._signout = this._signout.bind(this);
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('currentUser').then(resp => {
-      const currentUser = JSON.parse(resp);
-      this.setState({
-        fullName: currentUser.username,
-        emailInput: currentUser.email,
-        userId: currentUser.id,
-      });
+    const { currentUser } = this.props.screenProps.state;
+    this.setState({
+      username: currentUser.username,
+      email: currentUser.email,
+      userId: currentUser.id,
     });
+  }
+
+  componentWillUnmount() {
+
   }
 
   _updateText(field) {
@@ -42,27 +46,29 @@ class ProfileEdit extends React.Component {
      }
   }
 
-  _handleSubmit() {
+  _handleUpdate() {
     let updateProfile = {
-      username: this.state.fullName,
-      email: this.state.emailInput,
+      username: this.state.username,
+      email: this.state.email,
     }
-    const url = 'api/users/' + this.state.userId + '/'
-    console.log(updateProfile);
+    const url = `api/users/${this.state.userId}/`;
     axios.patch(url, updateProfile)
-      .then(resp => {
-        console.log(JSON.stringify(resp.data));
-        AsyncStorage.setItem('currentUser', JSON.stringify(resp.data)).then(() => {
-          // navigate back to profile screen
-          this.props.navigation.goBack();
+    .then(res => {
+      AsyncStorage.setItem('currentUser', JSON.stringify(res.data)).then(() => {
+        // navigate back to profile screen
+        const copyState = Object.assign({}, this.props.screenProps.state.currentUser);
+        this.props.screenProps.setState({
+          currentUser: Object.assign({}, copyState, { username: this.state.username })
         });
-      })
-      .catch(err => alert(err));
+        this.props.navigation.dispatch(resetAction);
+      });
+    })
+    .catch(err => alert(err));
   }
 
   _signout() {
-    const url = 'api/session/' + this.state.userId + '/';
-    axios.delete(url).then(resp => {
+    const url = `api/session/${this.state.userId}/`;
+    axios.delete(url).then(res => {
       AsyncStorage.removeItem('authToken');
       AsyncStorage.removeItem('currentUser').then(() => {
         // naviagete back to profile screen
@@ -77,25 +83,25 @@ class ProfileEdit extends React.Component {
       <View style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
           <ScrollView style={formContainerStyle}>
-              <Text style={subHeaderStyle}>FULL NAME</Text>
+              <Text style={subHeaderStyle}>USERNAME</Text>
               <TextInput
-                id="fullName"
+                id="username"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                defaultValue={this.state.fullName}
-                placeholder={this.state.fullName}
-                onChangeText={this._updateText("fullName")}
+                defaultValue={this.state.username}
+                placeholder={this.state.username}
+                onChangeText={this._updateText("username")}
               />
               <Text style={subHeaderStyle}>EMAIL</Text>
               <TextInput
-                id="emailInput"
+                id="email"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                defaultValue={this.state.emailInput}
-                placeholder={this.state.emailInput}
-                onChangeText={this._updateText("emailInput")}
+                defaultValue={this.state.email}
+                placeholder={this.state.email}
+                onChangeText={this._updateText("email")}
               />
               <TouchableOpacity
                 style={Object.assign({}, buttonStyle, {marginTop: 30})}
-                onPress={this._handleSubmit}
+                onPress={this._handleUpdate}
                 >
                 <Text style={buttonTextStyle}>Update</Text>
               </TouchableOpacity>
@@ -111,5 +117,12 @@ class ProfileEdit extends React.Component {
     )
   }
 }
+
+const resetAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: 'index' }),
+  ]
+})
 
 export default ProfileEdit;

@@ -21,8 +21,8 @@ class ProfileAuth extends React.Component {
     this.state = {
       newUser: false,
       username: '',
-      emailInput: '',
-      passwordInput: ''
+      email: '',
+      password: ''
     };
 
     this._updateText = this._updateText.bind(this);
@@ -40,19 +40,18 @@ class ProfileAuth extends React.Component {
   }
 
   _signup() {
-    let newUser = {
-      username: this.state.username,
-      email: this.state.emailInput,
-      password: this.state.passwordInput,
-    }
+    const formData = new FormData();
+
+    formData.append('email', this.state.email);
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
     // using session/id/ because not being able to get currentUser at backend for now
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
-    axios.post('api/signup/', newUser, { headers })
+    axios.post('api/signup/', formData, { headers })
       .then(res => {
-        console.log('signup', res);
-        this._requestTokenAndLogin(this.state.username, this.state.passwordInput);
+        this._requestTokenAndLogin(this.state.username, this.state.password);
         AsyncStorage.setItem('currentUser', JSON.stringify(res.data));
-        this.props.parent.setState({ loggedIn: true });
+        this.props.screenProps.setState({ loggedIn: true });
       })
       .catch(error => {
         console.log(error);
@@ -61,7 +60,7 @@ class ProfileAuth extends React.Component {
 
   _login() {
     AsyncStorage.getItem('authToken').then(res => {
-      this._requestTokenAndLogin(this.state.username, this.state.passwordInput);
+      this._requestTokenAndLogin(this.state.username, this.state.password);
     })
   }
 
@@ -94,13 +93,13 @@ class ProfileAuth extends React.Component {
   _sendLoginRequest(authToken) {
     const newSession = {
       username: this.state.username,
-      password: this.state.passwordInput,
+      password: this.state.password,
     };
     const headers = { 'Authorization': 'Bearer ' + authToken};
     axios.post('api/session/0/', newSession, headers)
     .then(res => {
       AsyncStorage.setItem('currentUser', JSON.stringify(res.data))
-      this.props.parent.setState({ loggedIn: true });
+      this.props.screenProps.setState({ loggedIn: true });
     })
   }
 
@@ -113,21 +112,21 @@ class ProfileAuth extends React.Component {
       button: 'Log In',
       footer: 'New to QuickFit?'
     };
-    let newUsername;
+    let newUserEmail;
 
     switch (this.state.newUser) {
       case true:
         textDisplay.button = 'Sign Up';
         textDisplay.footer = 'Already have an account?';
-        newUsername = (
+        newUserEmail = (
           <View>
             <Text style={subHeaderStyle}>EMAIL</Text>
             <TextInput
-              id="emailInput"
+              id="email"
               style={Object.assign({}, inputStyle, { marginBottom: 0})}
-              placeholder="athlete@quickfit.com"
+              placeholder="Enter email"
               returnKeyType='next'
-              onChangeText={this._updateText("emailInput")}
+              onChangeText={this._updateText("email")}
             />
           </View>
         );
@@ -142,25 +141,23 @@ class ProfileAuth extends React.Component {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
             <View style={formContainerStyle}>
-              {newUsername}
-
-              <Text style={subHeaderStyle}>FULL NAME</Text>
+              <Text style={subHeaderStyle}>USERNAME</Text>
               <TextInput
                 id="username"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="What is your name?"
+                placeholder="Enter username"
                 returnKeyType='next'
                 onChangeText={this._updateText("username")}
               />
-
+              {newUserEmail}
               <Text style={subHeaderStyle}>PASSWORD</Text>
               <TextInput
-                id="passwordInput"
+                id="password"
                 secureTextEntry={true}
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 placeholder="Minimum 6 characters"
                 returnKeyType='done'
-                onChangeText={this._updateText("passwordInput")}
+                onChangeText={this._updateText("password")}
               />
               <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>

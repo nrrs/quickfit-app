@@ -37,17 +37,11 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
-    let currentUser;
-
-    AsyncStorage.getItem('currentUser')
+    axios.get(`/api/users/${this.props.screenProps.state.currentUser.id}/workouts/`)
     .then(res => {
-      currentUser = JSON.parse(res);
-      axios.get(`/api/users/${currentUser.id}/workouts/`)
-      .then(res => {
-        console.log(res);
-        this.setState({
-          loading: false
-        });
+      this.setState({
+        loading: false,
+        workoutHistory: []
       });
     });
   }
@@ -107,8 +101,8 @@ class ProfileIndex extends React.Component {
         <ScrollView>
           <View className='ProfileDescription' style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
             <View style={{ flexDirection: 'column', alignItems: 'center'}}>
-              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>Batman</Text>
-              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>batman@gotham.com</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{this.props.screenProps.state.currentUser.username}</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{this.props.screenProps.state.currentUser.email}</Text>
             </View>
           </View>
 
