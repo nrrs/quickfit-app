@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TextInput, Keyboard, TouchableWithoutFeedback, TouchableOpacity, AsyncStorage } from 'react-native';
 import IIcon from 'react-native-vector-icons/Ionicons';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import { iconStyle, textStyle, subHeaderStyle } from '../../styles/styles';
@@ -39,35 +39,55 @@ export default class CreateScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      author_id: 1, // currentUser.id
+      currentUser: {},
       movement_name: '',
       movement_type: '',
       difficulty: '',
       description: null,
-      demo_url: null
+      demo_url: ''
     };
     this._handlePress = this._handlePress.bind(this);
     this._updateText = this._updateText.bind(this);
   }
 
-  _handlePress(e) {
-    e.preventDefault;
+  componentWillMount(){
+    AsyncStorage.getItem('currentUser').then((res) => {
+      this.setState({currentUser: JSON.parse(res)});
+    })
+  }
+
+  _handlePress() {
     let newMovement = {
-      "author_id": 1, // currentUser.id
+      "author": this.state.currentUser.id, // currentUser.id
       "movement_name": this.state.movement_name,
       "movement_type": this.state.movement_type,
-      "difficulty": this.state.difficulty,
+      "difficulty": this.state.difficulty.toLowerCase(),
       "description": this.state.description,
-      "demo_url": this.state.demo_url
+      "demo_url": ''
     }
     console.log(newMovement);
-    axios.post('api/movements', newMovement)
+    axios.post('api/movements/', newMovement)
       .then((res) => {
-        alert('post success!');
+        console.log(res);
       })
-      .catch((err) => {
-        alert('post fail!');
-      });
+      .catch(function (error) {
+       if (error.response) {
+         // The request was made and the server responded with a status code
+         // that falls out of the range of 2xx
+         console.log(error.response.data);
+         console.log(error.response.status);
+         console.log(error.response.headers);
+       } else if (error.request) {
+         // The request was made but no response was received
+         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+         // http.ClientRequest in node.js
+         console.log(error.request);
+       } else {
+         // Something happened in setting up the request that triggered an Error
+         console.log('Error', error.message);
+       }
+       console.log(error.config);
+     });
 
   }
 

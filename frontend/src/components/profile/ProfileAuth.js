@@ -49,9 +49,9 @@ class ProfileAuth extends React.Component {
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
     axios.post('api/signup/', newUser, { headers })
       .then(resp => {
-        this._requestToken(this.state.username, this.state.passwordInput);
+        this._requestTokenAndLogin(this.state.username, this.state.passwordInput);
         AsyncStorage.setItem('currentUser', JSON.stringify(resp.data));
-        this.props.parent.setState({ loggedIn: true });
+        alert("YAY!");
       })
       .catch(function (error) {
         if (error.response) {
@@ -77,6 +77,7 @@ class ProfileAuth extends React.Component {
     formData.append('grant_type', 'password');
     formData.append('username', username);
     formData.append('password', password);
+    console.log(formData, "WHY");
     const auth = {
       username: configs.clientId,
       password: configs.clientSecret,
@@ -86,7 +87,25 @@ class ProfileAuth extends React.Component {
       AsyncStorage.setItem('authToken', authToken);
     }).then(() => {
         this._sendLoginRequest(authToken)
-      });;
+      })
+      // .catch(function (error) {
+      //   if (error.response) {
+      //     // The request was made and the server responded with a status code
+      //     // that falls out of the range of 2xx
+      //     console.log(error.response.data);
+      //     console.log(error.response.status);
+      //     console.log(error.response.headers);
+      //   } else if (error.request) {
+      //     // The request was made but no response was received
+      //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      //     // http.ClientRequest in node.js
+      //     console.log(error.request);
+      //   } else {
+      //     // Something happened in setting up the request that triggered an Error
+      //     console.log('Error', error.message);
+      //   }
+      //   console.log(error.config);
+      // });
   }
 
   _sendLoginRequest(authToken) {
