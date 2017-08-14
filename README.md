@@ -8,6 +8,13 @@ An exercise generator that allows you to keep track of workouts! This mobile app
 
 >"At the end of the day, if I can say I had fun, it was a good day." - Simone Biles
 
+### Disclaimer of Liability
+The Quickfit app includes features that promote physical activity.  Consider the risks involved and consult with your medical professional before engaging in any physical activity. The creators and collaborators of the Quickfit app are not responsible or liable for any injuries or damages you may sustain that result from your use of, or inability to use, the features of the Quickfit app.
+
+Development plans include a modal for first-time users and users not logged in that forces them to accept liability waiver before using app features.
+
+### Background
+
 As a way to promote a healthy lifestyle, our goal is to create an easy to use application that provides a simple way to create an engaging exercise experience. Right out of the box, our users can immediately generate a randomize, yet balanced, workout based on the  difficulty level of their choice.
 
 Whether you are new to fitness or an experienced athlete, we strive to provide an easy to use interface that anyone can use right out of the box.
@@ -36,6 +43,7 @@ Fitness is the first step to greatness!
 - [OAuth](https://oauth.net/) was implemented to allow login through 3rd party platforms.
 - [React Native](https://facebook.github.io/react-native/) is used for our frontend, mobile framework.
 - [Expo.io](https://expo.io) is a tool that allows us to build and share native applications across iOS.
+- [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.
 
 ### Libraries
 - [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.
@@ -62,5 +70,3 @@ Fitness is the first step to greatness!
 - [ ] Social element to share workouts and progress
 - [ ] Hardware access including camera for progress tracking
 - [ ] Apple App Store
-
-**NB:**
