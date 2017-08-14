@@ -61,10 +61,12 @@ def signup(request):
     username = request.POST.get('username', None)
     password = request.POST.get('password', None)
     email = request.POST.get('email', None)
-    try:
-       user = User.objects.create_user(username, email, password)
+    user, created = User.objects.get_or_create(username=username, email=email)
+    if created:
+       user.set_password(password)
+       user.save()
        return Response({'id': user.id, 'username': username, 'email': email}, status=201)
-    except Exception as e:
+    else:
        return Response('error', status=400)
 
 @csrf_exempt
