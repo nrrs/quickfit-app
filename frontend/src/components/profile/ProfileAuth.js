@@ -48,19 +48,14 @@ class ProfileAuth extends React.Component {
     // using session/id/ because not being able to get currentUser at backend for now
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
     axios.post('api/signup/', newUser, { headers })
-      .then(resp => {
+      .then(res => {
+        console.log('signup', res);
         this._requestTokenAndLogin(this.state.username, this.state.passwordInput);
-        AsyncStorage.setItem('currentUser', JSON.stringify(resp.data));
-        alert("YAY!");
+        AsyncStorage.setItem('currentUser', JSON.stringify(res.data));
+        this.props.parent.setState({ loggedIn: true });
       })
-      .catch(function (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          const errorData = error.response.data;
-          const errorMsg = Object.keys(errorData).map(k => `${k}: ${errorData[k]}`)
-          alert(errorMsg.join('\n'))
-        };
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -70,77 +65,43 @@ class ProfileAuth extends React.Component {
     })
   }
 
-
   _requestTokenAndLogin(username, password) {
     let authToken;
     const formData = new FormData();
+
     formData.append('grant_type', 'password');
     formData.append('username', username);
     formData.append('password', password);
-    console.log(formData, "WHY");
+
     const auth = {
       username: configs.clientId,
       password: configs.clientSecret,
-    }
-    axios.post("o/token/", formData, { auth }).then(resp => {
-      authToken = resp.data.access_token;
+    };
+
+    axios.post("o/token/", formData, { auth })
+    .then(res => {
+      authToken = res.data.access_token;
       AsyncStorage.setItem('authToken', authToken);
-    }).then(() => {
-        this._sendLoginRequest(authToken)
-      })
-      // .catch(function (error) {
-      //   if (error.response) {
-      //     // The request was made and the server responded with a status code
-      //     // that falls out of the range of 2xx
-      //     console.log(error.response.data);
-      //     console.log(error.response.status);
-      //     console.log(error.response.headers);
-      //   } else if (error.request) {
-      //     // The request was made but no response was received
-      //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      //     // http.ClientRequest in node.js
-      //     console.log(error.request);
-      //   } else {
-      //     // Something happened in setting up the request that triggered an Error
-      //     console.log('Error', error.message);
-      //   }
-      //   console.log(error.config);
-      // });
+    })
+    .then(() => {
+      this._sendLoginRequest(authToken)
+    })
+    .catch(err => {
+      alert("Invalid Credentials");
+    });
   }
 
   _sendLoginRequest(authToken) {
     const newSession = {
       username: this.state.username,
       password: this.state.passwordInput,
-    }
-    const headers = { 'Authorization': 'Bearer ' + authToken}
+    };
+    const headers = { 'Authorization': 'Bearer ' + authToken};
     axios.post('api/session/0/', newSession, headers)
-      .then(resp => {
-        AsyncStorage.setItem('currentUser', JSON.stringify(resp.data))
-        this.props.parent.setState({ loggedIn: true });
-      })
-      .catch((err) => {
-        alert("Invalid combination of username and password.")
-      });
-      // axios error handling
-      // .catch(function (error) {
-      //   if (error.response) {
-      //     // The request was made and the server responded with a status code
-      //     // that falls out of the range of 2xx
-      //     console.log(error.response.data);
-      //     console.log(error.response.status);
-      //     console.log(error.response.headers);
-      //   } else if (error.request) {
-      //     // The request was made but no response was received
-      //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      //     // http.ClientRequest in node.js
-      //     console.log(error.request);
-      //   } else {
-      //     // Something happened in setting up the request that triggered an Error
-      //     console.log('Error', error.message);
-      //   }
-      //   console.log(error.config);
-      // });
+    .then(res => {
+      AsyncStorage.setItem('currentUser', JSON.stringify(res.data))
+      this.props.parent.setState({ loggedIn: true });
+    })
   }
 
   _changeForm() {
