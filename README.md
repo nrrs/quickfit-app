@@ -43,7 +43,6 @@ Fitness is the first step to greatness!
 - [OAuth](https://oauth.net/) was implemented to allow login through 3rd party platforms.
 - [React Native](https://facebook.github.io/react-native/) is used for our frontend, mobile framework.
 - [Expo.io](https://expo.io) is a tool that allows us to build and share native applications across iOS.
-- [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.
 
 ### Libraries
 - [Axios](https://github.com/mzabriskie/axios) is a frontend library that streamlines HTTP requests to our API endpoints.

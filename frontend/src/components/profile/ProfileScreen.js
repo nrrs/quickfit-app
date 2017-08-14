@@ -48,8 +48,7 @@ class ProfileScreen extends React.Component {
 
 const profileStackRoutes = {
   index: { screen: ProfileIndex },
-  edit: { screen: ProfileEdit},
-  auth: { screen: ProfileAuth}
+  edit: { screen: ProfileEdit}
 }
 
 const profileStackConfig = {

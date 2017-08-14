@@ -35,12 +35,7 @@ class ProfileAuth extends React.Component {
   }
 
   componentWillUnmount() {
-    // if (this.props.screenProps.state.currentUser) {
-      // this.props.navigation.dispatch(resetAction);
-    // } else {
-    // }
 
-    // this.props.screenProps.setState({loggedIn: true})
   }
 
   _updateText(field) {
@@ -120,8 +115,6 @@ class ProfileAuth extends React.Component {
         loggedIn: true,
         currentUser
       });
-      // this.props.navigation.dispatch(resetAction);
-      // this.props.navigation.dispatch(resetActionAuth);
     })
   }
 
@@ -199,12 +192,5 @@ class ProfileAuth extends React.Component {
     )
   }
 }
-
-const resetActionAuth = NavigationActions.reset({
-  index: 0,
-  actions: [
-    NavigationActions.navigate({routeName: 'index'})
-  ]
-});
 
 export default ProfileAuth;
