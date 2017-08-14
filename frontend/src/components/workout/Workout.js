@@ -59,7 +59,7 @@ class Workout extends React.Component {
       exercises: [],
       timerDisplay: '',
       duration: null,
-      paused: false,
+      paused: true,
       pauseTime: 0,
       modalVisible: false,
       modalBg: 'rgba(76, 217, 100, 1)',
@@ -273,11 +273,14 @@ class Workout extends React.Component {
   }
 
   flashGo() {
+    if (this.state.paused === false) {
+      return null;
+    }
     this.setState({ modalVisible: true, cue: '3' });
     setTimeout( () => { this.setState({ cue: '2' }); }, 1000);
     setTimeout( () => { this.setState({ cue: '1' }); }, 2000);
     setTimeout( () => { this.setState({ cue: 'GO!' }); }, 3000);
-    setTimeout( () => { this.setState({ modalVisible: false }); this.setTimer(); }, 3500);
+    setTimeout( () => { this.setState({ modalVisible: false, paused: false }); this.setTimer(); }, 3500);
   }
 
   flash(message, bgColor) {
