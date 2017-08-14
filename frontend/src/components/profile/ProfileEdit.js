@@ -21,7 +21,7 @@ class ProfileEdit extends React.Component {
     };
 
     this._updateText = this._updateText.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this)
     this._signout = this._signout.bind(this);
   }
 
@@ -66,7 +66,7 @@ class ProfileEdit extends React.Component {
       AsyncStorage.removeItem('authToken');
       AsyncStorage.removeItem('currentUser').then(() => {
         // naviagete back to profile screen
-        this.props.navigation.goBack();
+        this.props.screenProps.setState({loggedIn: false});
       });
     });
   }
@@ -82,6 +82,7 @@ class ProfileEdit extends React.Component {
                 id="fullName"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 defaultValue={this.state.fullName}
+                placeholder={this.state.fullName}
                 onChangeText={this._updateText("fullName")}
               />
               <Text style={subHeaderStyle}>EMAIL</Text>
@@ -89,6 +90,7 @@ class ProfileEdit extends React.Component {
                 id="emailInput"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
                 defaultValue={this.state.emailInput}
+                placeholder={this.state.emailInput}
                 onChangeText={this._updateText("emailInput")}
               />
               <TouchableOpacity

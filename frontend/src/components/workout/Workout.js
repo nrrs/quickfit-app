@@ -9,12 +9,40 @@ import {
   Keyboard,
   Vibration,
   Modal } from 'react-native';
-import { textStyle, containerStyle, bandContainerStyle, subHeaderStyle } from '../../styles/styles';
+import { textStyle, bandContainerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import ModalPicker from 'react-native-modal-picker';
+import axios from 'axios';
+import * as WOD from './DefaultWorkout';
+import { shuffle, values, flatten } from 'lodash';
+import Loading from '../Loading';
+
 
 const flashShow = 750;
 const flashHide = 1750;
+
+let index = 0;
+let tempData = WOD.novice;
+
+let novice = flatten(values(WOD.novice)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+novice = [{ key: index++, section: true, label: 'Novice' }].concat(novice);
+
+let moderate = flatten(values(WOD.moderate)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+moderate = [{ key: index++, section: true, label: 'Moderate' }].concat(moderate);
+
+let advanced = flatten(values(WOD.advanced)).map(movement => {
+  return ({ key: index++, label: movement[0], description: movement[1] })
+});
+advanced = [{ key: index++, section: true, label: 'Advanced' }].concat(advanced);
+
+let data = [
+  { key: index++, section: true, label: 'Rest' },
+    { key: index++, label: 'Rest' },
+  ].concat(novice).concat(moderate).concat(advanced);
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -24,13 +52,14 @@ class Workout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
       exercises: [],
       timerDisplay: '',
       duration: null,
-      paused: false,
+      paused: true,
       pauseTime: 0,
       modalVisible: false,
       modalBg: 'rgba(76, 217, 100, 1)',
@@ -40,10 +69,8 @@ class Workout extends React.Component {
     }
 
     this.currentExerciseArray = [];
-    this.data = [];
     this.timer = null;
 
-    this.go = this.go.bind(this);
     this.ready = this.ready.bind(this);
     this.selectExercises = this.selectExercises.bind(this);
     this.displayExercises = this.displayExercises.bind(this);
@@ -55,29 +82,35 @@ class Workout extends React.Component {
     this.setTimer = this.setTimer.bind(this);
     this.flashGo = this.flashGo.bind(this);
     this.flash = this.flash.bind(this);
+    this.buildWorkout = this.buildWorkout.bind(this);
+    this.saveWorkout = this.saveWorkout.bind(this);
   }
 
   componentWillMount() {
-    let index = 0;
-    this.data = [
-      { key: index++, label: 'Rest' },
-      { key: index++, section: true, label: 'Your Movements' },
-      { key: index++, label: 'Custom Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Custom Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Custom Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Novice' },
-      { key: index++, label: 'Easy Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Easy Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Easy Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Moderate' },
-      { key: index++, label: 'Medium Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Medium Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Medium Exercise 3', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, section: true, label: 'Advanced' },
-      { key: index++, label: 'Hard Exercise 1', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Hard Exercise 2', description: 'This is a description that was parsed from our backend database' },
-      { key: index++, label: 'Hard Exercise 3', description: 'This is a description that was parsed from our backend database' },
-    ];
+    switch (this.state.workoutType) {
+      case "novice":
+        this.buildWorkout("novice");
+        this.setState({ loading: false });
+        break;
+      case "moderate":
+        this.buildWorkout("moderate");
+        this.setState({ loading: false });
+        break;
+      case "advanced":
+        this.buildWorkout("advanced");
+        this.setState({ loading: false });
+        break;
+      default:
+        axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
+        .then( res => {
+          this.setState({ loading: false });
+          console.log(res);
+        })
+        .catch( error => {
+          console.log(error);
+        });
+    }
+
   }
 
   componentWillUnmount() {
@@ -85,10 +118,12 @@ class Workout extends React.Component {
     this.setState({
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
-      round: null,
+      round: 1,
+      roundDisplay: '',
       exercises: [],
       timerDisplay: '',
       duration: null,
+      durationForRounds: null,
       paused: false,
       pauseTime: 0,
       modalVisible: false
@@ -98,14 +133,21 @@ class Workout extends React.Component {
   _updateText(field) {
     return (val) => {
       let num = parseInt(val);
-      this.setState({
-        [field]: num
-      });
-      if (field === "time") {
-        let displayVal = val;
-        this.setState({
-          timerDisplay: `${displayVal}`
-        });
+      switch (field) {
+        case "time":
+          this.setState({
+            timerDisplay: val
+          });
+          break;
+        case "postNotes":
+          this.setState({
+            [field]: val
+          });
+          break;
+        default:
+          this.setState({
+            [field]: num
+          });
       }
     }
   }
@@ -139,34 +181,64 @@ class Workout extends React.Component {
   }
 
   setTimer() {
+    const { totalDuration } = this.state;
+
     this.timer = setInterval( () => {
       let duration = this.state.duration;
+      duration -= 1000; // decrement by second
 
-      // decrement by second
-      duration -= 1000;
+      if (this.state.duration < 1000) { // When timer is done...
+        this.clearTimer(this.timer);  // clear current timer
 
-      // When timer is done...
-      if (this.state.duration <= 1000) {
-        this.clearTimer(this.timer);
-        this.flash('DONE!', 'rgba(255, 59, 48, 1)');
-        Vibration.vibrate([0, 500, 500, 500], false);
-        setTimeout( () => {
-          this.setState({ workoutDone: true });
-        }, flashHide);
+        if (this.state.round <= 1) { // check rounds
+          this.flash('DONE!', 'rgba(255, 59, 48, 1)');
+          Vibration.vibrate([0, 500, 500, 500], false);
+          setTimeout(() => { this.setState({
+            workoutDone: true,
+            roundDisplay: '0',
+          }); }, flashHide);
+        } else {
+          this.setState({
+            duration: totalDuration,
+            round: this.state.round - 1,
+            roundDisplay: `${this.state.round - 1}`,
+            timerDisplay: this.prettifyDuration(totalDuration / 1000)
+          });
+
+          this.setTimer();
+        }
+      } else {
+        let timerDisplay = this.prettifyDuration(duration / 1000); // Prettify time display by converting millisecond to seconds base.
+        this.setState({
+          duration,
+          timerDisplay,
+        });
       }
-
-      // Prettify time display by converting millisecond to seconds base.
-      let timerDisplay = this.prettifyDuration(duration / 1000);
-
-      this.setState({
-        duration,
-        timerDisplay,
-      })
     }, 1000 );
   }
 
   clearTimer(timer) {
     clearInterval(timer);
+  }
+
+  buildWorkout(difficulty) {
+    let exerciseOne = shuffle(WOD[`${difficulty}`]['upperBody'])[0];
+    let exerciseTwo = shuffle(WOD[`${difficulty}`]['lowerBody'])[0];
+    let exerciseThree = shuffle(WOD[`${difficulty}`]['fullBody'])[0];
+    let exerciseFour = shuffle(WOD[`${difficulty}`]['core'])[0];
+    let randomExercises = [
+      { label: exerciseOne[0], description: exerciseOne[1] },
+      { label: exerciseTwo[0], description: exerciseTwo[1] },
+      { label: exerciseThree[0], description: exerciseThree[1] },
+      { label: exerciseFour[0], description: exerciseFour[1] },
+    ]
+    this.setState ({
+      editable: false,
+      round: 0,
+      exercises: randomExercises,
+      timerDisplay: '00:10:00',
+      duration: 600000,
+    });
   }
 
   ready(exerciseArray) {
@@ -189,63 +261,26 @@ class Workout extends React.Component {
 
     const timerDisplay = this.formatTime(hour, min, sec);
     const duration = this.totalDuration(hour, min, sec);
+    const durationForRounds = this.totalDuration(hour, min, sec);
 
     this.setState({
       editable: false,
       exercises: exerciseArray,
       timerDisplay,
-      duration
+      duration,
+      totalDuration: durationForRounds
     });
-  }
-
-  go() {
-    // Call modal, on modal close, run this.setTimer
-    this.flashGo();
   }
 
   flashGo() {
-    this.setState({
-      modalVisible: true,
-      cue: '3'
-    });
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '2'
-      });
-    }, 1000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 1500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: '1'
-      });
-    }, 2000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-    }, 2500);
-
-    setTimeout( () => {
-      this.setState({
-        modalVisible: true,
-        cue: 'GO!'
-      });
-    }, 3000);
-
-    setTimeout( () => {
-      this.setState({ modalVisible: false });
-      this.setTimer();
-    }, 3500);
+    if (this.state.paused === false) {
+      return null;
+    }
+    this.setState({ modalVisible: true, cue: '3' });
+    setTimeout( () => { this.setState({ cue: '2' }); }, 1000);
+    setTimeout( () => { this.setState({ cue: '1' }); }, 2000);
+    setTimeout( () => { this.setState({ cue: 'GO!' }); }, 3000);
+    setTimeout( () => { this.setState({ modalVisible: false, paused: false }); this.setTimer(); }, 3500);
   }
 
   flash(message, bgColor) {
@@ -276,7 +311,7 @@ class Workout extends React.Component {
       <View>
         <Text style={subHeaderStyle}>SELECT MOVEMENTS</Text>
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 1"
           style={{ borderRadius: 0, padding: 10 }}
           onChange={ option => {
@@ -285,7 +320,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 2"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {
@@ -294,7 +329,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 3"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {
@@ -303,7 +338,7 @@ class Workout extends React.Component {
         />
 
         <ModalPicker
-          data={this.data}
+          data={data}
           initValue="Movement 4"
           style={{ borderRadius: 0, padding: 10  }}
           onChange={ option => {
@@ -318,17 +353,17 @@ class Workout extends React.Component {
   displayExercises() {
     if (this.state.editable) { return this.selectExercises(); }
     return (
-        <View>
-          { this.state.exercises.map( (el, i) => (
-            <View key={i} style={buttonStyle}>
-              <Text style={textStyle}>
-                {el.label}{'\n'}
-                {el.description}
-              </Text>
-            </View>
-            ))
-          }
-        </View>
+      <View>
+        { this.state.exercises.map( (el, i) => (
+          <View key={i} style={Object.assign({}, cardStyle, { flex: 1})}>
+            <Text style={Object.assign({}, subHeaderStyle, { padding: 0, margin: 0 })}>
+              {el.label}{'\n'}
+            </Text>
+            <Text style={Object.assign({}, textStyle, { marginTop: 0, paddingTop: 0, width: '100%', textAlign: 'center' })}>{el.description}</Text>
+          </View>
+          ))
+        }
+      </View>
     );
   }
 
@@ -346,8 +381,8 @@ class Workout extends React.Component {
     return (
       <View>
         <TouchableOpacity
-          style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-          onPress={ () => this.go()}>
+          style={Object.assign({}, buttonStyle, { marginTop: 20, marginBottom: 10 })}
+          onPress={ () => this.flashGo()}>
           <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>START!</Text>
         </TouchableOpacity>
 
@@ -361,12 +396,46 @@ class Workout extends React.Component {
 
   }
 
+  flashModal() {
+    return (
+      <Modal
+        animationType={'fade'}
+        transparent={true}
+        visible={this.state.modalVisible}
+        presentationStyle={'overFullScreen'}
+        >
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
+          <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
+        </View>
+      </Modal>
+    );
+  }
+
+  saveWorkout() {
+    const newWorkout = {
+      athlete_id: 2,
+      workout_data: {
+        post_workout_notes: this.state.postNotes,
+        workout_type: this.state.workoutType,
+        movements: this.state.exercises.map((exerciseObj) => {
+          return exerciseObj["label"]
+        })
+      }
+    }
+    axios.post('https://afternoon-bastion-37946.herokuapp.com/api/workouts/', newWorkout)
+    .then( res => {
+      alert("success!");
+      console.log(newWorkout);
+    })
+    .catch( error => console.log(newWorkout))
+  }
+
   render() {
     const { workoutType } = this.props.navigation.state.params;
 
     const notes = (this.state.workoutDone) ? (
       <View>
-        <Text style={subHeaderStyle}> NOTES </Text>
+        <Text style={subHeaderStyle}>NOTES</Text>
         <TextInput
           id="description"
           style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
@@ -376,75 +445,68 @@ class Workout extends React.Component {
         />
         <TouchableOpacity
           style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
-          onPress={ () => alert('SAVE WORKOUT => REDIRECT TO PROFILE INDEX') }>
+          onPress={this.saveWorkout}>
           <Text style={ buttonTextStyle }>Save Workout</Text>
         </TouchableOpacity>
       </View>
     ) : null;
 
+    if (this.state.loading) return (<Loading />);
+
     return (
       <View style={{ flex: 1 }}>
-        <Modal
-          animationType={'fade'}
-          transparent={true}
-          visible={this.state.modalVisible}
-          presentationStyle={'overFullScreen'}
-
-          >
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: this.state.modalBg }}>
-            <Text style={{ color: '#fff', fontSize: 90 }}>{this.state.cue}</Text>
-          </View>
-        </Modal>
+        { this.flashModal() }
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View className="workout-box" style={formContainerStyle}>
-              <View className="header-container"
-                style={{
+          <View className="workout-box" style={formContainerStyle}>
+            <ScrollView
+              style={{flex:1}}
+              stickyHeaderIndices={[0]}
+              >
+              <View className="header-container">
+                <View style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  paddingRight: 10
+                  paddingRight: 10,
+                  backgroundColor: '#fafafa'
                 }}>
-                <Text style={subHeaderStyle}>
-                  {workoutType.toUpperCase()}
-                </Text>
-                <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
+                  <Text style={subHeaderStyle}>{workoutType.toUpperCase()}</Text>
+                  <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={ {fontSize: 40, color: '#d3d3d3'} }>round: </Text>
+                    <TextInput
+                      id="round"
+                      style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
+                      placeholder='00'
+                      editable={this.state.editable}
+                      keyboardType='numeric'
+                      onChangeText={this._updateText("round")}
+                      value={this.state.roundDisplay}
+                      maxLength={2}
+                      />
+                  </View>
+                </View>
+                <View className='timer-box' style={timerStyle}>
                   <TextInput
-                    id="round"
-                    style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }
-                    placeholder='00'
+                    id="time"
+                    style={timerTextStyle}
+                    placeholder="00:00:00"
                     editable={this.state.editable}
-                    keyboardType='numeric'
-                    onChangeText={this._updateText("round")}
-                    maxLength={2}
+                    keyboardType='number-pad'
+                    onChangeText={this._updateText("time")}
+                    value={this.state.timerDisplay}
+                    maxLength={6}
                     />
                 </View>
               </View>
-
-              <View className='timer-box' style={timerStyle}>
-
-                <TextInput
-                  id="time"
-                  style={timerTextStyle}
-                  placeholder="00:00:00"
-                  editable={this.state.editable}
-                  keyboardType='number-pad'
-                  onChangeText={this._updateText("time")}
-                  value={this.state.timerDisplay}
-                  maxLength={6}
-                  />
-
-              </View>
-
-
-              <View className='movement-list-box' style={bandContainerStyle}>
-                <ScrollView style={{flex:1}}>
+              <TouchableWithoutFeedback>
+                <View className='movement-list-box' style={bandContainerStyle}>
                   { this.displayExercises() }
                   { this.renderButton() }
                   { notes }
-                </ScrollView>
-              </View>
-            </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </ScrollView>
+          </View>
         </TouchableWithoutFeedback>
       </View>
     );

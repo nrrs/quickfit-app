@@ -9,6 +9,7 @@ import ProfileEdit from './ProfileEdit';
 import { StackNavigator } from 'react-navigation';
 import Loading from '../Loading';
 
+
 class ProfileScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Profile',
@@ -20,12 +21,6 @@ class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
-      currentUser: {
-        id: 1,
-        name: 'Bruce Wayne'
-      },
-      workouts: [1,2,3,4,5],
       loading: false
     }
   }
@@ -33,14 +28,14 @@ class ProfileScreen extends React.Component {
   componentWillMount() {
     AsyncStorage.getItem('currentUser').then(resp => {
       if (resp !== null) {
-        this.setState({ loggedIn: true });
+        this.props.screenProps.setState({ loggedIn: true });
       }
     })
   }
 
   render() {
     if (this.state.loading) return <Loading />;
-    return (this.state.loggedIn) ? <ProfileStackNav /> : <ProfileAuth parent={this} />
+    return (this.props.screenProps.state.loggedIn) ? <ProfileStackNav screenProps={this.props.screenProps}/> : <ProfileAuth parent={this.props.screenProps}/>
   }
 }
 
@@ -55,7 +50,7 @@ const profileStackConfig = {
     headerStyle: stackHeaderStyle,
     headerTitleStyle: headerTitleStyle,
     headerBackTitle: ' ',
-    shadowHidden: true
+    shadowHidden: true,
   }
 }
 

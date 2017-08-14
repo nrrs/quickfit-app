@@ -10,7 +10,7 @@ import { Text,
          AsyncStorage
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
+import { textStyle, iconStyle, containerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import Loading from '../Loading';
 import axios from 'axios';
@@ -29,18 +29,19 @@ class ProfileIndex extends React.Component {
     super(props);
     this.state = {
       workoutHistory: [],
-      loading: true
+      loading: true,
+      currentUser: {}
     };
 
     this.renderWorkouts = this.renderWorkouts.bind(this);
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('currentUser').then(resp => this.setState({
-      currentUser: JSON.parse(resp)
-    }))
+    AsyncStorage.getItem('currentUser').then(resp => {
+      this.setState({currentUser: JSON.parse(resp)})
+    })
     if (this.state.workoutHistory.length === 0) {
-      axios.get('https://afternoon-bastion-37946.herokuapp.com/api/workouts/')
+      axios.get(`/api/users/${this.state.currentUser.id}/workouts/`)
       .then( res => {
         this.setState({
           workoutHistory: res.data,
@@ -55,15 +56,40 @@ class ProfileIndex extends React.Component {
     return (
       <View>
         {
-          this.state.workoutHistory.map( (workout, i) => {
-            const workoutDate = moment.utc(workout.timestamp_created).fromNow();
+          this.state.workoutHistory.map((workout, i) => {
+            const workoutDate = moment.utc(workout.timestamp_created).format('MMM DD, YYYY');
+            const workoutDateFromNow = moment.utc(workout.timestamp_created).fromNow();
 
+            let movementList;
+            if (workout.workout_data.movements !== undefined) {
+              movementList = workout.workout_data.movements.map((movement, j) => {
+                return (
+                  <Text
+                    key={`${movement}${j}`}
+                    style={Object.assign({}, textStyle, {textAlign: 'right'})}>
+                    {movement}
+                  </Text>
+                );
+              })
+            }
             return (
-              <View key={i} style={cardStyle}>
-                <Text style={subHeaderStyle}>{workoutDate}</Text>
-                <Text style={textStyle}> Moderate Tabata </Text>
-                <Text style={textStyle}> Pushups </Text>
-                <Text style={textStyle}> Burpees </Text>
+              <View
+                key={i}
+                style={Object.assign({}, cardStyle, {
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  flexDirection: 'row'
+                })}>
+                <View style={{alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workoutDate}</Text>
+                  <Text style={textStyle}>{workoutDateFromNow}</Text>
+                </View>
+                <View style={{alignItems: 'flex-end'}}>
+                  <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>{workout.workout_data.workout_type.toUpperCase()}</Text>
+                  <View>
+                    {movementList}
+                  </View>
+                </View>
               </View>
             );
           })
@@ -73,36 +99,25 @@ class ProfileIndex extends React.Component {
   }
 
   render() {
+
     if (this.state.loading) { return <Loading /> }
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
-          <View style={formContainerStyle}>
-            <View className='ProfileDescription' style={Object.assign({}, buttonStyle, {flexDirection: 'row'})}>
-              <View style={styles.profileImgContainer}>
-                <Image
-                  source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Usain_Bolt_portrait.jpg'}}
-                  style={{flex: 1,
-                          alignSelf: 'stretch',
-                          borderRadius: 60,
-                          width: 120,
-                          height: 120}}
-                />
-              </View>
-              <View>
-                <View>
-                  <Text style={subHeaderStyle}> {this.state.currentUser.username} </Text>
-                  <Text style={subHeaderStyle}> {this.state.currentUser.email} </Text>
-                </View>
-              </View>
+          <View className='ProfileDescription' style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
+            <View style={{ flexDirection: 'column', alignItems: 'center'}}>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>Demo User</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>demo@quickfit.com</Text>
             </View>
+          </View>
 
+          <View style={formContainerStyle}>
             <TouchableOpacity
               style={buttonStyle}
               onPress={() => {
                 this.props.navigation.navigate('edit');
               }}>
-              <Text style={buttonTextStyle}> Edit Profile </Text>
+              <Text style={buttonTextStyle}>Edit Profile</Text>
             </TouchableOpacity>
 
             { this.renderWorkouts() }

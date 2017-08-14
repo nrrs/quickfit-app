@@ -195,7 +195,7 @@ class ProfileAuth extends React.Component {
                 returnKeyType='done'
                 onChangeText={this._updateText("passwordInput")}
               />
-            <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
+              <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this._changeForm}>
