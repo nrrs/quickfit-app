@@ -8,14 +8,8 @@ SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.195',
-                 'localhost',
-                 '192.168.3.183',
+ALLOWED_HOSTS = ['evening-waters-80685.herokuapp.com'
                  'afternoon-bastion-37946.herokuapp.com']
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['afternoon-bastion-37946.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
