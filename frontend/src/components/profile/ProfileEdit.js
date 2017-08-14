@@ -36,24 +36,19 @@ class ProfileEdit extends React.Component {
       email: this.state.emailInput,
       password: this.state.passwordInput,
     }
-    console.log(updateProfile);
     axios.patch('https://rallycoding.herokuapp.com/api/music_albums', updateProfile)
       .then((res) => {
-        alert('update success!');
       })
       .catch((err) => {
-        alert('update fail!');
       });
   }
 
   _logout() {
     axios.delete('https://rallycoding.herokuapp.com/api/music_albums')
       .then((res) => {
-        alert('logout success!');
         this.props.screenProps.setState({loggedIn: false});
       })
       .catch((err) => {
-        alert('Unable to logout');
         this.props.screenProps.setState({loggedIn: false});
       });
   }
@@ -68,14 +63,14 @@ class ProfileEdit extends React.Component {
               <TextInput
                 id="fullName"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Demo User"
+                placeholder="Batman"
                 onChangeText={this._updateText("fullName")}
               />
               <Text style={subHeaderStyle}>EMAIL</Text>
               <TextInput
                 id="emailInput"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="demo@quickfit.com"
+                placeholder="batman@gotham.com"
                 onChangeText={this._updateText("emailInput")}
               />
               <TouchableOpacity

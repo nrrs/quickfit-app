@@ -56,6 +56,7 @@ class Workout extends React.Component {
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: null,
+      roundDisplay: null,
       exercises: [],
       timerDisplay: '',
       duration: null,
@@ -104,10 +105,8 @@ class Workout extends React.Component {
         axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
         .then( res => {
           this.setState({ loading: false });
-          console.log(res);
         })
         .catch( error => {
-          console.log(error);
         });
     }
 
@@ -119,7 +118,7 @@ class Workout extends React.Component {
       editable: true,
       workoutType: this.props.navigation.state.params.workoutType,
       round: 1,
-      roundDisplay: '',
+      roundDisplay: null,
       exercises: [],
       timerDisplay: '',
       duration: null,
@@ -232,12 +231,38 @@ class Workout extends React.Component {
       { label: exerciseThree[0], description: exerciseThree[1] },
       { label: exerciseFour[0], description: exerciseFour[1] },
     ]
+    let round;
+    let roundDisplay;
+    let timerDisplay;
+    let duration;
+    switch (difficulty) {
+      case 'novice':
+        round = 1;
+        roundDisplay = '01'
+        timerDisplay = '00:10:00';
+        duration = 600000;
+        break;
+      case 'moderate':
+        round = 3;
+        roundDisplay = '03'
+        timerDisplay = '00:06:00';
+        duration = 360000;
+        break;
+      case 'advanced':
+        round = 5;
+        roundDisplay = '05'
+        timerDisplay = '00:05:00';
+        duration = 300000;
+        break;
+      default:
+    }
     this.setState ({
       editable: false,
-      round: 0,
+      round,
+      roundDisplay,
       exercises: randomExercises,
-      timerDisplay: '00:10:00',
-      duration: 600000,
+      timerDisplay,
+      duration,
     });
   }
 

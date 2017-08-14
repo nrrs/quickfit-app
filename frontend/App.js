@@ -74,3 +74,5 @@ const styles = {
     justifyContent: 'space-between'
   }
 };
+
+console.disableYellowBox = true;

@@ -44,11 +44,9 @@ class ProfileAuth extends React.Component {
     axios.post('https://rallycoding.herokuapp.com/api/music_albums', newUser)
       .then((res) => {
         this.props.parent.setState({loggedIn: true});
-        alert('signup success!');
       })
       .catch((err) => {
         this.props.parent.setState({loggedIn: true});
-        alert('signup fail!');
       });
   }
 
@@ -60,11 +58,9 @@ class ProfileAuth extends React.Component {
     axios.post('https://rallycoding.herokuapp.com/api/music_albums', newSession)
       .then((res) => {
         this.props.parent.setState({loggedIn: true});
-        alert('login success!');
       })
       .catch((err) => {
         this.props.parent.setState({loggedIn: true});
-        alert('login fail!');
       });
   }
 
@@ -133,6 +129,11 @@ class ProfileAuth extends React.Component {
                 <Text style={captionStyle}>{textDisplay.footer}</Text>
               </TouchableOpacity>
             </View>
+            <Text>{"\n"}</Text>
+            <View style={{alignItems: 'center'}}>
+              <Text style={{textAlign: 'center', width: '75%'}}>By using this app, you agree to the terms and services outlined here.</Text>
+            </View>
+            <Text>{"\n"}</Text>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

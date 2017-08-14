@@ -20,11 +20,34 @@ ul.major-icons li .icon.devicon {
     ul.major-icons li .icon.devicon i.devicon-react-original {
       color: #57aed3; }
 
-#two {
-  text-align: center; }
+#logo {
+  width: 70px;
+  height: auto; }
+
+.row-flex {
+  display: flex;
+  align-items: center; }
+
+@media (max-width: 860px) {
+  .row-flex {
+    flex-direction: column; }
+
+  .row-flex.reversed {
+    flex-direction: column-reverse; } }
+blockquote {
+  text-align: left; }
+
+.image.fit img.gif {
+  border: 1px solid #e3e3e3;
+  width: 50%;
+  height: auto;
+  margin: 0 auto; }
 
 span.author {
   float: right; }
+
+a, a:hover {
+  cursor: pointer !important; }
 
 /*
 	Photon by HTML5 UP
