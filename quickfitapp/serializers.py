@@ -49,4 +49,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id',
                   'email',
-                  'username')
+                  'username',
+                  'password',
+                  'last_login',
+                  'is_superuser',
+                  'first_name',
+                  'last_name',
+                  'is_staff',
+                  'is_active',
+                  'date_joined',
+                  'groups',
+                  'user_permissions'
+                  )
