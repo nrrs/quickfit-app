@@ -5,7 +5,6 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'movements', views.MovementViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
-router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     url(r'^signup/$', views.signup),
