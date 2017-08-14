@@ -83,15 +83,15 @@ class ProfileAuth extends React.Component {
 
 
   _requestToken(username, password) {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'password');
-    params.append('username', username);
-    params.append('password', password);
+    const formData = new FormData();
+    formData.append('grant_type', 'password');
+    formData.append('username', username);
+    formData.append('password', password);
     const auth = {
       username: configs.clientId,
       password: configs.clientSecret,
     }
-    axios.post("o/token/", params, { auth }).then(resp => {
+    axios.post("o/token/", formData, { auth }).then(resp => {
       // authToken can be correctly set here
       authToken = resp.data.access_token;
       AsyncStorage.setItem('authToken', authToken);
