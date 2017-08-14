@@ -37,19 +37,22 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('currentUser').then(resp => {
-      this.setState({currentUser: JSON.parse(resp)})
-    })
-    if (this.state.workoutHistory.length === 0) {
-      axios.get(`/api/users/${this.state.currentUser.id}/workouts/`)
-      .then( res => {
-        this.setState({
-          workoutHistory: res.data,
-          loading: false
-        });
-      })
-      .catch( error => { this.setState({ loading: false }); });
-    }
+    this.setState({
+      workoutHistory: [],
+      loading: false
+    });
+
+    // axios.get(`/api/users/${this.state.currentUser.id}/workouts/`)
+    // .then( res => {
+    //   this.setState({
+    //     workoutHistory: res.data,
+    //     loading: false
+    //   });
+    // })
+    // .catch( error => { this.setState({
+    //   workoutHistory: res.data,
+    //   loading: false
+    // }); })
   }
 
   renderWorkouts() {
@@ -101,6 +104,7 @@ class ProfileIndex extends React.Component {
   render() {
 
     if (this.state.loading) { return <Loading /> }
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
