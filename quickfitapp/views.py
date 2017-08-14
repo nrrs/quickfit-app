@@ -64,6 +64,9 @@ def signup(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+        user = User.objects.get(username=username)
+        user.set_password(password)
+        user.save()
         return Response(serializer.data, status=201)
     else:
         return Response(serializer.errors, status=400)
