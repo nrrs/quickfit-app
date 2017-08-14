@@ -37,13 +37,18 @@ class ProfileIndex extends React.Component {
   }
 
   componentWillMount() {
-    axios.get(`/api/users/${this.props.screenProps.state.currentUser.id}/workouts/`)
+    const id = this.props.screenProps.state.currentUser.id;
+    axios.get(`/api/users/${id}/workouts/`)
     .then(res => {
+      console.log(res);
+      const workoutHistory = res.data;
+      console.log(workoutHistory);
       this.setState({
         loading: false,
-        workoutHistory: []
+        workoutHistory,
       });
-    });
+    })
+    .catch(err => alert(err));
   }
 
   renderWorkouts() {

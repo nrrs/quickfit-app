@@ -22,7 +22,6 @@ const flashShow = 750;
 const flashHide = 1750;
 
 let index = 0;
-let tempData = WOD.novice;
 
 let novice = flatten(values(WOD.novice)).map(movement => {
   return ({ key: index++, label: movement[0], description: movement[1] })
@@ -102,7 +101,7 @@ class Workout extends React.Component {
         this.setState({ loading: false });
         break;
       default:
-        axios.get('http://afternoon-bastion-37946.herokuapp.com/api/movements/')
+        axios.get('api/movements/')
         .then( res => {
           this.setState({ loading: false });
         })
@@ -438,7 +437,7 @@ class Workout extends React.Component {
 
   saveWorkout() {
     const newWorkout = {
-      athlete_id: 2,
+      athlete: this.props.screenProps.state.currentUser.id,
       workout_data: {
         post_workout_notes: this.state.postNotes,
         workout_type: this.state.workoutType,
@@ -447,10 +446,9 @@ class Workout extends React.Component {
         })
       }
     }
-    axios.post('https://afternoon-bastion-37946.herokuapp.com/api/workouts/', newWorkout)
+    axios.post('api/workouts/', newWorkout)
     .then( res => {
-      alert("success!");
-      console.log(newWorkout);
+      alert('Your workout has been saved');
     })
     .catch( error => console.log(newWorkout))
   }

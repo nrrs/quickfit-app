@@ -36,10 +36,6 @@ class ProfileEdit extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-
-  }
-
   _updateText(field) {
      return (val) => {
        this.setState({[field]: val});
@@ -49,21 +45,18 @@ class ProfileEdit extends React.Component {
   _handleUpdate() {
     let updateProfile = {
       username: this.state.username,
-      email: this.state.email,
-    }
-    const url = `api/users/${this.state.userId}/`;
-    axios.patch(url, updateProfile)
-    .then(res => {
+      email: this.state.email.toLowerCase(),
+    };
+    const url = `api/users/${this.props.screenProps.state.currentUser.id}/`;
+    axios.patch(url, updateProfile).then(res => {
       AsyncStorage.setItem('currentUser', JSON.stringify(res.data)).then(() => {
-        // navigate back to profile screen
         const copyState = Object.assign({}, this.props.screenProps.state.currentUser);
         this.props.screenProps.setState({
           currentUser: Object.assign({}, copyState, { username: this.state.username })
         });
         this.props.navigation.dispatch(resetAction);
       });
-    })
-    .catch(err => alert(err));
+    }).catch(err => console.log(err) );
   }
 
   _signout() {
@@ -72,7 +65,10 @@ class ProfileEdit extends React.Component {
       AsyncStorage.removeItem('authToken');
       AsyncStorage.removeItem('currentUser').then(() => {
         // naviagete back to profile screen
-        this.props.screenProps.setState({loggedIn: false});
+        this.props.screenProps.setState({
+          loggedIn: false,
+          currentUser: {}
+        });
       });
     });
   }

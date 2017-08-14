@@ -18,7 +18,7 @@ class WorkoutScreen extends React.Component {
 
   render() {
     return (
-      <WorkoutStackNav />
+      <WorkoutStackNav screenProps={this.props.screenProps} />
     );
   }
 }

@@ -42,16 +42,20 @@ class ProfileAuth extends React.Component {
   _signup() {
     const formData = new FormData();
 
-    formData.append('email', this.state.email);
+    formData.append('email', this.state.email.toLowerCase());
     formData.append('username', this.state.username);
     formData.append('password', this.state.password);
     // using session/id/ because not being able to get currentUser at backend for now
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
     axios.post('api/signup/', formData, { headers })
       .then(res => {
+        const currentUser = JSON.stringify(res.data);
         this._requestTokenAndLogin(this.state.username, this.state.password);
-        AsyncStorage.setItem('currentUser', JSON.stringify(res.data));
-        this.props.screenProps.setState({ loggedIn: true });
+        AsyncStorage.setItem('currentUser', currentUser);
+        this.props.screenProps.setState({
+          loggedIn: true,
+          currentUser,
+        });
       })
       .catch(error => {
         console.log(error);
@@ -86,6 +90,7 @@ class ProfileAuth extends React.Component {
       this._sendLoginRequest(authToken)
     })
     .catch(err => {
+      console.log(err);
       alert("Invalid Credentials");
     });
   }
@@ -98,8 +103,13 @@ class ProfileAuth extends React.Component {
     const headers = { 'Authorization': 'Bearer ' + authToken};
     axios.post('api/session/0/', newSession, headers)
     .then(res => {
-      AsyncStorage.setItem('currentUser', JSON.stringify(res.data))
-      this.props.screenProps.setState({ loggedIn: true });
+      const currentUser = res.data;
+      console.log('profileauth curr user', currentUser);
+      AsyncStorage.setItem('currentUser', JSON.stringify(currentUser))
+      this.props.screenProps.setState({
+        loggedIn: true,
+        currentUser
+      });
     })
   }
 
