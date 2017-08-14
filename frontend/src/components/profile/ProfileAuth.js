@@ -5,6 +5,7 @@ import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles
 import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import Header from '../Header';
 import axios from 'axios';
+import { NavigationActions } from 'react-navigation';
 
 import { configs } from '../../config/config';
 
@@ -33,6 +34,15 @@ class ProfileAuth extends React.Component {
     this._requestTokenAndLogin = this._requestTokenAndLogin.bind(this);
   }
 
+  componentWillUnmount() {
+    // if (this.props.screenProps.state.currentUser) {
+      // this.props.navigation.dispatch(resetAction);
+    // } else {
+    // }
+
+    // this.props.screenProps.setState({loggedIn: true})
+  }
+
   _updateText(field) {
      return (val) => {
        this.setState({[field]: val});
@@ -49,9 +59,9 @@ class ProfileAuth extends React.Component {
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
     axios.post('api/signup/', formData, { headers })
       .then(res => {
-        const currentUser = JSON.stringify(res.data);
+        let currentUser = res.data;
         this._requestTokenAndLogin(this.state.username, this.state.password);
-        AsyncStorage.setItem('currentUser', currentUser);
+        AsyncStorage.setItem('currentUser', JSON.stringify(currentUser));
         this.props.screenProps.setState({
           loggedIn: true,
           currentUser,
@@ -103,13 +113,15 @@ class ProfileAuth extends React.Component {
     const headers = { 'Authorization': 'Bearer ' + authToken};
     axios.post('api/session/0/', newSession, headers)
     .then(res => {
-      const currentUser = res.data;
+      let currentUser = res.data;
       console.log('profileauth curr user', currentUser);
       AsyncStorage.setItem('currentUser', JSON.stringify(currentUser))
       this.props.screenProps.setState({
         loggedIn: true,
         currentUser
       });
+      // this.props.navigation.dispatch(resetAction);
+      // this.props.navigation.dispatch(resetActionAuth);
     })
   }
 
@@ -187,5 +199,12 @@ class ProfileAuth extends React.Component {
     )
   }
 }
+
+const resetActionAuth = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({routeName: 'index'})
+  ]
+});
 
 export default ProfileAuth;

@@ -49,6 +49,7 @@ class ProfileScreen extends React.Component {
 const profileStackRoutes = {
   index: { screen: ProfileIndex },
   edit: { screen: ProfileEdit},
+  auth: { screen: ProfileAuth}
 }
 
 const profileStackConfig = {
@@ -61,6 +62,6 @@ const profileStackConfig = {
   }
 }
 
-const ProfileStackNav = StackNavigator(profileStackRoutes, profileStackConfig)
+const ProfileStackNav = StackNavigator(profileStackRoutes, profileStackConfig);
 
 export default ProfileScreen;

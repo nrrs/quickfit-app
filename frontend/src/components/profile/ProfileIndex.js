@@ -40,9 +40,8 @@ class ProfileIndex extends React.Component {
     const id = this.props.screenProps.state.currentUser.id;
     axios.get(`/api/users/${id}/workouts/`)
     .then(res => {
-      console.log(res);
-      const workoutHistory = res.data;
-      console.log(workoutHistory);
+      let workoutHistory = [];
+      workoutHistory.concat(res.data);
       this.setState({
         loading: false,
         workoutHistory,

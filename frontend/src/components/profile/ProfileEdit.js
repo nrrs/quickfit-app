@@ -4,7 +4,6 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import { textStyle, iconStyle, captionStyle, subHeaderStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import axios from 'axios';
-import ProfileIndex from './ProfileIndex';
 import { NavigationActions } from 'react-navigation';
 
 import { configs } from '../../config/config';
@@ -17,7 +16,6 @@ class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: null,
       username: '',
       email: '',
     };
@@ -32,7 +30,6 @@ class ProfileEdit extends React.Component {
     this.setState({
       username: currentUser.username,
       email: currentUser.email,
-      userId: currentUser.id,
     });
   }
 
@@ -47,6 +44,7 @@ class ProfileEdit extends React.Component {
       username: this.state.username,
       email: this.state.email.toLowerCase(),
     };
+    console.log(updateProfile);
     const url = `api/users/${this.props.screenProps.state.currentUser.id}/`;
     axios.patch(url, updateProfile).then(res => {
       AsyncStorage.setItem('currentUser', JSON.stringify(res.data)).then(() => {
@@ -56,11 +54,14 @@ class ProfileEdit extends React.Component {
         });
         this.props.navigation.dispatch(resetAction);
       });
-    }).catch(err => console.log(err) );
+    }).catch(err => {
+      console.log(err);
+      this.props.navigation.dispatch(resetAction);
+    });
   }
 
   _signout() {
-    const url = `api/session/${this.state.userId}/`;
+    const url = `api/session/${this.props.screenProps.state.currentUser.id}/`;
     axios.delete(url).then(res => {
       AsyncStorage.removeItem('authToken');
       AsyncStorage.removeItem('currentUser').then(() => {

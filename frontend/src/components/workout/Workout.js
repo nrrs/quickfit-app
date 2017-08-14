@@ -16,12 +16,13 @@ import axios from 'axios';
 import * as WOD from './DefaultWorkout';
 import { shuffle, values, flatten } from 'lodash';
 import Loading from '../Loading';
-
+import { NavigationActions } from 'react-navigation';
 
 const flashShow = 750;
 const flashHide = 1750;
 
 let index = 0;
+let userMovements;
 
 let novice = flatten(values(WOD.novice)).map(movement => {
   return ({ key: index++, label: movement[0], description: movement[1] })
@@ -40,8 +41,8 @@ advanced = [{ key: index++, section: true, label: 'Advanced' }].concat(advanced)
 
 let data = [
   { key: index++, section: true, label: 'Rest' },
-    { key: index++, label: 'Rest' },
-  ].concat(novice).concat(moderate).concat(advanced);
+  { key: index++, label: 'Rest' },
+].concat(novice).concat(moderate).concat(advanced);
 
 class Workout extends React.Component {
   static navigationOptions = {
@@ -65,7 +66,7 @@ class Workout extends React.Component {
       modalBg: 'rgba(76, 217, 100, 1)',
       cue: '',
       workoutDone: false,
-      postNotes: null
+      postNotes: ''
     }
 
     this.currentExerciseArray = [];
@@ -101,12 +102,24 @@ class Workout extends React.Component {
         this.setState({ loading: false });
         break;
       default:
-        axios.get('api/movements/')
-        .then( res => {
-          this.setState({ loading: false });
-        })
-        .catch( error => {
-        });
+        if (this.props.screenProps.state.currentUser) {
+          axios.get(`api/users/${this.props.screenProps.state.currentUser.id}/movements/`)
+          .then( res => {
+            userMovements = res.data;
+            userMovements = userMovements.map((movement) => {
+              return(
+                { key: index++, label:`${movement.movement_name}`}
+              );
+            });
+
+            userMovements = [{ key: index++, section: true, label: 'Custom' }].concat(userMovements);
+            data = userMovements.concat(data);
+            // this.setState({ loading: false });
+          })
+          .catch( error => {
+          });
+        }
+        this.setState({ loading: false });
     }
 
   }
@@ -449,6 +462,7 @@ class Workout extends React.Component {
     axios.post('api/workouts/', newWorkout)
     .then( res => {
       alert('Your workout has been saved');
+      this.props.navigation.dispatch(resetAction);
     })
     .catch( error => console.log(newWorkout))
   }
@@ -535,6 +549,13 @@ class Workout extends React.Component {
     );
   }
 }
+
+const resetAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: "workoutIndex" }),
+  ]
+})
 
 const timerStyle = {
   backgroundColor: '#f0f0f0',
