@@ -4,6 +4,11 @@ An exercise generator that allows you to keep track of workouts! This SPA allows
 
 Fitness is the first step to greatness!
 
+### Disclaimer of Liability
+The Quickfit app includes features that promote physical activity.  Consider the risks involved and consult with your medical professional before engaging in any physical activity. The creators and collaborators of the Quickfit app are not responsible or liable for any injuries or damages you may sustain that result from your use of, or inability to use, the features of the Quickfit app.
+
+Development plans include a modal for first-time users and users not logged in that forces them to accept liability waiver before using app features.
+
 ### Background
 
 > “I really think a champion is defined not by their wins but by how they can recover when they fall." - Serena Williams
@@ -71,7 +76,7 @@ The main technical challenges will include:
 1. Functioning prototypes for both back and frontends.
 2. Chris Brickey completed Django tutorials and set up a working backend environment.
 3. Justin Austria completed React Native tutorials and set up a frontend/mobile testing environment.
-4. Kevin Yang assisted Chris Brickey with research, implementation, and planning.
+4. Kevin Shen assisted Chris Brickey with research, implementation, and planning.
 5. Norris Kwan assisted Justin Austria with research, implementation, and planning.
 6. Our team mapped out our MVPs, wireframes, component hierarchy, schema, and state shape.
 7. Chris Brickey created wireframes.
@@ -110,9 +115,9 @@ The main technical challenges will include:
 ## Group Members and Primary Roles
 
 ### Team
-[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Yang][pic_ky]][git_ky] |
+[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ky]][git_ky] |
 :------------------:|:-----------------------:|:-----------------------:|:-------------:|
-[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Yang][git_ky]
+[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Shen][git_ky]
 
 [git_ja]: https://github.com/Tulen
 [git_cb]: https://github.com/chrisbrickey
@@ -127,7 +132,7 @@ The main technical challenges will include:
 
 All members have and will participate in research, brainstorming, troubleshooting, and development. There are no hard lines between our responsibilities. We're working as a team and supporting each other in all/any ways possible.
 
-#### **Backend:** Chris Brickey & Kevin Yang
+#### **Backend:** Chris Brickey & Kevin Shen
 Both backend members will be responsible for creating auth, API endpoints, and backend routing.
 
 #### **Frontend:** Justin Austria & Norris Kwan
