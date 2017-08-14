@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    # url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^api/', include('quickfitapp.urls')),
     # url(r'^accounts/profile/', )  # calling api/users/login will redirect to this url
     url(r'^static/(?P<path>.*)$', static.serve, {
