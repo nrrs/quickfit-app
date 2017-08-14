@@ -5,7 +5,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 
-<<<<<<< HEAD
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -13,9 +12,8 @@ ALLOWED_HOSTS = ['192.168.1.195',
                  'localhost',
                  '192.168.3.183',
                  'afternoon-bastion-37946.herokuapp.com']
-=======
+
 DEBUG = False
->>>>>>> ab193fca4e7f912cf8e3e262209796a1a1662757
 
 ALLOWED_HOSTS = ['afternoon-bastion-37946.herokuapp.com']
 
