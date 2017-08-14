@@ -30,7 +30,7 @@ class ProfileAuth extends React.Component {
     this._signup = this._signup.bind(this);
     this._login = this._login.bind(this);
     this._sendLoginRequest = this._sendLoginRequest.bind(this);
-    this._requestToken = this._requestToken.bind(this);
+    this._requestTokenAndLogin = this._requestTokenAndLogin.bind(this);
   }
 
   _updateText(field) {
@@ -49,8 +49,6 @@ class ProfileAuth extends React.Component {
     const headers = { 'Authorization': 'Bearer ' + configs.appToken }
     axios.post('api/signup/', newUser, { headers })
       .then(resp => {
-        // TODO: actually we need to redirect user to the workout page
-        // alert("Sign Up Success!")
         this._requestToken(this.state.username, this.state.passwordInput);
         AsyncStorage.setItem('currentUser', JSON.stringify(resp.data));
         this.props.parent.setState({ loggedIn: true });
@@ -67,22 +65,14 @@ class ProfileAuth extends React.Component {
   }
 
   _login() {
-    var authToken = '';
     AsyncStorage.getItem('authToken').then(res => {
-      console.log(res);
-      // request oauth token if not exists locally
-      if (res === null) {
-        this._requestToken(this.state.username, this.state.passwordInput);
-      } else {
-        authToken = res;
-      }
+      this._requestTokenAndLogin(this.state.username, this.state.passwordInput);
     })
-      // send request after local var authToken is set
-      .then(() => this._sendLoginRequest(authToken));
   }
 
 
-  _requestToken(username, password) {
+  _requestTokenAndLogin(username, password) {
+    let authToken;
     const formData = new FormData();
     formData.append('grant_type', 'password');
     formData.append('username', username);
@@ -92,24 +82,21 @@ class ProfileAuth extends React.Component {
       password: configs.clientSecret,
     }
     axios.post("o/token/", formData, { auth }).then(resp => {
-      // authToken can be correctly set here
       authToken = resp.data.access_token;
       AsyncStorage.setItem('authToken', authToken);
-      // following line doesn't work
-      // axios.defaults.headers.common['Authorization'] = 'Bearer ' + authToken;
-    });
+    }).then(() => {
+        this._sendLoginRequest(authToken)
+      });;
   }
 
-  _sendLoginRequest() {
-    // log in with auth token
+  _sendLoginRequest(authToken) {
     const newSession = {
       username: this.state.username,
       password: this.state.passwordInput,
     }
-    // const headers = { 'Authorization': 'Bearer ' + authToken}
-    axios.post('api/session/0/', newSession)
+    const headers = { 'Authorization': 'Bearer ' + authToken}
+    axios.post('api/session/0/', newSession, headers)
       .then(resp => {
-        console.log(resp);
         AsyncStorage.setItem('currentUser', JSON.stringify(resp.data))
         this.props.parent.setState({ loggedIn: true });
       })
