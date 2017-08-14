@@ -25,8 +25,7 @@ SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quickfit-dev.us-west-2.elasticbeanstalk.com',
-                 '192.168.1.195',
+ALLOWED_HOSTS = ['192.168.1.195',
                  'localhost',
                  '192.168.3.183',
                  'afternoon-bastion-37946.herokuapp.com']
@@ -53,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',  # not including it for mobile app
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -97,27 +96,27 @@ if 'RDS_DB_NAME' in os.environ:
         }
     }
 # use sqlite3 locally
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # use postgresql locally
-else:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'quickfit_dev200',
-        'USER': 'chrisbrickey',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# else:
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'quickfit_dev200',
+#         'USER': 'chrisbrickey',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
@@ -140,8 +139,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 OAUTH2_PROVIDER = {
 # this is the list of available scopes
-'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
-'ACCESS_TOKEN_EXPIRE_SECONDS': 1800, # 30m (It is better to choose shorter periods)
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 31536000, # 1 year (not logging user out in mobile)
 }
 
 
@@ -149,9 +148,9 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # deprecated
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -183,10 +182,3 @@ STATICFILE_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(ASSETS_DIR, 'staticfiles')
-
-# WEBPACK_LOADER = {
-#   'DEFAULT': {
-#     'BUNDLE_DIR_NAME': 'bundles/',
-#     'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-#   }
-# }

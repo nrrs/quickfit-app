@@ -1,3 +1,6 @@
+# frontend
+frontend/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -103,6 +106,7 @@ venv/
 ### Custom ###
 *.db
 *.sqlite
+*.sqlite3
 
 
 ### OSX ###
@@ -138,6 +142,12 @@ Temporary Items
 
 
 ### Node ###
+
+# react native
+node_modules/
+npm-debug.*
+.expo/
+# frontend/src/config/config.js
 
 # Logs
 logs

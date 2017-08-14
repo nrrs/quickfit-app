@@ -71,7 +71,7 @@ The main technical challenges will include:
 1. Functioning prototypes for both back and frontends.
 2. Chris Brickey completed Django tutorials and set up a working backend environment.
 3. Justin Austria completed React Native tutorials and set up a frontend/mobile testing environment.
-4. Kevin Yang assisted Chris Brickey with research, implementation, and planning.
+4. Kevin Shen assisted Chris Brickey with research, implementation, and planning.
 5. Norris Kwan assisted Justin Austria with research, implementation, and planning.
 6. Our team mapped out our MVPs, wireframes, component hierarchy, schema, and state shape.
 7. Chris Brickey created wireframes.
@@ -110,24 +110,24 @@ The main technical challenges will include:
 ## Group Members and Primary Roles
 
 ### Team
-[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Yang][pic_ky]][git_ky] |
+[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ks]][git_ks] |
 :------------------:|:-----------------------:|:-----------------------:|:-------------:|
-[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Yang][git_ky]
+[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Shen][git_ks]
 
 [git_ja]: https://github.com/Tulen
 [git_cb]: https://github.com/chrisbrickey
 [git_nk]: https://github.com/nrrs
-[git_ky]: https://github.com/kevinshenyang07
+[git_ks]: https://github.com/kevinshenyang07
 [pic_ja]: https://avatars1.githubusercontent.com/u/11968940?v=4&s=200
 [pic_cb]: https://avatars1.githubusercontent.com/u/7623023?v=4&s=200
 [pic_nk]: https://avatars1.githubusercontent.com/u/425246?v=4&s=200
-[pic_ky]: https://avatars1.githubusercontent.com/u/10000295?v=4&s=200
+[pic_ks]: https://avatars1.githubusercontent.com/u/10000295?v=4&s=200
 
 ### Primary Focus
 
 All members have and will participate in research, brainstorming, troubleshooting, and development. There are no hard lines between our responsibilities. We're working as a team and supporting each other in all/any ways possible.
 
-#### **Backend:** Chris Brickey & Kevin Yang
+#### **Backend:** Chris Brickey & Kevin Shen
 Both backend members will be responsible for creating auth, API endpoints, and backend routing.
 
 #### **Frontend:** Justin Austria & Norris Kwan
