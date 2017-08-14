@@ -350,17 +350,17 @@ class Workout extends React.Component {
   displayExercises() {
     if (this.state.editable) { return this.selectExercises(); }
     return (
-        <View>
-          { this.state.exercises.map( (el, i) => (
-            <View key={i} style={cardStyle}>
-              <Text style={textStyle}>
-                {el.label}{'\n'}
-                <Text style={{display: 'none'}}>{el.description}</Text>
-              </Text>
-            </View>
-            ))
-          }
-        </View>
+      <View>
+        { this.state.exercises.map( (el, i) => (
+          <View key={i} style={Object.assign({}, cardStyle, { flex: 1})}>
+            <Text style={Object.assign({}, subHeaderStyle, { padding: 0, margin: 0 })}>
+              {el.label}{'\n'}
+            </Text>
+            <Text style={Object.assign({}, textStyle, { marginTop: 0, paddingTop: 0, width: '100%', textAlign: 'center' })}>{el.description}</Text>
+          </View>
+          ))
+        }
+      </View>
     );
   }
 
@@ -378,7 +378,7 @@ class Workout extends React.Component {
     return (
       <View>
         <TouchableOpacity
-          style={Object.assign({}, buttonStyle, { marginTop: 10, marginBottom: 10 })}
+          style={Object.assign({}, buttonStyle, { marginTop: 20, marginBottom: 10 })}
           onPress={ () => this.flashGo()}>
           <Text style={ Object.assign({}, buttonTextStyle, {color: '#4cd964'}) }>START!</Text>
         </TouchableOpacity>
@@ -432,7 +432,7 @@ class Workout extends React.Component {
 
     const notes = (this.state.workoutDone) ? (
       <View>
-        <Text style={subHeaderStyle}> NOTES </Text>
+        <Text style={subHeaderStyle}>NOTES</Text>
         <TextInput
           id="description"
           style={Object.assign({}, inputStyle, {height: 130, paddingTop: 10})}
@@ -469,7 +469,7 @@ class Workout extends React.Component {
                 }}>
                   <Text style={subHeaderStyle}>{workoutType.toUpperCase()}</Text>
                   <View className="round-box" style={{ flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={ {fontSize: 40, color: '#d3d3d3'} }>RD: </Text>
+                    <Text style={ {fontSize: 40, color: '#d3d3d3'} }>round: </Text>
                     <TextInput
                       id="round"
                       style={ {fontSize: 40, color: '#d3d3d3', textAlign: 'right'} }

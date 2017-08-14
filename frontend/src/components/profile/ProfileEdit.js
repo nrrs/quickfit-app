@@ -67,22 +67,15 @@ class ProfileEdit extends React.Component {
               <TextInput
                 id="fullName"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Usain Bolt"
+                placeholder="Demo User"
                 onChangeText={this._updateText("fullName")}
               />
               <Text style={subHeaderStyle}>EMAIL</Text>
               <TextInput
                 id="emailInput"
                 style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="athlete@quickfit.com"
+                placeholder="demo@quickfit.com"
                 onChangeText={this._updateText("emailInput")}
-              />
-              <Text style={subHeaderStyle}>PASSWORD</Text>
-              <TextInput
-                id="passwordInput"
-                style={Object.assign({}, inputStyle, { marginBottom: 0})}
-                placeholder="Minimum 6 characters"
-                onChangeText={this._updateText("passwordInput")}
               />
               <TouchableOpacity
                 style={Object.assign({}, buttonStyle, {marginTop: 30})}
