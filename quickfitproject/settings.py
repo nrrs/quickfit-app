@@ -74,6 +74,7 @@ if 'RDS_DB_NAME' in os.environ:
 #     }
 
 
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
