@@ -144,7 +144,7 @@ def user_workouts(request, pk):
     user_workouts = Workout.objects.filter(athlete_id=pk)
     serializer = WorkoutSerializer(user_workouts, many=True)
     return Response(serializer.data)
-    
+
 
 # class UserMovementList(APIView):
 #
@@ -289,3 +289,5 @@ def user_workouts(request, pk):
 #         'timestamp_created' :movement.timestamp_created
 #          }
 #     return JsonResponse({ 'movements': movement_dict })
+
+# Aug 13: views adapted to work with oauth
