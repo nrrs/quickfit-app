@@ -107,8 +107,8 @@ class ProfileIndex extends React.Component {
         <ScrollView>
           <View className='ProfileDescription' style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
             <View style={{ flexDirection: 'column', alignItems: 'center'}}>
-              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>Demo User</Text>
-              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>demo@quickfit.com</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>Batman</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>batman@gotham.com</Text>
             </View>
           </View>
 

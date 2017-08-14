@@ -169,6 +169,11 @@ class ProfileAuth extends React.Component {
                 <Text style={captionStyle}>{textDisplay.footer}</Text>
               </TouchableOpacity>
             </View>
+            <Text>{"\n"}</Text>
+            <View style={{alignItems: 'center'}}>
+              <Text style={{textAlign: 'center', width: '75%'}}>By using this app, you agree to the terms and services outlined here.</Text>
+            </View>
+            <Text>{"\n"}</Text>
           </ScrollView>
         </TouchableWithoutFeedback>
       </View>

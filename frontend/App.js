@@ -82,3 +82,5 @@ axios.defaults.baseURL = 'https://afternoon-bastion-37946.herokuapp.com/';
 // axios.defaults.baseURL = 'http://localhost:8000/';
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + configs.appToken;
+
+console.disableYellowBox = true;
