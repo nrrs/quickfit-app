@@ -1,5 +1,13 @@
-# frontend
+# ignore frontend
 # frontend/
+
+# ignore backend
+quickfitapp/
+quickfitproject/
+manage.py
+Procfile
+requirements.txt
+runtime.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
