@@ -147,7 +147,7 @@ Temporary Items
 node_modules/
 npm-debug.*
 .expo/
-frontend/src/config/config.js
+# frontend/src/config/config.js
 
 # Logs
 logs

@@ -12,8 +12,10 @@ urlpatterns = [
     url(r'^signup/$', views.signup),
     url(r'^session/(?P<pk>[0-9]+)/$', views.session),
     url(r'^profile/(?P<pk>[0-9]+)/edit/$', views.edit_profile),
-    url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/workouts/$', views.UserWorkoutList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/movements/$', views.user_movements),
+    url(r'^users/(?P<pk>[0-9]+)/workouts/$', views.user_workouts),
+    # url(r'^users/(?P<pk>[0-9]+)/movements/$', views.UserMovementList.as_view()),
+    # url(r'^users/(?P<pk>[0-9]+)/workouts/$', views.UserWorkoutList.as_view()),
     url(r'^', include(router.urls)), #catch-all, covers all registered default routers, should be last on list of URLs
 ]
 

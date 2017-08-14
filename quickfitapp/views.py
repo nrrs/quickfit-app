@@ -121,50 +121,66 @@ def edit_profile(request, pk):
     try:
         user.username = username
         user.email = email
-        if password:
+        if password != '':
             user.set_password(password)
+        user.save()
         serializer = UserSerializer(user)
         return Response(serializer.data, status=201)
     except:
         return Response("Error updating profile", status=400)
 
 
+@csrf_exempt
+@api_view(['GET'])
+def user_movements(request, pk):
+    user_movements = Movement.objects.filter(author_id=pk)
+    serializer = MovementSerializer(user_movements, many=True)
+    return Response(serializer.data)
 
-class UserMovementList(APIView):
 
-    def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
-        try:
-            return User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            raise Http404
+@csrf_exempt
+@api_view(['GET'])
+def user_workouts(request, pk):
+    user_workouts = Workout.objects.filter(athlete_id=pk)
+    serializer = WorkoutSerializer(user_workouts, many=True)
+    return Response(serializer.data)
+    
 
-    def get(self, request, pk):
-        this_user = self.get_object(pk)
-        try:
-            all_movements = Movement.objects.filter(author=this_user)
-            serializer = MovementSerializer(all_movements, many=True)
-            return Response(serializer.data)
-        except Movement.NotFound:
-            raise Http404   #currently just returning empty array with status code 200
+# class UserMovementList(APIView):
+#
+#     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
+#         try:
+#             return User.objects.get(pk=pk)
+#         except User.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk):
+#         this_user = self.get_object(pk)
+#         try:
+#             all_movements = Movement.objects.filter(author=this_user)
+#             serializer = MovementSerializer(all_movements, many=True)
+#             return Response(serializer.data)
+#         except Movement.NotFound:
+#             raise Http404   #currently just returning empty array with status code 200
 
 
 #manual class-based view for listing Movements that belong to a single user, breaks if author_id is not a true foreign key
-class UserWorkoutList(APIView):
-
-    def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
-        try:
-            return User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        this_user = self.get_object(pk)
-        try:
-            all_workouts = Workout.objects.filter(athlete=this_user)
-            serializer = WorkoutSerializer(all_workouts, many=True)
-            return Response(serializer.data)
-        except Workout.NotFound:
-            raise Http404   #currently just returning empty array with status code 200
+# class UserWorkoutList(APIView):
+#
+#     def get_object(self, pk):   #retrieves user based on their id, will replace with 'current user' after auth installed
+#         try:
+#             return User.objects.get(pk=pk)
+#         except User.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk, format=None):
+#         this_user = self.get_object(pk)
+#         try:
+#             all_workouts = Workout.objects.filter(athlete=this_user)
+#             serializer = WorkoutSerializer(all_workouts, many=True)
+#             return Response(serializer.data)
+#         except Workout.NotFound:
+#             raise Http404   #currently just returning empty array with status code 200
 
 
 
