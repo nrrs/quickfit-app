@@ -9,7 +9,7 @@ import { Text,
          Image
        } from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-import { textStyle, iconStyle, captionStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
+import { textStyle, iconStyle, containerStyle, subHeaderStyle, cardStyle } from '../../styles/styles';
 import { buttonStyle, buttonTextStyle, inputStyle, formContainerStyle } from '../../styles/forms';
 import Loading from '../Loading';
 import axios from 'axios';
@@ -99,20 +99,20 @@ class ProfileIndex extends React.Component {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
-          <View style={formContainerStyle}>
-            <View className='ProfileDescription' style={Object.assign({}, buttonStyle, {flexDirection: 'row'})}>
-                <View>
-                  <Text style={subHeaderStyle}>Guest User</Text>
-                  <Text style={subHeaderStyle}>hello@quickfit.com</Text>
-                </View>
+          <View className='ProfileDescription' style={Object.assign({}, containerStyle, {backgroundColor: '#f0f0f0', borderBottomWidth: 1, borderBottomColor: '#e6e6e6'})}>
+            <View style={{ flexDirection: 'column', alignItems: 'center'}}>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>Demo User</Text>
+              <Text style={Object.assign({}, subHeaderStyle, { marginTop: 0, padding: 0})}>demo@quickfit.com</Text>
             </View>
+          </View>
 
+          <View style={formContainerStyle}>
             <TouchableOpacity
               style={buttonStyle}
               onPress={() => {
                 this.props.navigation.navigate('edit');
               }}>
-              <Text style={buttonTextStyle}> Edit Profile </Text>
+              <Text style={buttonTextStyle}>Edit Profile</Text>
             </TouchableOpacity>
 
             { this.renderWorkouts() }

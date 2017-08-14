@@ -8,7 +8,7 @@ An exercise generator that allows you to keep track of workouts! This mobile app
 
 >"At the end of the day, if I can say I had fun, it was a good day." - Simone Biles
 
-As a way to promote a healthy lifestyle, our goal is to create an easy to use application that provides a simple way to create an engaging exercise experience. Right out of the box, our users can immediately generate a randomize, yet balanced workout based on the  difficulty level of their choice.
+As a way to promote a healthy lifestyle, our goal is to create an easy to use application that provides a simple way to create an engaging exercise experience. Right out of the box, our users can immediately generate a randomize, yet balanced, workout based on the  difficulty level of their choice.
 
 Whether you are new to fitness or an experienced athlete, we strive to provide an easy to use interface that anyone can use right out of the box.
 
@@ -43,7 +43,6 @@ Fitness is the first step to greatness!
 
 ## Collaborators
 
-### Team
 [![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ks]][git_ks] |
 :------------------:|:-----------------------:|:-----------------------:|:-------------:|
 [Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Shen][git_ks]

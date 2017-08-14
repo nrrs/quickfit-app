@@ -1,0 +1,34 @@
+ul.major-icons li .icon.devicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i {
+    display: inline-block;
+    font-size: 4em;
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    &.devicon-python-plain {
+      color: #c3e895;
+    }
+    &.devicon-django-plain {
+      color: #8addaa;
+    }
+    &.devicon-javascript-plain {
+      color: #6bd4c8;
+    }
+    &.devicon-react-original {
+      color: #57aed3;
+    }
+  }
+}
+
+
+#two {
+  text-align: center;
+}
+
+span.author {
+  float: right;
+}
