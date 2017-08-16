@@ -1,13 +1,13 @@
 # ignore frontend
-# frontend/
+frontend/
 
 # ignore backend
-quickfitapp/
-quickfitproject/
-manage.py
-Procfile
-requirements.txt
-runtime.txt
+# quickfitapp/
+# quickfitproject/
+# manage.py
+# Procfile
+# requirements.txt
+# runtime.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -155,7 +155,7 @@ Temporary Items
 node_modules/
 npm-debug.*
 .expo/
-# frontend/src/config/config.js
+frontend/src/config/config.js
 
 # Logs
 logs

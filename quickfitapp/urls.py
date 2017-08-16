@@ -19,11 +19,5 @@ urlpatterns = [
     url(r'^', include(router.urls)), #catch-all, covers all registered default routers, should be last on list of URLs
 ]
 
-
-# function-based movement urls
-# urlpatterns = [
-#     url(r'^movements/(?P<pk>[0-9]+)/$', views.movement_detail),
-# ]
-
 # Below is only for use with function-based or class-based routes, comment out when using default routes
 # urlpatterns = format_suffix_patterns(urlpatterns)  #allows frontend to specify data format (e.g. http://example.com/api/items/4.json)

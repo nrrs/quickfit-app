@@ -6,6 +6,7 @@ import { buttonStyle, inputStyle, formContainerStyle } from '../../styles/forms'
 import Header from '../Header';
 import axios from 'axios';
 import { NavigationActions } from 'react-navigation';
+import { LoginButton } from 'react-native-fbsdk';
 
 import { configs } from '../../config/config';
 
@@ -177,6 +178,20 @@ class ProfileAuth extends React.Component {
               <TouchableOpacity style={Object.assign({}, buttonStyle, {marginTop: 30})} onPress={this.state.newUser ? this._signup: this._login}>
                 <Text style={{color: '#6ACDFA', fontSize: 17, fontWeight: 'bold'}}>{textDisplay.button}</Text>
               </TouchableOpacity>
+              <LoginButton
+                publishPermissions={["public_profile", "email"]}
+                onLoginFinished={
+                  (error, result) => {
+                    if (error) {
+                      alert("Login failed with error: " + result.error);
+                    } else if (result.isCancelled) {
+                      alert("Login was cancelled");
+                    } else {
+                      alert("Login was successful with permissions: " + result.grantedPermissions)
+                    }
+                  }
+                }
+                onLogoutFinished={() => alert("User logged out")} />
               <TouchableOpacity onPress={this._changeForm}>
                 <Text style={captionStyle}>{textDisplay.footer}</Text>
               </TouchableOpacity>

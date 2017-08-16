@@ -23,12 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.195',
-                 'localhost',
-                 '192.168.3.183',
-                 'afternoon-bastion-37946.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -105,20 +102,6 @@ else:
     }
 
 
-# use postgresql locally
-# else:
-#     DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'quickfit_dev200',
-#         'USER': 'chrisbrickey',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -149,7 +132,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
-        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # deprecated
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
