@@ -110,9 +110,9 @@ The main technical challenges will include:
 ## Group Members and Primary Roles
 
 ### Team
-[![Justin Austria][pic_ja]][git_ja]  | [![Chris Brickey][pic_cb]][git_cb] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ks]][git_ks] |
+[![Justin Austria][pic_ja]][git_ja] | [![Norris Kwan][pic_nk]][git_nk] | [![Kevin Shen][pic_ks]][git_ks] |
 :------------------:|:-----------------------:|:-----------------------:|:-------------:|
-[Justin Austria][git_ja] | [Chris Brickey][git_cb] | [Norris Kwan][git_nk] | [Kevin Shen][git_ks]
+[Justin Austria][git_ja] | [Norris Kwan][git_nk] | [Kevin Shen][git_ks]
 
 [git_ja]: https://github.com/Tulen
 [git_cb]: https://github.com/chrisbrickey
