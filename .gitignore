@@ -1,6 +1,9 @@
 # frontend
 frontend/
 
+# backend
+secrets.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -86,7 +89,6 @@ celerybeat-schedule
 .env
 
 # virtualenv
-prototype_backend_virtual/
 venv/
 
 # Spyder project settings
