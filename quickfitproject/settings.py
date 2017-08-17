@@ -55,8 +55,7 @@ WSGI_APPLICATION = 'quickfitproject.wsgi.application'
 
 
 if 'DATABASE_URL' in os.environ:
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+    DATABASES= { 'default': dj_database_url.config(conn_max_age=500)}
 # use sqlite3 locally
 else:
     DATABASES = {
