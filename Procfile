@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:$PORT quickfitproject.wsgi
+web: gunicorn quickfitproject.wsgi --log-file -
