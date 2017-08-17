@@ -25,7 +25,7 @@ SECRET_KEY = 'lw4++i2j_2u3^ejxk(t^@*+$0xza$r+ec8&6_v=#1p)52c8rd8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['quickfit.us-west-1.elasticbeanstalk.com/',
+ALLOWED_HOSTS = ['quickfit.us-west-1.elasticbeanstalk.com',
                  'localhost']
 
 
