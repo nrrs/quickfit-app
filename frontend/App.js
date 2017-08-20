@@ -10,76 +10,75 @@ import WorkoutScreen from './src/components/workout/WorkoutScreen';
 import CreateScreen from './src/components/create_workout/CreateScreen';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false
-    }
-    this.renderNav = this.renderNav.bind(this);
-  }
-
-  renderNav() {
-    if (this.state.loggedIn) {
-      return <LoggedInFooterTabs screenProps={this}/>
-    } else {
-      return <LoggedOutFooterTabs screenProps={this}/>
+    constructor(props) {
+        super(props);
+        this.state = {
+            loggedIn: false
+        }
+        this.renderNav = this.renderNav.bind(this);
     }
 
-  }
+    renderNav() {
+        if (this.state.loggedIn) {
+            return <LoggedInFooterTabs screenProps = { this }
+            />
+        } else {
+            return <LoggedOutFooterTabs screenProps = { this }
+            />
+        }
 
-  render() {
-    return (
-      <View style={styles.containerStyle}>
-        <StatusBar barStyle = 'dark-content' />
-        {this.renderNav()}
-      </View>
-    );
-  }
+    }
+
+    render() {
+        return ( <
+            View style = { styles.containerStyle } >
+            <StatusBar barStyle = 'dark-content' / >{ this.renderNav() }</View>
+        );
+    }
 }
 
 const loggedInTabRoutes = {
-  workout: { screen: WorkoutScreen },
-  profile: { screen: ProfileScreen },
-  create: { screen: CreateScreen }
+    workout: { screen: WorkoutScreen },
+    profile: { screen: ProfileScreen },
+    create: { screen: CreateScreen }
 };
 
 const loggedOutTabRoutes = {
-  workout: { screen: WorkoutScreen },
-  login: { screen: ProfileScreen }
+    workout: { screen: WorkoutScreen },
+    login: { screen: ProfileScreen }
 };
 
 const tabBarConfiguration = {
-  tabBarOptions: {
-		activeTintColor: '#646464',
-		inactiveTintColor: '#ccc',
-		labelStyle: {
-			fontSize: 12,
-      marginBottom: 5
-		},
-		style: {
-			backgroundColor: '#fff',
-			borderTopWidth: 1,
-			borderTopColor: '#e6e6e6',
-      height: 50
+    tabBarOptions: {
+        activeTintColor: '#646464',
+        inactiveTintColor: '#ccc',
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 5
+        },
+        style: {
+            backgroundColor: '#fff',
+            borderTopWidth: 1,
+            borderTopColor: '#e6e6e6',
+            height: 50
+        }
     }
-	}
 };
 
 const LoggedInFooterTabs = TabNavigator(loggedInTabRoutes, tabBarConfiguration);
 const LoggedOutFooterTabs = TabNavigator(loggedOutTabRoutes, tabBarConfiguration);
 
 const styles = {
-  containerStyle: {
-    flex: 1,
-    backgroundColor: '#fafafa',
-    marginTop: 20,
-    justifyContent: 'space-between'
-  }
+    containerStyle: {
+        flex: 1,
+        backgroundColor: '#fafafa',
+        marginTop: 20,
+        justifyContent: 'space-between'
+    }
 };
 
 // set up axios defualts
-axios.defaults.baseURL = 'https://afternoon-bastion-37946.herokuapp.com/';
-// axios.defaults.baseURL = 'http://localhost:8000/';
+axios.defaults.baseURL = 'https://quick-fit.herokuapp.com/';
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + configs.appToken;
 

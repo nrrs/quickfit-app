@@ -101,7 +101,8 @@ class Workout extends React.Component {
         this.buildWorkout("advanced");
         this.setState({ loading: false });
         break;
-      default:
+      case "custom":
+        userMovements = [];
         if (this.props.screenProps.state.currentUser) {
           axios.get(`api/users/${this.props.screenProps.state.currentUser.id}/movements/`)
           .then( res => {
@@ -113,13 +114,15 @@ class Workout extends React.Component {
             });
 
             userMovements = [{ key: index++, section: true, label: 'Custom' }].concat(userMovements);
-            data = userMovements.concat(data);
-            // this.setState({ loading: false });
+            customData = userMovements.concat(data);
+            this.setState({ loading: false });
           })
           .catch( error => {
           });
         }
-        this.setState({ loading: false });
+        // this.setState({ loading: false });
+        break;
+      default:
     }
 
   }
@@ -341,7 +344,51 @@ class Workout extends React.Component {
     this.clearTimer(this.timer);
   }
 
-  selectExercises() {
+  selectExercises(workoutType) {
+    if (workoutType === "custom") {
+      return (
+        <View>
+          <Text style={subHeaderStyle}>SELECT MOVEMENTS</Text>
+          <ModalPicker
+            data={customData}
+            initValue="Movement 1"
+            style={{ borderRadius: 0, padding: 10 }}
+            onChange={ option => {
+              this.currentExerciseArray.push(option);
+            }}
+          />
+
+          <ModalPicker
+            data={customData}
+            initValue="Movement 2"
+            style={{ borderRadius: 0, padding: 10  }}
+            onChange={ option => {
+              this.currentExerciseArray.push(option);
+            }}
+          />
+
+          <ModalPicker
+            data={customData}
+            initValue="Movement 3"
+            style={{ borderRadius: 0, padding: 10  }}
+            onChange={ option => {
+              this.currentExerciseArray.push(option);
+            }}
+          />
+
+          <ModalPicker
+            data={customData}
+            initValue="Movement 4"
+            style={{ borderRadius: 0, padding: 10  }}
+            onChange={ option => {
+              this.currentExerciseArray.push(option);
+            }}
+          />
+
+        </View>
+      );
+    }
+
     let { exercises } = this.state;
 
     return (
@@ -388,7 +435,8 @@ class Workout extends React.Component {
   }
 
   displayExercises() {
-    if (this.state.editable) { return this.selectExercises(); }
+    const { workoutType } = this.props.navigation.state.params;
+    if (this.state.editable) { return this.selectExercises(workoutType); }
     return (
       <View>
         { this.state.exercises.map( (el, i) => (
