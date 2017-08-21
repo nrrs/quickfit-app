@@ -34,6 +34,9 @@ ul.major-icons li .icon.devicon {
 
   .row-flex.reversed {
     flex-direction: column-reverse; } }
+@media (max-width: 653px) {
+  #emulator {
+    display: none; } }
 blockquote {
   text-align: left; }
 

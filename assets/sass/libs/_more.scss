@@ -43,6 +43,12 @@ ul.major-icons li .icon.devicon {
   }
 }
 
+@media (max-width: 653px) {
+  #emulator {
+    display: none;
+  }
+}
+
 blockquote {
   text-align: left;
 }
