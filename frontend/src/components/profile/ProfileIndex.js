@@ -41,7 +41,7 @@ class ProfileIndex extends React.Component {
     axios.get(`/api/users/${id}/workouts/`)
     .then(res => {
       let workoutHistory = [];
-      workoutHistory.concat(res.data);
+      workoutHistory = workoutHistory.concat(res.data);
       this.setState({
         loading: false,
         workoutHistory,
