@@ -1,5 +1,9 @@
 # QuickFit
 
+[Live](https://nrrs.github.io/quickfit-app)<br/>
+**Username:** Demo<br/>
+**Password:** Batman1939
+
 An exercise generator that allows you to keep track of workouts! This mobile app allows users to add and select exercises, generate and customize workouts, utilize specialized timers, and store and review progress.
 
 >“I really think a champion is defined not by their wins but by how they can recover when they fall." - Serena Williams
